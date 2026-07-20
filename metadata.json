@@ -1,0 +1,6 @@
+{
+  "name": "Nueva Empresa",
+  "description": "Concept landing page for a digital consulting company.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
