@@ -1,5 +1,7 @@
 node_modules/
 dist/
+.next/
+.artifacts/
 
 *.log
 npm-debug.log*

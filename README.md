@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Web oficial
 
-# Run and deploy your AI Studio app
+Sitio corporativo en fase de desarrollo para una consultora de transformación operativa. La identidad definitiva —nombre, logotipo, dominio y paleta— se incorporará antes del lanzamiento público.
 
-This contains everything you need to run your app locally.
+## Desarrollo local
 
-View your app in AI Studio: https://ai.studio/apps/458198c3-7c64-4821-8c3b-2c43e3c6aeef
+```bash
+npm install
+npm run dev
+```
 
-## Run Locally
+La aplicación estará disponible en `http://localhost:3000`.
 
-**Prerequisites:**  Node.js
+## Comprobaciones
 
+```bash
+npm run typecheck
+npm run build
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Variables de entorno
+
+Copia `.env.example` a `.env.local` y completa únicamente los valores disponibles. El formulario necesita `NEXT_PUBLIC_FORMSPREE_ENDPOINT` para enviar solicitudes reales.
+
+Mientras `NEXT_PUBLIC_SITE_INDEXABLE` no sea `true`, la web emite `noindex`, `nofollow` y bloquea el rastreo en `robots.txt`. Esta protección debe mantenerse hasta disponer de identidad, dominio y contenido definitivos.
+
+## Despliegue
+
+El proyecto de Vercel está conectado al repositorio de GitHub. Los cambios integrados en la rama principal generan un nuevo despliegue automáticamente.
