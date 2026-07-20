@@ -46,26 +46,34 @@ export function Header() {
       <nav
         aria-label="Navegación principal"
         className={cn(
-          "mx-auto flex max-w-6xl items-center justify-between rounded-2xl border px-4 text-primary backdrop-blur-xl transition-[height,max-width,background-color,border-color,box-shadow] duration-500 ease-out sm:px-5",
+          "mx-auto flex max-w-6xl items-center justify-between rounded-2xl border px-4 text-primary transition-[height,max-width,background-color,border-color,box-shadow] duration-500 ease-out sm:px-5",
           compact
-            ? "h-[3.75rem] border-white/70 bg-white/88 shadow-[0_12px_40px_rgba(6,15,31,0.11)]"
-            : "h-[4.25rem] border-white/65 bg-white/84 shadow-[0_12px_40px_rgba(6,15,31,0.1)] lg:h-[4.65rem] lg:max-w-[108rem] lg:border-transparent lg:bg-transparent lg:shadow-none",
+            ? "h-[3.75rem] border-white/70 bg-white/88 shadow-[0_12px_40px_rgba(6,15,31,0.11)] backdrop-blur-xl"
+            : "h-[4.25rem] border-white/65 bg-white/84 shadow-[0_12px_40px_rgba(6,15,31,0.1)] backdrop-blur-xl lg:h-[5.5rem] lg:max-w-[108rem] lg:border-transparent lg:bg-transparent lg:shadow-none lg:backdrop-blur-none",
         )}
       >
-        <Brand />
-        {!reducedHeader && <div className={cn("hidden items-center gap-1 rounded-xl border p-1 transition-[background-color,border-color] lg:flex", compact ? "border-transparent bg-transparent" : "border-white/40 bg-white/24")}>
+        <Brand className={cn("transition-transform duration-500", !compact && "lg:scale-[1.08] lg:origin-left")} />
+        {!reducedHeader && <div className={cn("hidden items-center transition-[gap] duration-500 lg:flex", compact ? "gap-1" : "gap-2")}>
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="focus-ring rounded-lg px-3.5 py-2 text-sm font-semibold text-primary/75 transition hover:bg-cloud hover:text-blue"
+              className={cn(
+                "focus-ring rounded-xl font-semibold text-primary/80 transition-[padding,color,background-color,font-size] duration-300 hover:text-blue",
+                compact
+                  ? "px-3.5 py-2 text-sm hover:bg-cloud"
+                  : "px-5 py-3 text-base hover:bg-white/55",
+              )}
             >
               {item.label}
             </Link>
           ))}
         </div>}
         <div className="hidden lg:block">
-          <Link href={reducedHeader ? "/" : "/diagnostico"} className={buttonClass("dark", "min-h-10 px-4 text-sm")}>
+          <Link
+            href={reducedHeader ? "/" : "/diagnostico"}
+            className={buttonClass("dark", compact ? "min-h-10 px-4 text-sm" : "min-h-12 px-5 text-base")}
+          >
             {reducedHeader ? "Volver a la web" : "Solicitar diagnóstico"} <ArrowUpRight size={16} aria-hidden="true" />
           </Link>
         </div>
