@@ -59,13 +59,13 @@ export function Header() {
               key={item.href}
               href={item.href}
               className={cn(
-                "focus-ring rounded-xl font-semibold text-primary/80 transition-[padding,color,background-color,font-size] duration-300 hover:text-blue",
+                "focus-ring rounded-md font-semibold text-primary/80 transition-[padding,color,font-size] duration-300 hover:text-blue",
                 compact
-                  ? "px-3.5 py-2 text-sm hover:bg-cloud"
-                  : "px-5 py-3 text-base hover:bg-white/55",
+                  ? "px-3.5 py-2 text-sm"
+                  : "px-5 py-3 text-base",
               )}
             >
-              {item.label}
+              <span className="link-underline">{item.label}</span>
             </Link>
           ))}
         </div>}
@@ -101,9 +101,9 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="focus-ring flex items-center justify-between rounded-xl border-b border-line/70 px-4 py-4 text-lg font-semibold text-primary last:border-0 hover:bg-cloud"
+                  className="focus-ring flex items-center justify-between border-b border-line/70 px-4 py-4 text-lg font-semibold text-primary last:border-0 hover:text-blue"
                 >
-                  {item.label}
+                  <span className="link-underline">{item.label}</span>
                   <span className="font-mono text-[0.68rem] tracking-[0.14em] text-muted">
                     0{index + 1}
                   </span>

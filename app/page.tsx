@@ -172,8 +172,8 @@ export default function HomePage() {
                     {service.tags.map((tag) => <span key={tag} className="rounded-full border border-white/12 bg-white/[0.045] px-3 py-1.5 text-xs font-medium text-white/58">{tag}</span>)}
                   </div>
                   <div className="mt-8 flex flex-wrap gap-4">
-                    <Link href={`/servicios/${service.slug}`} className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition hover:text-white">Ver el servicio <ArrowRight size={17} aria-hidden="true" /></Link>
-                    {service.demoHref && <a href={service.demoHref} target="_blank" rel="noreferrer" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-white/62 transition hover:text-white">Experiencia real <ArrowUpRight size={16} aria-hidden="true" /></a>}
+                    <Link href={`/servicios/${service.slug}`} className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition-colors hover:text-white"><span className="link-underline">Ver el servicio</span> <ArrowRight size={17} aria-hidden="true" /></Link>
+                    {service.demoHref && <a href={service.demoHref} target="_blank" rel="noreferrer" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-white/62 transition-colors hover:text-white"><span className="link-underline">Experiencia real</span> <ArrowUpRight size={16} aria-hidden="true" /></a>}
                   </div>
                 </Reveal>
               </article>
@@ -193,7 +193,7 @@ export default function HomePage() {
         <div className="container-shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeading eyebrow="Método" title="Primero entender. Después construir." description="Cinco pasos para avanzar sin inflar el alcance ni confundir movimiento con progreso." />
-            <Link href="/metodo" className="focus-ring mt-8 inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition hover:text-primary">Explorar el método completo <ArrowRight size={17} aria-hidden="true" /></Link>
+            <Link href="/metodo" className="focus-ring mt-8 inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition-colors hover:text-primary"><span className="link-underline">Explorar el método completo</span> <ArrowRight size={17} aria-hidden="true" /></Link>
           </Reveal>
           <div className="relative">
             <div className="absolute bottom-8 left-[1.35rem] top-8 w-px bg-gradient-to-b from-blue via-sky/45 to-line" aria-hidden="true" />
@@ -260,7 +260,7 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
-          <div className="mt-8 text-center"><Link href="/nosotros" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition hover:text-primary">Conocer el enfoque del equipo <ArrowRight size={17} aria-hidden="true" /></Link></div>
+          <div className="mt-8 text-center"><Link href="/nosotros" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition-colors hover:text-primary"><span className="link-underline">Conocer el enfoque del equipo</span> <ArrowRight size={17} aria-hidden="true" /></Link></div>
         </div>
       </section>
 

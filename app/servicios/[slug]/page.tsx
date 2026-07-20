@@ -44,7 +44,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <p className="eyebrow">Resultado buscado</p>
             <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.45rem)] font-semibold leading-[1.04] tracking-[-0.045em] text-primary">{service.promise}</h2>
             <div className="mt-8 flex flex-wrap gap-2">{service.tags.map((tag) => <span key={tag} className="rounded-full border border-blue/14 bg-white px-3 py-1.5 text-xs font-semibold text-blue">{tag}</span>)}</div>
-            {service.demoHref && <a href={service.demoHref} target="_blank" rel="noreferrer" className="focus-ring mt-8 inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition hover:text-primary">{service.demoLabel} <ArrowUpRight size={17} aria-hidden="true" /></a>}
+            {service.demoHref && <a href={service.demoHref} target="_blank" rel="noreferrer" className="focus-ring mt-8 inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition-colors hover:text-primary"><span className="link-underline">{service.demoLabel}</span> <ArrowUpRight size={17} aria-hidden="true" /></a>}
           </Reveal>
         </div>
       </section>

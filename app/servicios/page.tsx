@@ -30,8 +30,8 @@ export default function ServicesPage() {
                   <p className="mt-6 max-w-xl text-base leading-7 text-muted">{service.summary}</p>
                   <div className="mt-6 flex flex-wrap gap-2">{service.tags.map((tag) => <span key={tag} className="rounded-full border border-blue/12 bg-blue/[0.045] px-3 py-1.5 text-xs font-semibold text-blue">{tag}</span>)}</div>
                   <div className="mt-8 flex flex-wrap gap-5">
-                    <Link href={`/servicios/${service.slug}`} className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition hover:text-primary">Ver servicio <ArrowRight size={17} aria-hidden="true" /></Link>
-                    {service.demoHref && <a href={service.demoHref} target="_blank" rel="noreferrer" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-primary/80 transition hover:text-primary">Ver experiencia <ArrowUpRight size={16} aria-hidden="true" /></a>}
+                    <Link href={`/servicios/${service.slug}`} className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition-colors hover:text-primary"><span className="link-underline">Ver servicio</span> <ArrowRight size={17} aria-hidden="true" /></Link>
+                    {service.demoHref && <a href={service.demoHref} target="_blank" rel="noreferrer" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-primary/80 transition-colors hover:text-primary"><span className="link-underline">Ver experiencia</span> <ArrowUpRight size={16} aria-hidden="true" /></a>}
                   </div>
                 </div>
               </article>

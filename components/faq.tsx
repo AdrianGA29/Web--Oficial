@@ -19,9 +19,9 @@ export function FaqList() {
                 aria-expanded={expanded}
                 aria-controls={`faq-panel-${index}`}
                 onClick={() => setOpen(expanded ? null : index)}
-                className="focus-ring flex w-full items-center justify-between gap-6 rounded-lg py-6 text-left text-[clamp(1.05rem,2vw,1.3rem)] font-semibold text-primary transition hover:text-blue"
+                className="focus-ring flex w-full items-center justify-between gap-6 rounded-lg py-6 text-left text-[clamp(1.05rem,2vw,1.3rem)] font-semibold text-primary transition-colors hover:text-blue"
               >
-                {faq.question}
+                <span className="link-underline">{faq.question}</span>
                 <span className="grid size-9 shrink-0 place-items-center rounded-full border border-primary/15 bg-white">
                   <Plus className={`size-4 transition-transform ${expanded ? "rotate-45" : ""}`} aria-hidden="true" />
                 </span>

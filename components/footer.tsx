@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Brand } from "@/components/brand";
 import { services } from "@/lib/services";
 
-const linkClass = "focus-ring rounded-md text-sm text-white/58 transition hover:text-white";
+const linkClass = "link-underline focus-ring rounded-md text-sm text-white/58 hover:text-white";
 
 export function Footer() {
   return (
@@ -17,9 +17,9 @@ export function Footer() {
             </p>
             <Link
               href="/diagnostico"
-              className="focus-ring mt-7 inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition hover:text-white"
+              className="focus-ring mt-7 inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition-colors hover:text-white"
             >
-              Empezar por el diagnóstico <ArrowUpRight size={17} aria-hidden="true" />
+              <span className="link-underline">Empezar por el diagnóstico</span> <ArrowUpRight size={17} aria-hidden="true" />
             </Link>
           </div>
           <div>

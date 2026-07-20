@@ -19,8 +19,8 @@ export function PageHero({
     <section className="dark-grid noise relative overflow-hidden px-0 pb-[clamp(5rem,9vw,8rem)] pt-[clamp(9rem,15vw,12rem)] text-white">
       <div className="container-shell relative z-10">
         {back && (
-          <Link href={back.href} className="focus-ring mb-8 inline-flex items-center gap-2 rounded-md text-sm font-semibold text-white/55 transition hover:text-white">
-            <ArrowLeft size={16} aria-hidden="true" /> {back.label}
+          <Link href={back.href} className="focus-ring mb-8 inline-flex items-center gap-2 rounded-md text-sm font-semibold text-white/55 transition-colors hover:text-white">
+            <ArrowLeft size={16} aria-hidden="true" /> <span className="link-underline">{back.label}</span>
           </Link>
         )}
         <div className="hero-enter">
