@@ -26,7 +26,7 @@ const reviews = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="Nosotros" title="Tres perspectivas para tomar una decisión completa." description="La transformación operativa no es solo código. Una mejora debe funcionar, respetar sus responsabilidades y tener sentido para el negocio." cta={{ href: "/diagnostico", label: "Contarnos vuestro caso" }} />
+      <PageHero eyebrow="Nosotros" title="Tres perspectivas para tomar una decisión completa." description="La transformación operativa no es solo código. Una mejora debe funcionar, respetar sus responsabilidades y tener sentido para el negocio." cta={{ href: "/#contacto", label: "Contarnos vuestro caso" }} />
       <section className="section-space bg-white">
         <div className="container-shell grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal><SectionHeading eyebrow="Por qué existimos" title="Construir menos, pero construir lo que cambia el trabajo" /></Reveal>

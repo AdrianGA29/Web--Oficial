@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { getImageProps } from "next/image";
 import Link from "next/link";
 import {
@@ -8,44 +9,32 @@ import {
   Blocks,
   Check,
   FileSearch,
-  Files,
-  MessagesSquare,
-  ReceiptText,
-  Repeat2,
-  SearchCheck,
   ShieldCheck,
   Sparkles,
-  Workflow,
   type LucideIcon,
 } from "lucide-react";
 import heroDesktop from "@/assets/images/hero-desktop.webp";
 import heroMobile from "@/assets/images/hero-mobile.webp";
+import { GlassCard } from "@/components/aicanvas/glass-card";
 import { buttonClass } from "@/components/button";
 import { ContactForm } from "@/components/contact-form";
+import { CommitmentMarquee } from "@/components/commitment-marquee";
 import { ExperiencePreview } from "@/components/experience-preview";
 import { FaqList } from "@/components/faq";
+import { FrictionEditorial } from "@/components/friction-editorial";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { TeamCard } from "@/components/team-card";
 import { TechnologyMarquee } from "@/components/technology-marquee";
 import { TrackedLink } from "@/components/tracked-link";
 import { KineticGrid } from "@/components/ui/kinetic-grid";
-import { challenges, commitments, differentiators, faqs, methodSteps, team } from "@/lib/site";
+import { differentiators, faqs, methodSteps, team } from "@/lib/site";
 import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "Transformación operativa para pymes",
   description:
     "Convertimos procesos manuales y herramientas desconectadas en sistemas claros, medibles y preparados para crecer.",
-};
-
-const challengeIcons: Record<(typeof challenges)[number]["icon"], LucideIcon> = {
-  messages: MessagesSquare,
-  receipt: ReceiptText,
-  files: Files,
-  repeat: Repeat2,
-  search: SearchCheck,
-  workflow: Workflow,
 };
 
 const differentiatorIcons: Record<(typeof differentiators)[number]["icon"], LucideIcon> = {
@@ -101,8 +90,8 @@ export default function HomePage() {
             </div>
             <div className="hero-enter">
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <TrackedLink href="/diagnostico" eventName="CTA diagnostic" eventLocation="hero" className={buttonClass("primary", "min-h-14 px-6")}>
-                  Solicita tu diagnóstico <ArrowUpRight size={18} aria-hidden="true" />
+                <TrackedLink href="#contacto" eventName="CTA contact" eventLocation="hero" className={buttonClass("primary", "min-h-14 px-6")}>
+                  Cuéntanos tu caso <ArrowUpRight size={18} aria-hidden="true" />
                 </TrackedLink>
                 <Link href="#metodo" className={buttonClass("light", "min-h-14 px-6")}>
                   Ver cómo trabajamos <ArrowDown size={17} aria-hidden="true" />
@@ -114,39 +103,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-label="Compromisos de trabajo" className="relative z-10 border-y border-white/10 bg-ink py-5 text-white">
-        <div className="container-shell grid gap-4 sm:grid-cols-3">
-          {commitments.map((commitment) => (
-            <div key={commitment} className="flex items-center justify-center gap-3 text-center text-sm font-semibold text-white/78 sm:border-r sm:border-white/10 sm:last:border-0">
-              <Check size={16} className="text-sky" aria-hidden="true" /> {commitment}
-            </div>
-          ))}
-        </div>
-      </section>
+      <CommitmentMarquee />
 
-      <section id="desafios" className="section-space bg-cloud">
-        <div className="container-shell">
-          <Reveal>
-            <SectionHeading eyebrow="Señales de fricción" title="¿Esto también pasa en tu empresa?" description="El desorden rara vez aparece de golpe. Se acumula en pequeñas tareas, decisiones sin contexto y herramientas que nunca llegaron a formar un sistema." />
+      <section id="desafios" className="friction-editorial-section section-space">
+        <div className="container-shell friction-editorial-layout">
+          <Reveal className="friction-editorial-intro">
+            <SectionHeading eyebrow="Señales de fricción" title="Hay cosas que una empresa no debería normalizar." description="No parecen grandes problemas por separado. Repetidos cada semana, terminan convirtiéndose en coste, lentitud y oportunidades perdidas." />
+            <div className="friction-editorial-summary" aria-hidden="true">
+              <div><strong>06</strong><span>señales<br />recurrentes</span></div>
+              <div className="friction-editorial-dots">{Array.from({ length: 6 }, (_, index) => <i key={index} style={{ "--dot-delay": `${index * 0.16}s` } as CSSProperties} />)}</div>
+              <p>Un mismo patrón: la operativa necesita un sistema.</p>
+            </div>
           </Reveal>
-          <div className="mt-14 grid gap-4 lg:grid-cols-12">
-            {challenges.map((challenge, index) => {
-              const Icon = challengeIcons[challenge.icon];
-              return (
-                <Reveal key={challenge.title} delay={index * 0.045} className={challenge.featured ? "lg:col-span-6" : "lg:col-span-3"}>
-                  <article className={`card-lift group h-full rounded-card border border-line bg-white p-6 shadow-[0_12px_38px_rgba(6,15,31,.045)] ${challenge.featured ? "min-h-[21rem] sm:p-8" : "min-h-[18rem]"}`}>
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="grid size-11 place-items-center rounded-xl border border-blue/12 bg-blue/[0.065] text-blue transition group-hover:border-blue/25 group-hover:bg-blue/10"><Icon size={21} aria-hidden="true" /></span>
-                      <span className="font-mono text-[0.62rem] font-bold tracking-[0.14em] text-primary/80">0{index + 1}</span>
-                    </div>
-                    <h3 className={`mt-7 text-balance font-semibold leading-tight tracking-[-0.025em] text-primary ${challenge.featured ? "text-[clamp(1.5rem,2.6vw,2rem)]" : "text-xl"}`}>{challenge.title}</h3>
-                    <p className="mt-4 text-[0.95rem] leading-7 text-muted">{challenge.description}</p>
-                    <p className="mt-6 border-t border-line pt-5 text-sm font-semibold leading-6 text-blue">{challenge.question}</p>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
+          <Reveal y={14}><FrictionEditorial /></Reveal>
         </div>
       </section>
 
@@ -157,13 +126,17 @@ export default function HomePage() {
               <SectionHeading dark eyebrow="Muestra de capacidad" title="Mejor verlo funcionando." description="Una experiencia real dice más que otra lista de promesas. Esta web es una muestra de lo que podemos diseñar y construir para un cliente." />
             </Reveal>
             <Reveal className="mt-16">
-              <ExperiencePreview
-                demoHref={services[2].demoHref!}
-                serviceHref={`/servicios/${services[2].slug}`}
-                title="Una web que demuestra el nivel antes de explicarlo."
-                summary="Portfolio personal diseñado como una experiencia: narrativa visual, interacción y desarrollo frontend trabajando juntos. Puedes recorrerlo sin salir de esta página."
-                tags={["Dirección visual", "Motion UI", "Desarrollo frontend"]}
-              />
+              <GlassCard variant="feature">
+                <div className="p-[clamp(1.2rem,3.5vw,2.75rem)]">
+                  <ExperiencePreview
+                    demoHref={services[2].demoHref!}
+                    serviceHref={`/servicios/${services[2].slug}`}
+                    title="Una web que demuestra el nivel antes de explicarlo."
+                    summary="Portfolio personal diseñado como una experiencia: narrativa visual, interacción y desarrollo frontend trabajando juntos. Puedes recorrerlo sin salir de esta página."
+                    tags={["Dirección visual", "Motion UI", "Desarrollo frontend"]}
+                  />
+                </div>
+              </GlassCard>
             </Reveal>
           </div>
         </KineticGrid>
@@ -203,11 +176,13 @@ export default function HomePage() {
               const Icon = differentiatorIcons[item.icon];
               return (
                 <Reveal key={item.title} delay={index * 0.07}>
-                  <article className="card-lift h-full rounded-card border border-white/10 bg-white/[0.045] p-7 backdrop-blur">
-                    <span className="grid size-11 place-items-center rounded-xl border border-sky/18 bg-sky/8 text-sky"><Icon size={21} aria-hidden="true" /></span>
-                    <h3 className="mt-7 text-2xl font-semibold tracking-[-0.03em]">{item.title}</h3>
-                    <p className="mt-4 leading-7 text-white/52">{item.description}</p>
-                  </article>
+                  <GlassCard className="h-full">
+                    <article className="h-full p-7">
+                      <span className="grid size-11 place-items-center rounded-xl border border-sky/18 bg-sky/8 text-sky"><Icon size={21} aria-hidden="true" /></span>
+                      <h3 className="mt-7 text-2xl font-semibold tracking-[-0.03em]">{item.title}</h3>
+                      <p className="mt-4 leading-7 text-white/52">{item.description}</p>
+                    </article>
+                  </GlassCard>
                 </Reveal>
               );
             })}
@@ -220,15 +195,21 @@ export default function HomePage() {
         </KineticGrid>
       </section>
 
-      <section id="equipo" className="section-space bg-cloud">
+      <section id="equipo" className="team-showcase section-space">
         <div className="container-shell">
-          <Reveal>
-            <SectionHeading align="center" eyebrow="Tres perspectivas" title="Cada solución se valida antes de implantarla" description="Una decisión técnica puede funcionar y aun así no ser legalmente segura o financieramente sensata. Por eso miramos las tres cosas." />
-          </Reveal>
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+          <div className="team-showcase-heading grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+            <Reveal>
+              <SectionHeading eyebrow="Tres perspectivas" title="Tres criterios. Una decisión bien tomada." description="Tecnología, marco legal y realidad financiera revisando el mismo problema antes de implantar una solución." />
+            </Reveal>
+            <Reveal delay={0.08} className="team-showcase-count backdrop-blur-md" aria-hidden="true">
+              <strong>03</strong>
+              <span>perspectivas<br />responsables</span>
+            </Reveal>
+          </div>
+          <div className="mt-14 grid items-stretch gap-5 lg:grid-cols-3">
             {team.map((member, index) => (
               <Reveal key={member.name} delay={index * 0.07} className="h-full">
-                <TeamCard member={member} />
+                <TeamCard member={member} index={index} />
               </Reveal>
             ))}
           </div>
@@ -239,7 +220,7 @@ export default function HomePage() {
       <section id="contacto" className="dark-grid noise section-space relative overflow-hidden text-white">
         <div className="container-shell relative z-10 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <Reveal>
-            <p className="eyebrow text-sky">Primera sesión sin coste</p>
+            <p className="eyebrow text-sky">Hablemos de tu caso</p>
             <h2 className="section-title mt-5">Demos el primer paso hacia una operativa más clara.</h2>
             <p className="mt-6 max-w-lg text-lg leading-8 text-white/58">Revisamos dónde se atasca el trabajo, qué impacto tiene y si existe una primera mejora razonable. Sin venderte una solución cerrada antes de escucharte.</p>
             <div className="mt-9 grid gap-3 border-t border-white/10 pt-7 text-sm text-white/62">

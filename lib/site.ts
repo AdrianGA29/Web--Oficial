@@ -124,28 +124,28 @@ export const differentiators = [
 export const team = [
   {
     name: "Adrian",
-    role: "Sistemas y desarrollo",
+    role: "Desarrollador full stack y especialista en sistemas",
     pillar: "Criterio técnico",
     description:
-      "Valida la arquitectura, la integración y que cada automatización sea mantenible en el día a día.",
+      "Diseña y desarrolla soluciones de principio a fin: arquitectura, interfaces, lógica de negocio, integraciones y automatizaciones convertidas en sistemas rápidos, fiables y preparados para crecer.",
     image: "adrian",
     tone: "blue",
   },
   {
     name: "Patricia",
-    role: "Derecho y estudios internacionales",
+    role: "Derecho, cumplimiento y estudios internacionales",
     pillar: "Criterio legal",
     description:
-      "Revisa privacidad, responsabilidades y el encaje normativo antes de poner un sistema en marcha.",
+      "Aporta una visión jurídica y estratégica completa: traduce regulación, privacidad, contratación y riesgos internacionales en marcos claros para avanzar con seguridad y responsabilidades bien definidas.",
     image: "patricia",
     tone: "gold",
   },
   {
     name: "Alejandro",
-    role: "Administración y finanzas",
+    role: "Estrategia, administración y finanzas",
     pillar: "Criterio financiero",
     description:
-      "Contrasta inversión, impacto operativo y sostenibilidad para que la mejora tenga sentido económico.",
+      "Convierte cada mejora en una decisión de negocio defendible: analiza inversión, retorno, impacto operativo y escalabilidad para priorizar oportunidades rentables y sostener el crecimiento.",
     image: "alejandro",
     tone: "gold",
   },

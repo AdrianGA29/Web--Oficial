@@ -17,7 +17,11 @@ export function SectionHeading({
 }) {
   return (
     <div className={cn(align === "center" && "mx-auto flex flex-col items-center text-center", className)}>
-      <p className={cn("eyebrow", dark && "text-sky", align === "center" && "eyebrow-center justify-center")}>{eyebrow}</p>
+      <p className="sr-only">{eyebrow}</p>
+      <div className={cn("section-signature", dark && "section-signature-dark", align === "center" && "section-signature-center")} aria-hidden="true">
+        <span />
+        <i />
+      </div>
       <h2 className={cn("section-title mt-5", align === "center" && "w-full text-center", dark && "text-white")}>{title}</h2>
       {description && (
         <p className={cn("mt-6 max-w-2xl text-[1.05rem] leading-8 text-muted", align === "center" && "text-center", dark && "text-white/58")}>{description}</p>

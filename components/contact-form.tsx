@@ -38,7 +38,7 @@ function validate(values: Values): Errors {
 const fieldClass =
   "min-h-12 w-full rounded-[0.7rem] border border-white/15 bg-white/[0.055] px-4 py-3 text-white outline-none transition placeholder:text-white/28 focus:border-sky focus:bg-white/[0.08] focus:ring-4 focus:ring-sky/10";
 
-export function ContactForm({ compact = false }: { compact?: boolean }) {
+export function ContactForm() {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
@@ -72,13 +72,13 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
     data.append("friction", values.friction);
     data.append("message", values.message.trim() || "Sin mensaje adicional");
     data.append("privacy_accepted", "Sí");
-    data.append("_subject", `Nueva solicitud de diagnóstico — ${values.company.trim()}`);
+    data.append("_subject", `Nuevo contacto desde la web — ${values.company.trim()}`);
     data.append("_gotcha", honeypot);
 
     try {
       const response = await fetch(siteConfig.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: data });
       if (!response.ok) throw new Error("Submission rejected");
-      track("Form submitted", { form: compact ? "diagnostic" : "contact" });
+      track("Form submitted", { form: "home-contact" });
       setValues(initialValues);
       setValidated(false);
       setErrors({});
@@ -117,7 +117,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
       </div>
       <div>
         <label htmlFor="message" className={labelClass}>Contexto adicional (opcional)</label>
-        <textarea id="message" rows={compact ? 3 : 4} maxLength={2000} value={values.message} onChange={(event) => update("message", event.target.value)} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} placeholder="Si quieres, cuéntanos qué ocurre hoy y qué te gustaría mejorar." className={`${fieldClass} resize-y`} />
+        <textarea id="message" rows={4} maxLength={2000} value={values.message} onChange={(event) => update("message", event.target.value)} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} placeholder="Si quieres, cuéntanos qué ocurre hoy y qué te gustaría mejorar." className={`${fieldClass} resize-y`} />
         {errors.message && <p id="message-error" className={errorClass}>{errors.message}</p>}
       </div>
       <div>

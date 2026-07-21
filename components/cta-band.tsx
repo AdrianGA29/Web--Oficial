@@ -20,8 +20,8 @@ export function CtaBand({
             <h2 className="mt-5 max-w-3xl text-balance text-[clamp(2rem,4vw,3.75rem)] font-semibold leading-[1.03] tracking-[-0.045em]">{title}</h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-white/60">{description}</p>
           </div>
-          <Link href="/diagnostico" className={buttonClass("outline", "shrink-0 bg-white text-primary hover:bg-cloud hover:text-primary")}>
-            Solicitar diagnóstico <ArrowUpRight size={17} aria-hidden="true" />
+          <Link href="/#contacto" className={buttonClass("outline", "shrink-0 bg-white text-primary hover:bg-cloud hover:text-primary")}>
+            Cuéntanos tu caso <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
         </div>
       </div>

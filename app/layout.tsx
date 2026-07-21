@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { StickyCta } from "@/components/sticky-cta";
 import { siteConfig } from "@/lib/config";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -48,7 +50,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={montserrat.variable}>
+    <html lang="es" className={cn("font-sans", geist.variable)}>
       <body>
         <a
           href="#contenido"
@@ -59,7 +61,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="contenido">{children}</main>
         <Footer />
-        <StickyCta />
         {process.env.VERCEL === "1" && <Analytics />}
       </body>
     </html>

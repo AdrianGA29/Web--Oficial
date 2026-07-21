@@ -36,7 +36,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <PageHero eyebrow={`${service.index} · ${service.eyebrow}`} title={service.title} description={service.summary} back={{ href: "/servicios", label: "Todos los servicios" }} cta={{ href: "/diagnostico", label: "Hablar sobre este proceso" }} />
+      <PageHero eyebrow={`${service.index} · ${service.eyebrow}`} title={service.title} description={service.summary} back={{ href: "/servicios", label: "Todos los servicios" }} cta={{ href: "/#contacto", label: "Hablar sobre este proceso" }} />
       <section className="section-space bg-cloud">
         <div className="container-shell grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <Reveal><ProductVisual type={service.visual} /></Reveal>

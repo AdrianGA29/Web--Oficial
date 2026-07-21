@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { GlassNavbar } from "@/components/aicanvas/glass-navbar";
 import { Brand } from "@/components/brand";
 import { buttonClass } from "@/components/button";
 import { navigation } from "@/lib/site";
@@ -13,9 +13,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const pathname = usePathname();
-  const reducedHeader = pathname === "/diagnostico";
-  const compact = scrolled || open || reducedHeader;
+  const compact = scrolled || open;
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 16);
@@ -43,17 +41,13 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
-      <nav
+      <GlassNavbar
+        compact={compact}
         aria-label="Navegación principal"
-        className={cn(
-          "mx-auto flex max-w-6xl items-center justify-between rounded-2xl border px-4 text-primary transition-[height,max-width,background-color,border-color,box-shadow] duration-500 ease-out sm:px-5",
-          compact
-            ? "h-[3.75rem] border-white/70 bg-white/88 shadow-[0_12px_40px_rgba(6,15,31,0.11)] backdrop-blur-xl"
-            : "h-[4.25rem] border-white/65 bg-white/84 shadow-[0_12px_40px_rgba(6,15,31,0.1)] backdrop-blur-xl lg:h-[5.5rem] lg:max-w-[108rem] lg:border-transparent lg:bg-transparent lg:shadow-none lg:backdrop-blur-none",
-        )}
+        className={cn(compact ? "h-[3.75rem]" : "h-[4.25rem] lg:h-[5.5rem]")}
       >
         <Brand className={cn("transition-transform duration-500", !compact && "lg:scale-[1.08] lg:origin-left")} />
-        {!reducedHeader && <div className={cn("hidden items-center transition-[gap] duration-500 lg:flex", compact ? "gap-1" : "gap-2")}>
+        <div className={cn("hidden items-center transition-[gap] duration-500 lg:flex", compact ? "gap-1" : "gap-2")}>
           {navigation.map((item) => (
             <Link
               key={item.href}
@@ -68,13 +62,13 @@ export function Header() {
               <span className="link-underline">{item.label}</span>
             </Link>
           ))}
-        </div>}
+        </div>
         <div className="hidden lg:block">
           <Link
-            href={reducedHeader ? "/" : "/diagnostico"}
+            href="/#contacto"
             className={buttonClass("dark", compact ? "min-h-10 px-4 text-sm" : "min-h-12 px-5 text-base")}
           >
-            {reducedHeader ? "Volver a la web" : "Solicitar diagnóstico"} <ArrowUpRight size={16} aria-hidden="true" />
+            Cuéntanos tu caso <ArrowUpRight size={16} aria-hidden="true" />
           </Link>
         </div>
         <button
@@ -84,16 +78,16 @@ export function Header() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((value) => !value)}
-          className={`focus-ring size-11 place-items-center rounded-xl border border-primary/12 bg-cloud text-primary lg:hidden ${reducedHeader ? "hidden" : "grid"}`}
+          className="focus-ring grid size-11 place-items-center rounded-xl border border-primary/12 bg-cloud text-primary lg:hidden"
         >
           {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
-      </nav>
+      </GlassNavbar>
 
-      {open && !reducedHeader && (
+      {open && (
           <div
             id="mobile-menu"
-            className="animate-menu-in mx-auto mt-2 max-w-[78rem] overflow-hidden rounded-2xl border border-white/70 bg-white p-3 shadow-[0_24px_60px_rgba(6,15,31,0.18)] lg:hidden"
+            className="animate-menu-in mx-auto mt-2 max-w-[78rem] overflow-hidden rounded-2xl border border-white/70 bg-white/82 p-3 shadow-[0_24px_60px_rgba(6,15,31,0.18)] backdrop-blur-2xl lg:hidden"
           >
             <div className="grid">
               {navigation.map((item, index) => (
@@ -111,11 +105,11 @@ export function Header() {
               ))}
             </div>
             <Link
-              href="/diagnostico"
+              href="/#contacto"
               onClick={() => setOpen(false)}
               className={buttonClass("primary", "mt-3 w-full")}
             >
-              Solicitar diagnóstico <ArrowUpRight size={17} aria-hidden="true" />
+              Cuéntanos tu caso <ArrowUpRight size={17} aria-hidden="true" />
             </Link>
           </div>
       )}

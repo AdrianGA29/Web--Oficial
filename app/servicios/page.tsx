@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHero eyebrow="Servicios" title="Una mejora útil empieza por el proceso, no por la herramienta." description="Tres líneas de trabajo con una misma lógica: comprender la operativa, decidir dónde existe impacto y construir solo lo que puede sostenerse." cta={{ href: "/diagnostico", label: "Explorar vuestro caso" }} />
+      <PageHero eyebrow="Servicios" title="Una mejora útil empieza por el proceso, no por la herramienta." description="Tres líneas de trabajo con una misma lógica: comprender la operativa, decidir dónde existe impacto y construir solo lo que puede sostenerse." cta={{ href: "/#contacto", label: "Explorar vuestro caso" }} />
       <section className="section-space bg-cloud">
         <div className="container-shell grid gap-8">
           {services.map((service, index) => (

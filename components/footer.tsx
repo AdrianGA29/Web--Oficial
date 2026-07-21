@@ -16,10 +16,10 @@ export function Footer() {
               Diagnóstico, sistemas y automatización para convertir fricción operativa en una base clara para crecer.
             </p>
             <Link
-              href="/diagnostico"
+              href="/#contacto"
               className="focus-ring mt-7 inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition-colors hover:text-white"
             >
-              <span className="link-underline">Empezar por el diagnóstico</span> <ArrowUpRight size={17} aria-hidden="true" />
+              <span className="link-underline">Cuéntanos tu caso</span> <ArrowUpRight size={17} aria-hidden="true" />
             </Link>
           </div>
           <div>
@@ -39,7 +39,7 @@ export function Footer() {
             <ul className="mt-6 grid gap-3.5">
               <li><Link href="/#metodo" className={linkClass}>Método</Link></li>
               <li><Link href="/nosotros" className={linkClass}>Nosotros</Link></li>
-              <li><Link href="/contacto" className={linkClass}>Contacto</Link></li>
+              <li><Link href="/#contacto" className={linkClass}>Contacto</Link></li>
               <li><Link href="/privacidad" className={linkClass}>Privacidad</Link></li>
             </ul>
           </div>
