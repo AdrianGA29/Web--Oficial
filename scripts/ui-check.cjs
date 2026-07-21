@@ -49,6 +49,22 @@ const { chromium } = require("playwright");
     const rect = element.getBoundingClientRect();
     return { width: rect.width, height: rect.height, bottom: rect.bottom };
   }));
+  const firstTeamCard = page.locator("#equipo article").first();
+  const firstTeamCardBox = await firstTeamCard.boundingBox();
+  await page.mouse.move(
+    firstTeamCardBox.x + firstTeamCardBox.width * 0.72,
+    firstTeamCardBox.y + firstTeamCardBox.height * 0.28,
+  );
+  await page.waitForTimeout(350);
+  const teamHover = await firstTeamCard.evaluate((element) => ({
+    pointerX: getComputedStyle(element).getPropertyValue("--team-x").trim(),
+    pointerY: getComputedStyle(element).getPropertyValue("--team-y").trim(),
+    borderGlowOpacity: getComputedStyle(element, "::before").opacity,
+    surfaceGlowOpacity: getComputedStyle(element, "::after").opacity,
+    photoGlowOpacity: getComputedStyle(element.querySelector(".team-card-photo-light")).opacity,
+    transform: getComputedStyle(element).transform,
+  }));
+  await page.locator("#equipo").screenshot({ path: ".artifacts/team-hover.png" });
   const headingAlignment = await page.locator("#equipo h2, #preguntas h2").evaluateAll((elements) => elements.map((element) => {
     const rect = element.getBoundingClientRect();
     const container = element.closest(".container-shell").getBoundingClientRect();
@@ -61,14 +77,15 @@ const { chromium } = require("playwright");
 
   await browser.close();
   const cardHeightsMatch = new Set(teamCards.map(({ height }) => height)).size === 1;
+  const teamSpotlightWorks = teamHover.borderGlowOpacity === "1" && teamHover.surfaceGlowOpacity === "1" && teamHover.photoGlowOpacity === "1" && teamHover.pointerX.endsWith("px") && teamHover.pointerY.endsWith("px");
   const headerCompacts = compactHeader.width < expandedHeader.width && compactHeader.height < expandedHeader.height;
   const headingsCentered = headingAlignment.every(({ centerDelta, textAlign }) => Math.abs(centerDelta) < 1 && textAlign === "center");
   const beforeWidth = Number.parseFloat(underlineBefore);
   const duringWidth = Number.parseFloat(underlineDuring);
   const afterWidth = Number.parseFloat(underlineAfter.backgroundSize);
   const navigationUnderlineWorks = navigationHover.background === "rgba(0, 0, 0, 0)" && beforeWidth === 0 && duringWidth > 0 && duringWidth < 100 && Math.abs(afterWidth - 100) < 0.1;
-  process.stdout.write(JSON.stringify({ expandedHeader, compactHeader, headerCompacts, navigationHover: { ...navigationHover, underlineBefore, underlineDuring, underlineAfter }, navigationUnderlineWorks, teamCards, cardHeightsMatch, headingAlignment, headingsCentered }, null, 2));
-  if (!headerCompacts || !cardHeightsMatch || !headingsCentered || !navigationUnderlineWorks) process.exit(1);
+  process.stdout.write(JSON.stringify({ expandedHeader, compactHeader, headerCompacts, navigationHover: { ...navigationHover, underlineBefore, underlineDuring, underlineAfter }, navigationUnderlineWorks, teamCards, cardHeightsMatch, teamHover, teamSpotlightWorks, headingAlignment, headingsCentered }, null, 2));
+  if (!headerCompacts || !cardHeightsMatch || !teamSpotlightWorks || !headingsCentered || !navigationUnderlineWorks) process.exit(1);
 })().catch((error) => {
   console.error(error);
   process.exit(1);

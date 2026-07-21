@@ -37,7 +37,7 @@ export function Footer() {
           <div>
             <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.15em] text-sky">Compañía</p>
             <ul className="mt-6 grid gap-3.5">
-              <li><Link href="/metodo" className={linkClass}>Método</Link></li>
+              <li><Link href="/#metodo" className={linkClass}>Método</Link></li>
               <li><Link href="/nosotros" className={linkClass}>Nosotros</Link></li>
               <li><Link href="/contacto" className={linkClass}>Contacto</Link></li>
               <li><Link href="/privacidad" className={linkClass}>Privacidad</Link></li>

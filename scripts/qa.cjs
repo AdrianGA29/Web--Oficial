@@ -8,7 +8,6 @@ const routes = [
   "/servicios/automatizacion-procesos",
   "/servicios/presupuestacion-tecnica",
   "/servicios/webs-interactivas-ia",
-  "/metodo",
   "/nosotros",
   "/diagnostico",
   "/contacto",
@@ -70,6 +69,64 @@ const axePath = require.resolve("axe-core/axe.min.js");
   if (!report.interactions.mobileMenu.expanded || report.interactions.mobileMenu.visibleLinks < 5) report.failures.push("mobile menu");
   await mobile.close();
 
+  const methodNavigation = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
+  await methodNavigation.goto(`${baseUrl}/servicios`, { waitUntil: "networkidle" });
+  await methodNavigation.locator('header nav a[href="/#metodo"]').click();
+  await methodNavigation.waitForURL(`${baseUrl}/#metodo`);
+  report.interactions.methodAnchor = {
+    url: methodNavigation.url(),
+    sectionVisible: await methodNavigation.locator("#metodo").isVisible(),
+  };
+  if (!report.interactions.methodAnchor.sectionVisible) report.failures.push("method anchor navigation");
+  await methodNavigation.close();
+
+  const experience = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: "no-preference" });
+  await experience.goto(baseUrl, { waitUntil: "networkidle" });
+  const showcase = experience.locator("#soluciones");
+  await showcase.scrollIntoViewIfNeeded();
+  await experience.getByRole("button", { name: "Ver la web aquí" }).click();
+  const dialog = experience.locator("dialog[open]");
+  await dialog.waitFor({ state: "visible" });
+  await experience.locator("dialog iframe").waitFor({ state: "visible" });
+  await experience.waitForTimeout(900);
+  await experience.addScriptTag({ path: axePath });
+  const experienceA11y = await experience.evaluate(async () => {
+    const result = await window.axe.run(document, { resultTypes: ["violations"], runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21aa"] } });
+    return result.violations.filter((violation) => ["serious", "critical"].includes(violation.impact)).map(({ id, help }) => ({ id, help }));
+  });
+  report.interactions.experiencePreview = {
+    examples: await showcase.locator("article").count(),
+    budgetExampleVisible: await showcase.getByText("Presupuestación técnica", { exact: false }).count(),
+    dialogVisible: await dialog.isVisible(),
+    iframeSrc: await experience.locator("dialog iframe").getAttribute("src"),
+    bodyOverflow: await experience.locator("body").evaluate((body) => getComputedStyle(body).overflow),
+    animationName: await dialog.evaluate((element) => getComputedStyle(element).animationName),
+    focusInside: await dialog.evaluate((element) => element.contains(document.activeElement)),
+    seriousA11yViolations: experienceA11y,
+  };
+  await experience.screenshot({ path: ".artifacts/experience-modal.png" });
+  await experience.keyboard.press("Escape");
+  await experience.waitForTimeout(320);
+  report.interactions.experiencePreview.closedWithEscape = await experience.locator("dialog[open]").count() === 0;
+  if (report.interactions.experiencePreview.examples !== 1 || report.interactions.experiencePreview.budgetExampleVisible !== 0 || !report.interactions.experiencePreview.dialogVisible || !report.interactions.experiencePreview.iframeSrc?.includes("portfoliopersonal") || report.interactions.experiencePreview.bodyOverflow !== "hidden" || !report.interactions.experiencePreview.focusInside || report.interactions.experiencePreview.seriousA11yViolations.length > 0 || !report.interactions.experiencePreview.closedWithEscape) report.failures.push("experience preview");
+  await experience.close();
+
+  const experienceMobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: "reduce" });
+  await experienceMobile.goto(baseUrl, { waitUntil: "networkidle" });
+  await experienceMobile.getByRole("button", { name: "Ver la web aquí" }).click();
+  const mobileDialog = experienceMobile.locator("dialog[open]");
+  await experienceMobile.getByText("Preparando la experiencia…").waitFor({ state: "hidden", timeout: 15000 });
+  const mobileDialogBox = await mobileDialog.boundingBox();
+  report.interactions.experiencePreview.mobile = {
+    visible: await mobileDialog.isVisible(),
+    loaded: await experienceMobile.getByText("Preparando la experiencia…").count() === 0,
+    withinViewport: Boolean(mobileDialogBox && mobileDialogBox.x >= 0 && mobileDialogBox.y >= 0 && mobileDialogBox.x + mobileDialogBox.width <= 390 && mobileDialogBox.y + mobileDialogBox.height <= 844),
+    closeButtonVisible: await experienceMobile.getByRole("button", { name: "Cerrar vista interactiva" }).isVisible(),
+  };
+  await experienceMobile.screenshot({ path: ".artifacts/experience-modal-mobile.png" });
+  if (!report.interactions.experiencePreview.mobile.visible || !report.interactions.experiencePreview.mobile.loaded || !report.interactions.experiencePreview.mobile.withinViewport || !report.interactions.experiencePreview.mobile.closeButtonVisible) report.failures.push("experience preview mobile");
+  await experienceMobile.close();
+
   const form = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
   await form.goto(`${baseUrl}/diagnostico`, { waitUntil: "networkidle" });
   await form.getByRole("button", { name: "Enviar solicitud" }).click();
@@ -83,6 +140,10 @@ const axePath = require.resolve("axe-core/axe.min.js");
   const robots = await (await fetch(`${baseUrl}/robots.txt`)).text();
   report.interactions.robots = robots;
   if (!robots.includes("Disallow: /")) report.failures.push("robots disallow");
+
+  const removedMethodPage = await fetch(`${baseUrl}/metodo`);
+  report.interactions.removedMethodPage = removedMethodPage.status;
+  if (removedMethodPage.status !== 404) report.failures.push("removed method page");
 
   await browser.close();
   const output = path.join(process.cwd(), ".artifacts", "qa-report.json");

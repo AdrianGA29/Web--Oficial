@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
   --color-ink: #060f1f;
   --color-navy: #0c2446;
@@ -41,7 +41,7 @@ body {
   overflow-x: clip;
   background: #f5f8fc;
   color: #081a33;
-  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -145,6 +145,19 @@ select {
   content: "";
 }
 
+.kinetic-grid-surface {
+  isolation: isolate;
+  background-image: none;
+}
+
+.kinetic-grid-surface::before {
+  z-index: 0;
+}
+
+.kinetic-grid-surface.noise::after {
+  z-index: 2;
+}
+
 .noise::after {
   position: absolute;
   inset: 0;
@@ -163,6 +176,62 @@ select {
   transform: translateY(-4px);
   border-color: rgba(47, 114, 196, 0.35);
   box-shadow: 0 22px 60px rgba(6, 15, 31, 0.1);
+}
+
+.team-card {
+  position: relative;
+  isolation: isolate;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), border-color 280ms ease, box-shadow 280ms ease;
+}
+
+.team-card::before,
+.team-card::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  content: "";
+  transition: opacity 260ms ease-out;
+}
+
+.team-card::before {
+  z-index: 5;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(300px circle at var(--team-x) var(--team-y), rgb(var(--team-tone) / 0.95), rgb(var(--team-tone) / 0.28) 38%, transparent 72%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.team-card::after {
+  z-index: 1;
+  background: radial-gradient(340px circle at var(--team-x) var(--team-y), rgb(var(--team-tone) / 0.075), transparent 68%);
+}
+
+.team-card-photo-light {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(245px circle at var(--team-x) var(--team-y), rgba(255, 255, 255, 0.28), rgb(var(--team-tone) / 0.17) 34%, transparent 70%);
+  mix-blend-mode: screen;
+  transition: opacity 260ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .team-card:hover {
+    transform: translateY(-5px);
+    border-color: transparent;
+    box-shadow: 0 28px 72px rgba(6, 15, 31, 0.13), 0 12px 40px rgb(var(--team-tone) / 0.13);
+  }
+
+  .team-card:hover::before,
+  .team-card:hover::after,
+  .team-card:hover .team-card-photo-light {
+    opacity: 1;
+  }
 }
 
 .focus-ring:focus-visible {
@@ -194,6 +263,144 @@ button:hover > .link-underline {
   box-shadow: 0 0 0 5px rgba(103, 185, 228, 0.08), 0 0 32px rgba(103, 185, 228, 0.22);
 }
 
+.technology-wall {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(2rem, 2.8vw, 2.5rem);
+  border-block: 1px solid rgba(23, 54, 93, 0.09);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(103, 185, 228, 0.2), transparent 30%),
+    radial-gradient(circle at 82% 90%, rgba(237, 189, 104, 0.13), transparent 28%),
+    linear-gradient(135deg, #edf5fc 0%, #f7f9fc 48%, #edf3fa 100%);
+}
+
+.technology-marquee {
+  overflow: hidden;
+  margin-block: -1rem;
+  padding-block: 1rem;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.technology-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: technology-scroll 54s linear infinite;
+  will-change: transform;
+}
+
+.technology-marquee-track-reverse {
+  animation-direction: reverse;
+}
+
+.technology-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0 0.75rem 0 0;
+  list-style: none;
+}
+
+.technology-chip {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-width: max-content;
+  align-items: center;
+  gap: 0.82rem;
+  overflow: hidden;
+  padding: 0.7rem 1.05rem 0.7rem 0.78rem;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 1.05rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(220, 234, 248, 0.42));
+  color: #17365d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0 rgba(23, 54, 93, 0.055),
+    0 12px 32px rgba(6, 15, 31, 0.09);
+  font-size: 0.96rem;
+  font-weight: 675;
+  -webkit-backdrop-filter: blur(22px) saturate(175%);
+  backdrop-filter: blur(22px) saturate(175%);
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.technology-chip::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.62), transparent 34%, rgba(103, 185, 228, 0.08) 68%, rgba(255, 255, 255, 0.2));
+  content: "";
+}
+
+.technology-chip > span {
+  position: relative;
+  z-index: 1;
+}
+
+.technology-icon {
+  display: grid;
+  width: 2.3rem;
+  height: 2.3rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 0.78rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(231, 240, 249, 0.48));
+  box-shadow: inset 0 1px 0 white, 0 6px 16px rgba(6, 15, 31, 0.09);
+}
+
+.technology-icon svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .technology-chip:hover {
+    z-index: 1;
+    transform: translateY(-4px);
+    border-color: rgba(103, 185, 228, 0.52);
+    box-shadow: inset 0 1px 0 white, 0 18px 38px rgba(6, 15, 31, 0.13), 0 0 0 4px rgba(103, 185, 228, 0.08);
+  }
+}
+
+@keyframes technology-scroll {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .technology-marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .technology-marquee::-webkit-scrollbar {
+    display: none;
+  }
+
+  .technology-marquee-track {
+    width: max-content;
+    animation: none;
+  }
+
+  .technology-marquee-group {
+    padding-inline: 0.75rem 0;
+  }
+
+  .technology-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .technology-marquee-group:not([aria-hidden="true"]) > [aria-hidden="true"] {
+    display: none;
+  }
+}
+
 @keyframes soft-pulse {
   0%, 100% { opacity: 0.55; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.08); }
@@ -214,6 +421,26 @@ button:hover > .link-underline {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+@keyframes experience-in {
+  from { opacity: 0; transform: translate(-50%, -47%) scale(0.975); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes experience-out {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -48%) scale(0.982); }
+}
+
+@keyframes experience-backdrop-in {
+  from { background-color: rgba(3, 9, 20, 0); backdrop-filter: blur(0); }
+  to { background-color: rgba(3, 9, 20, 0.76); backdrop-filter: blur(10px); }
+}
+
+@keyframes experience-backdrop-out {
+  from { background-color: rgba(3, 9, 20, 0.76); backdrop-filter: blur(10px); }
+  to { background-color: rgba(3, 9, 20, 0); backdrop-filter: blur(0); }
+}
+
 @keyframes reveal-in {
   from { transform: translateY(var(--reveal-y, 24px)); }
   to { transform: translateY(0); }
@@ -225,6 +452,46 @@ button:hover > .link-underline {
 
 .animate-menu-in {
   animation: menu-in 220ms ease-out both;
+}
+
+.experience-dialog {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  width: min(calc(100vw - 2rem), 96rem);
+  height: min(calc(100dvh - 2rem), 56rem);
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1.15rem;
+  background: transparent;
+  color: white;
+  box-shadow: 0 42px 120px rgba(0, 0, 0, 0.5);
+  animation: experience-in 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.experience-dialog::backdrop {
+  background-color: rgba(3, 9, 20, 0.76);
+  backdrop-filter: blur(10px);
+  animation: experience-backdrop-in 300ms ease-out both;
+}
+
+.experience-dialog[data-closing="true"] {
+  animation: experience-out 240ms ease-in both;
+}
+
+.experience-dialog[data-closing="true"]::backdrop {
+  animation: experience-backdrop-out 240ms ease-in both;
+}
+
+@media (max-width: 639px) {
+  .experience-dialog {
+    width: calc(100vw - 0.75rem);
+    height: calc(100dvh - 0.75rem);
+    border-radius: 0.9rem;
+  }
 }
 
 @supports (animation-timeline: view()) {

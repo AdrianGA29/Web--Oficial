@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getImageProps } from "next/image";
-import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import {
   ArrowDown,
@@ -21,16 +20,16 @@ import {
 } from "lucide-react";
 import heroDesktop from "@/assets/images/hero-desktop.webp";
 import heroMobile from "@/assets/images/hero-mobile.webp";
-import adrian from "@/assets/images/Adrian.webp";
-import patricia from "@/assets/images/Patricia.webp";
-import alejandro from "@/assets/images/Alejandro.webp";
 import { buttonClass } from "@/components/button";
 import { ContactForm } from "@/components/contact-form";
+import { ExperiencePreview } from "@/components/experience-preview";
 import { FaqList } from "@/components/faq";
-import { ProductVisual } from "@/components/product-visual";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { TeamCard } from "@/components/team-card";
+import { TechnologyMarquee } from "@/components/technology-marquee";
 import { TrackedLink } from "@/components/tracked-link";
+import { KineticGrid } from "@/components/ui/kinetic-grid";
 import { challenges, commitments, differentiators, faqs, methodSteps, team } from "@/lib/site";
 import { services } from "@/lib/services";
 
@@ -54,8 +53,6 @@ const differentiatorIcons: Record<(typeof differentiators)[number]["icon"], Luci
   blocks: Blocks,
   shield: ShieldCheck,
 };
-
-const teamImages: Record<(typeof team)[number]["image"], StaticImageData> = { adrian, patricia, alejandro };
 
 function HeroPicture() {
   const common = { alt: "", sizes: "100vw", quality: 84, loading: "eager" } as const;
@@ -153,47 +150,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="soluciones" className="dark-grid noise section-space relative overflow-hidden text-white">
-        <div className="container-shell relative z-10">
-          <Reveal>
-            <SectionHeading dark eyebrow="Capacidad demostrable" title="Herramientas que hacen visible el cambio" description="No enseñamos tecnología por enseñar. Estas interfaces representan dos formas concretas de convertir conocimiento disperso en un flujo útil." />
-          </Reveal>
-          <div className="mt-16 grid gap-20">
-            {[services[1], services[2]].map((service, index) => (
-              <article key={service.slug} className="grid items-center gap-9 lg:grid-cols-2 lg:gap-14">
-                <Reveal className={index % 2 ? "lg:order-2" : ""}>
-                  <ProductVisual type={service.visual} />
-                </Reveal>
-                <Reveal delay={0.08} className={index % 2 ? "lg:order-1" : ""}>
-                  <p className="font-mono text-[0.67rem] font-bold uppercase tracking-[0.15em] text-sky">{service.index} · {service.eyebrow}</p>
-                  <h3 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.04] tracking-[-0.045em]">{service.title}</h3>
-                  <p className="mt-6 text-base leading-7 text-white/58">{service.summary}</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {service.tags.map((tag) => <span key={tag} className="rounded-full border border-white/12 bg-white/[0.045] px-3 py-1.5 text-xs font-medium text-white/58">{tag}</span>)}
-                  </div>
-                  <div className="mt-8 flex flex-wrap gap-4">
-                    <Link href={`/servicios/${service.slug}`} className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition-colors hover:text-white"><span className="link-underline">Ver el servicio</span> <ArrowRight size={17} aria-hidden="true" /></Link>
-                    {service.demoHref && <a href={service.demoHref} target="_blank" rel="noreferrer" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-white/62 transition-colors hover:text-white"><span className="link-underline">Experiencia real</span> <ArrowUpRight size={16} aria-hidden="true" /></a>}
-                  </div>
-                </Reveal>
-              </article>
-            ))}
+      <section id="soluciones" className="relative overflow-hidden text-white">
+        <KineticGrid className="dark-grid noise kinetic-grid-surface section-space">
+          <div className="container-shell relative z-10">
+            <Reveal>
+              <SectionHeading dark eyebrow="Muestra de capacidad" title="Mejor verlo funcionando." description="Una experiencia real dice más que otra lista de promesas. Esta web es una muestra de lo que podemos diseñar y construir para un cliente." />
+            </Reveal>
+            <Reveal className="mt-16">
+              <ExperiencePreview
+                demoHref={services[2].demoHref!}
+                serviceHref={`/servicios/${services[2].slug}`}
+                title="Una web que demuestra el nivel antes de explicarlo."
+                summary="Portfolio personal diseñado como una experiencia: narrativa visual, interacción y desarrollo frontend trabajando juntos. Puedes recorrerlo sin salir de esta página."
+                tags={["Dirección visual", "Motion UI", "Desarrollo frontend"]}
+              />
+            </Reveal>
           </div>
-          <Reveal className="mt-20 rounded-[1.4rem] border border-sky/18 bg-gradient-to-r from-blue/13 to-transparent p-7 sm:p-9">
-            <div className="grid items-center gap-7 md:grid-cols-[auto_1fr_auto]">
-              <span className="grid size-12 place-items-center rounded-xl border border-sky/20 bg-sky/8 text-sky"><Workflow size={23} aria-hidden="true" /></span>
-              <div><p className="text-xl font-semibold">¿Tu caso no encaja en una herramienta existente?</p><p className="mt-2 text-sm leading-6 text-white/50">El servicio troncal consiste precisamente en entender el proceso y diseñar el sistema adecuado alrededor de él.</p></div>
-              <Link href="/servicios/automatizacion-procesos" className={buttonClass("outline")}>Automatización a medida <ArrowUpRight size={16} aria-hidden="true" /></Link>
-            </div>
-          </Reveal>
-        </div>
+        </KineticGrid>
       </section>
 
       <section id="metodo" className="section-space bg-white">
         <div className="container-shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeading eyebrow="Método" title="Primero entender. Después construir." description="Cinco pasos para avanzar sin inflar el alcance ni confundir movimiento con progreso." />
-            <Link href="/metodo" className="focus-ring mt-8 inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition-colors hover:text-primary"><span className="link-underline">Explorar el método completo</span> <ArrowRight size={17} aria-hidden="true" /></Link>
           </Reveal>
           <div className="relative">
             <div className="absolute bottom-8 left-[1.35rem] top-8 w-px bg-gradient-to-b from-blue via-sky/45 to-line" aria-hidden="true" />
@@ -211,12 +190,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="diferenciacion" className="dark-grid noise section-space relative overflow-hidden text-white">
-        <div className="container-shell relative z-10">
-          <Reveal>
-            <SectionHeading dark align="center" eyebrow="Criterio antes que ruido" title="La tecnología es el medio. El sistema es el resultado." />
-          </Reveal>
-          <div className="mt-14 grid gap-4 lg:grid-cols-3">
+      <TechnologyMarquee />
+
+      <section id="diferenciacion" className="relative overflow-hidden text-white">
+        <KineticGrid className="dark-grid noise kinetic-grid-surface section-space">
+          <div className="container-shell relative z-10">
+            <Reveal>
+              <SectionHeading dark align="center" eyebrow="Criterio antes que ruido" title="La tecnología es el medio. El sistema es el resultado." />
+            </Reveal>
+            <div className="mt-14 grid gap-4 lg:grid-cols-3">
             {differentiators.map((item, index) => {
               const Icon = differentiatorIcons[item.icon];
               return (
@@ -229,12 +211,13 @@ export default function HomePage() {
                 </Reveal>
               );
             })}
+            </div>
+            <Reveal className="mt-6 grid overflow-hidden rounded-card border border-white/10 md:grid-cols-2">
+              <div className="bg-white/[0.025] p-7 sm:p-9"><p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/65">Enfoque habitual</p><ul className="mt-6 grid gap-4 text-white/65">{["Empezar por una herramienta", "Prometer una transformación completa", "Automatizar antes de ordenar"].map((item) => <li key={item} className="flex gap-3"><span className="text-white/55">—</span>{item}</li>)}</ul></div>
+              <div className="border-t border-sky/15 bg-sky/[0.065] p-7 sm:p-9 md:border-l md:border-t-0"><p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em] text-sky">Nuestro enfoque</p><ul className="mt-6 grid gap-4 text-white/78">{["Empezar por el proceso", "Cerrar un primer alcance útil", "Automatizar con supervisión y medida"].map((item) => <li key={item} className="flex gap-3"><Check size={17} className="mt-0.5 shrink-0 text-sky" aria-hidden="true" />{item}</li>)}</ul></div>
+            </Reveal>
           </div>
-          <Reveal className="mt-6 grid overflow-hidden rounded-card border border-white/10 md:grid-cols-2">
-            <div className="bg-white/[0.025] p-7 sm:p-9"><p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/65">Enfoque habitual</p><ul className="mt-6 grid gap-4 text-white/65">{["Empezar por una herramienta", "Prometer una transformación completa", "Automatizar antes de ordenar"].map((item) => <li key={item} className="flex gap-3"><span className="text-white/55">—</span>{item}</li>)}</ul></div>
-            <div className="border-t border-sky/15 bg-sky/[0.065] p-7 sm:p-9 md:border-l md:border-t-0"><p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em] text-sky">Nuestro enfoque</p><ul className="mt-6 grid gap-4 text-white/78">{["Empezar por el proceso", "Cerrar un primer alcance útil", "Automatizar con supervisión y medida"].map((item) => <li key={item} className="flex gap-3"><Check size={17} className="mt-0.5 shrink-0 text-sky" aria-hidden="true" />{item}</li>)}</ul></div>
-          </Reveal>
-        </div>
+        </KineticGrid>
       </section>
 
       <section id="equipo" className="section-space bg-cloud">
@@ -245,18 +228,7 @@ export default function HomePage() {
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
             {team.map((member, index) => (
               <Reveal key={member.name} delay={index * 0.07} className="h-full">
-                <article className="card-lift group flex h-full flex-col overflow-hidden rounded-card border border-line bg-white shadow-card">
-                  <div className="relative aspect-[4/4.55] overflow-hidden bg-primary">
-                    <Image src={teamImages[member.image]} alt={`${member.name}, ${member.role}`} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover transition duration-500 group-hover:scale-[1.025]" />
-                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink/80 to-transparent" />
-                    <p className={`absolute bottom-5 left-5 rounded-full border px-3 py-1.5 font-mono text-[0.62rem] font-bold uppercase tracking-[0.13em] backdrop-blur ${member.tone === "blue" ? "border-sky/30 bg-sky/12 text-sky" : "border-gold/30 bg-gold/12 text-gold"}`}>{member.pillar}</p>
-                  </div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <h3 className="text-2xl font-semibold tracking-[-0.03em] text-primary">{member.name}</h3>
-                    <p className="mt-1 text-sm font-semibold text-blue">{member.role}</p>
-                    <p className="mt-4 text-sm leading-6 text-muted">{member.description}</p>
-                  </div>
-                </article>
+                <TeamCard member={member} />
               </Reveal>
             ))}
           </div>
