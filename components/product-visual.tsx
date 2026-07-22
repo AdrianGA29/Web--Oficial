@@ -1,4 +1,6 @@
-import { BarChart3, Check, ChevronRight, CircleDot, Clock3, FileText, Layers3, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { Check, ChevronRight, CircleDot, Clock3, FileText, Layers3, LockKeyhole, RefreshCw, Sparkles, X } from "lucide-react";
+import portfolioHeroPreview from "@/assets/images/portfolio-hero-preview.png";
 import { cn } from "@/lib/utils";
 
 export function ProductVisual({ type, className }: { type: "flow" | "budget" | "web"; className?: string }) {
@@ -7,19 +9,36 @@ export function ProductVisual({ type, className }: { type: "flow" | "budget" | "
   return <FlowVisual className={className} />;
 }
 
-function Window({ children, label, className }: { children: React.ReactNode; label: string; className?: string }) {
+function Window({ children, label, className, address }: { children: React.ReactNode; label: string; className?: string; address?: string }) {
   return (
     <div
       role="img"
       aria-label={label}
       className={cn("overflow-hidden rounded-[1.15rem] border border-white/12 bg-[#08172d] shadow-[0_28px_80px_rgba(3,10,22,0.38)]", className)}
     >
-      <div className="flex h-11 items-center gap-2 border-b border-white/10 bg-white/[0.035] px-4">
-        <span className="size-2 rounded-full bg-[#ff7a72]" />
-        <span className="size-2 rounded-full bg-gold" />
-        <span className="size-2 rounded-full bg-[#46c799]" />
-        <div className="ml-3 h-5 w-32 rounded-md bg-white/[0.055]" />
-        <div className="ml-auto size-5 rounded-md border border-white/10" />
+      <div className="flex h-12 items-center gap-2.5 border-b border-white/10 bg-gradient-to-r from-white/[0.055] to-white/[0.025] px-3 sm:px-4" aria-hidden="true">
+        <div className="flex shrink-0 items-center gap-1.5">
+          <span className="size-2 rounded-full bg-[#ff716b] shadow-[0_0_8px_rgba(255,113,107,.3)]" />
+          <span className="size-2 rounded-full bg-gold/90" />
+          <span className="size-2 rounded-full bg-[#46c799]/90" />
+        </div>
+        {address ? (
+          <>
+            <div className="ml-1 flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-white/9 bg-black/22 px-3 py-1.5 shadow-[inset_0_1px_4px_rgba(0,0,0,.22),inset_0_1px_0_rgba(255,255,255,.035)]">
+              <LockKeyhole size={11} className="shrink-0 text-emerald-300/72" />
+              <span className="truncate font-mono text-[0.58rem] font-medium tracking-[-0.01em] text-white/48">{address}</span>
+              <RefreshCw size={11} className="ml-auto shrink-0 text-white/28" />
+            </div>
+            <span className="grid size-7 shrink-0 place-items-center rounded-md border border-white/8 bg-white/[0.035] text-white/42 shadow-[inset_0_1px_0_rgba(255,255,255,.05)]">
+              <X size={13} strokeWidth={1.8} />
+            </span>
+          </>
+        ) : (
+          <>
+            <div className="ml-3 h-5 w-32 rounded-md bg-white/[0.055]" />
+            <div className="ml-auto size-5 rounded-md border border-white/10" />
+          </>
+        )}
       </div>
       {children}
     </div>
@@ -113,28 +132,20 @@ function BudgetVisual({ className }: { className?: string }) {
 
 function WebVisual({ className }: { className?: string }) {
   return (
-    <Window label="Representación conceptual de una experiencia web interactiva" className={className}>
-      <div className="relative min-h-[26rem] overflow-hidden p-6">
-        <div className="absolute -right-16 top-4 size-60 rounded-full bg-blue/20 blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 size-48 rounded-full bg-sky/10 blur-3xl" />
-        <div className="relative grid gap-6 sm:grid-cols-[1.05fr_0.95fr]">
-          <div className="pt-5">
-            <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.16em] text-sky">Experiencia conectada</span>
-            <p className="mt-4 max-w-xs text-3xl font-semibold leading-[1.02] tracking-[-0.045em] text-white">Una web que también hace su parte.</p>
-            <p className="mt-4 max-w-sm text-xs leading-5 text-white/60">Narrativa, interacción y automatización al servicio de una decisión concreta.</p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-[0.68rem] font-bold text-primary">Explorar flujo <ChevronRight size={13} aria-hidden="true" /></div>
-          </div>
-          <div className="relative min-h-64">
-            <div className="absolute inset-x-5 top-4 rounded-xl border border-white/12 bg-white/[0.055] p-4 backdrop-blur">
-              <div className="flex items-center gap-2"><Sparkles size={15} className="text-gold" aria-hidden="true" /><span className="text-xs font-semibold text-white/78">Asistente contextual</span></div>
-              <div className="mt-4 h-2 w-4/5 rounded-full bg-white/8" /><div className="mt-2 h-2 w-3/5 rounded-full bg-white/6" />
-            </div>
-            <div className="absolute inset-x-0 top-36 rounded-xl border border-sky/18 bg-[#0d2545]/95 p-4 shadow-xl">
-              <div className="flex items-center justify-between"><span className="text-[0.68rem] font-semibold text-white/65">Recorrido de conversión</span><BarChart3 size={15} className="text-sky" aria-hidden="true" /></div>
-              <div className="mt-5 flex items-end gap-2">{[44, 62, 56, 84, 74].map((height, i) => <span key={i} className="flex-1 rounded-t bg-gradient-to-t from-blue/50 to-sky/75" style={{ height: `${height}px` }} />)}</div>
-            </div>
-          </div>
-        </div>
+    <Window label="Vista previa del hero del portfolio interactivo de Adrián García" className={className} address="portfoliopersonal-nu.vercel.app">
+      <div className="relative aspect-[16/10] min-h-[18rem] overflow-hidden bg-black">
+        <Image
+          src={portfolioHeroPreview}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 45vw, 100vw"
+          className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-transparent to-black/8" />
+        <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg border border-white/16 bg-black/42 px-3 py-2 text-[0.65rem] font-semibold text-white/78 shadow-xl backdrop-blur-md">
+          <i className="size-1.5 rounded-full bg-[#66ff55] shadow-[0_0_10px_#66ff55]" aria-hidden="true" />
+          Vista previa real
+        </span>
       </div>
     </Window>
   );

@@ -130,7 +130,6 @@ export default function HomePage() {
                 <div className="p-[clamp(1.2rem,3.5vw,2.75rem)]">
                   <ExperiencePreview
                     demoHref={services[2].demoHref!}
-                    serviceHref={`/servicios/${services[2].slug}`}
                     title="Una web que demuestra el nivel antes de explicarlo."
                     summary="Portfolio personal diseñado como una experiencia: narrativa visual, interacción y desarrollo frontend trabajando juntos. Puedes recorrerlo sin salir de esta página."
                     tags={["Dirección visual", "Motion UI", "Desarrollo frontend"]}

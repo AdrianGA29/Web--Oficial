@@ -1,20 +1,17 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Expand, ExternalLink, X } from "lucide-react";
+import { Expand, ExternalLink, X } from "lucide-react";
 import { buttonClass } from "@/components/button";
 import { ProductVisual } from "@/components/product-visual";
 
 export function ExperiencePreview({
   demoHref,
-  serviceHref,
   title,
   summary,
   tags,
 }: {
   demoHref: string;
-  serviceHref: string;
   title: string;
   summary: string;
   tags: string[];
@@ -89,9 +86,6 @@ export function ExperiencePreview({
             <button type="button" onClick={openPreview} className={buttonClass("primary")}>
               Ver la web aquí <Expand size={17} aria-hidden="true" />
             </button>
-            <Link href={serviceHref} className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition-colors hover:text-white">
-              <span className="link-underline">Cómo construimos webs</span> <ArrowRight size={17} aria-hidden="true" />
-            </Link>
           </div>
         </div>
       </article>
