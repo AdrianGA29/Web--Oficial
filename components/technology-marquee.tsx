@@ -53,13 +53,23 @@ const product: Technology[] = [
   { label: "Vercel", icon: siVercel },
 ];
 
-function TechnologyList({ technologies, duplicate = false }: { technologies: Technology[]; duplicate?: boolean }) {
+function TechnologyList({
+  technologies,
+  duplicate = false,
+}: {
+  technologies: Technology[];
+  duplicate?: boolean;
+}) {
   return (
-    <ul className="technology-marquee-group" aria-hidden={duplicate || undefined}>
+    <ul className="technology-bridge-group" aria-hidden={duplicate || undefined}>
       {Array.from({ length: 3 }, (_, cycle) =>
         technologies.map(({ label, icon }) => (
-          <li key={`${cycle}-${label}`} className="technology-chip" aria-hidden={cycle > 0 || undefined}>
-            <span className="technology-icon" style={{ color: `#${icon.hex}` }} aria-hidden="true">
+          <li
+            key={`${cycle}-${label}`}
+            className="technology-bridge-item"
+            aria-hidden={cycle > 0 || undefined}
+          >
+            <span className="technology-bridge-icon" style={{ color: `#${icon.hex}` }} aria-hidden="true">
               <svg viewBox="0 0 24 24" role="presentation"><path fill="currentColor" d={icon.path} /></svg>
             </span>
             <span>{label}</span>
@@ -70,10 +80,16 @@ function TechnologyList({ technologies, duplicate = false }: { technologies: Tec
   );
 }
 
-function MarqueeRow({ technologies, reverse = false }: { technologies: Technology[]; reverse?: boolean }) {
+function TechnologyTrack({
+  technologies,
+  reverse = false,
+}: {
+  technologies: Technology[];
+  reverse?: boolean;
+}) {
   return (
-    <div className="technology-marquee">
-      <div className={`technology-marquee-track${reverse ? " technology-marquee-track-reverse" : ""}`}>
+    <div className="technology-bridge-marquee">
+      <div className={`technology-bridge-track${reverse ? " is-reverse" : ""}`}>
         <TechnologyList technologies={technologies} />
         <TechnologyList technologies={technologies} duplicate />
       </div>
@@ -83,16 +99,22 @@ function MarqueeRow({ technologies, reverse = false }: { technologies: Technolog
 
 export function TechnologyMarquee() {
   return (
-    <section className="technology-wall" aria-labelledby="technology-wall-title">
-      <div className="container-shell text-center">
-        <h2 id="technology-wall-title" className="text-balance text-[clamp(1.65rem,2.7vw,2.4rem)] font-semibold tracking-[-0.04em] text-primary">
-          Tecnología de alto nivel, aplicada con criterio.
-        </h2>
-        <p className="mx-auto mt-2.5 max-w-2xl leading-7 text-muted">IA, automatización y desarrollo combinados con criterio, sin atarnos a una única herramienta.</p>
+    <section className="technology-bridge" aria-labelledby="technology-bridge-title">
+      <div className="container-shell technology-bridge-heading">
+        <div>
+          <span>STACK / CAPACIDAD</span>
+          <h2 id="technology-bridge-title">Tecnologías de alto nivel con las que operamos.</h2>
+        </div>
+        <p>DESARROLLO · AUTOMATIZACIÓN · IA</p>
       </div>
-      <div className="mt-5 grid gap-1" aria-label="Tecnologías que podemos integrar">
-        <MarqueeRow technologies={intelligence} />
-        <MarqueeRow technologies={product} reverse />
+
+      <div className="technology-bridge-panel">
+        <span className="technology-bridge-corner is-left" aria-hidden="true" />
+        <span className="technology-bridge-corner is-right" aria-hidden="true" />
+        <div className="technology-bridge-rails" aria-label="Tecnologías que podemos integrar">
+        <TechnologyTrack technologies={intelligence} />
+        <TechnologyTrack technologies={product} reverse />
+        </div>
       </div>
     </section>
   );

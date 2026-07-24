@@ -122,18 +122,9 @@ export default function HomePage() {
 
       <ServicesIndex />
 
-      <section id="soluciones" className="relative overflow-hidden text-white">
-        <KineticGrid className="dark-grid noise kinetic-grid-surface section-space">
-          <div className="container-shell relative z-10">
-            <Reveal>
-              <SectionHeading dark eyebrow="Muestra de capacidad" title="Mejor verlo funcionando." description="Dos experiencias reales dicen más que otra lista de promesas: una web expresiva y una herramienta de gestión construida alrededor del trabajo diario." />
-            </Reveal>
-            <ToolShowcase />
-          </div>
-        </KineticGrid>
-      </section>
-
       <TechnologyMarquee />
+
+      <ToolShowcase />
 
       <section id="diferenciacion" className="relative overflow-hidden text-white">
         <KineticGrid className="dark-grid noise kinetic-grid-surface section-space">
