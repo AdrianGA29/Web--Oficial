@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { GlassNavbar } from "@/components/aicanvas/glass-navbar";
 import { Brand } from "@/components/brand";
 import { buttonClass } from "@/components/button";
@@ -10,10 +11,12 @@ import { navigation } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const compact = scrolled || open;
+  const overDarkHero = pathname === "/" && !compact;
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 16);
@@ -44,16 +47,20 @@ export function Header() {
       <GlassNavbar
         compact={compact}
         aria-label="Navegación principal"
-        className={cn(compact ? "h-[3.75rem]" : "h-[4.25rem] lg:h-[5.5rem]")}
+        className={cn(
+          compact ? "h-[3.75rem]" : "h-[4.25rem] lg:h-[4.5rem]",
+          overDarkHero && "hero-navbar-open",
+        )}
       >
-        <Brand className={cn("transition-transform duration-500", !compact && "lg:scale-[1.08] lg:origin-left")} />
+        <Brand className={cn("transition-[transform,color] duration-500", !compact && "lg:scale-[1.08] lg:origin-left", overDarkHero && "text-white")} />
         <div className={cn("hidden items-center transition-[gap] duration-500 lg:flex", compact ? "gap-1" : "gap-2")}>
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "focus-ring rounded-md font-semibold text-primary/80 transition-[padding,color,font-size] duration-300 hover:text-blue",
+                "focus-ring rounded-md font-semibold transition-[padding,color,font-size] duration-300",
+                overDarkHero ? "text-white/72 hover:text-white" : "text-primary/80 hover:text-blue",
                 compact
                   ? "px-3.5 py-2 text-sm"
                   : "px-5 py-3 text-base",
@@ -66,7 +73,10 @@ export function Header() {
         <div className="hidden lg:block">
           <Link
             href="/#contacto"
-            className={buttonClass("dark", compact ? "min-h-10 px-4 text-sm" : "min-h-12 px-5 text-base")}
+            className={buttonClass("dark", cn(
+              compact ? "min-h-10 px-4 text-sm" : "min-h-12 px-5 text-base",
+              overDarkHero && "temis-matte-button border border-white/10 shadow-none",
+            ))}
           >
             Cuéntanos tu caso <ArrowUpRight size={16} aria-hidden="true" />
           </Link>
@@ -78,7 +88,10 @@ export function Header() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((value) => !value)}
-          className="focus-ring grid size-11 place-items-center rounded-xl border border-primary/12 bg-cloud text-primary lg:hidden"
+          className={cn(
+            "focus-ring grid size-11 place-items-center rounded-xl border lg:hidden",
+            overDarkHero ? "temis-matte-button border-white/10 text-white" : "border-primary/12 bg-cloud text-primary",
+          )}
         >
           {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Geist } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -7,20 +7,17 @@ import { siteConfig } from "@/lib/config";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   display: "swap",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Nueva Empresa | Transformación operativa para pymes",
-    template: "%s | Nueva Empresa",
+    default: `${siteConfig.name} | Transformación operativa para pymes`,
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
@@ -28,13 +25,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     siteName: siteConfig.name,
-    title: "Nueva Empresa | Del caos operativo a un sistema claro",
+    title: `${siteConfig.name} | Del caos operativo a un sistema claro`,
     description: siteConfig.description,
     images: [{ url: "/og/social.png", width: 1680, height: 937, alt: "Paisaje abstracto azul" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nueva Empresa | Transformación operativa para pymes",
+    title: `${siteConfig.name} | Transformación operativa para pymes`,
     description: siteConfig.description,
     images: ["/og/social.png"],
   },
@@ -44,13 +41,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060f1f",
+  themeColor: "#070B1A",
   colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={cn("font-sans", geist.variable)}>
+    <html lang="es" className={cn("font-sans", montserrat.variable)}>
       <body>
         <a
           href="#contenido"

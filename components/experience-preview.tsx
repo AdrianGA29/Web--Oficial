@@ -10,11 +10,25 @@ export function ExperiencePreview({
   title,
   summary,
   tags,
+  exampleLabel = "Ejemplo 01 · Web interactiva",
+  visual = "web",
+  browserTitle = "Portfolio · Adrián García",
+  iframeTitle = "Portfolio interactivo de Adrián García",
+  actionLabel = "Ver la web aquí",
+  embeddable = true,
+  compact = false,
 }: {
   demoHref: string;
   title: string;
   summary: string;
   tags: string[];
+  exampleLabel?: string;
+  visual?: "web" | "crm";
+  browserTitle?: string;
+  iframeTitle?: string;
+  actionLabel?: string;
+  embeddable?: boolean;
+  compact?: boolean;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeTimerRef = useRef<number | null>(null);
@@ -60,37 +74,56 @@ export function ExperiencePreview({
 
   return (
     <>
-      <article className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
-        <button
+      <article className={compact ? "flex h-full min-w-0 flex-col gap-7" : "grid min-w-0 items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16"}>
+        {embeddable ? <button
           type="button"
           onClick={openPreview}
-          aria-label="Abrir la web portfolio en una vista interactiva"
+          aria-label={`Abrir ${browserTitle} en una vista interactiva`}
           className="focus-ring group relative block w-full rounded-[1.15rem] text-left"
         >
-          <ProductVisual type="web" className="transition-[transform,box-shadow,border-color] duration-300 ease-out group-hover:-translate-y-1 group-hover:border-sky/30 group-hover:shadow-[0_34px_90px_rgba(3,10,22,0.48)]" />
+          <ProductVisual type={visual} className="transition-[transform,box-shadow,border-color] duration-300 ease-out group-hover:-translate-y-1 group-hover:border-sky/30 group-hover:shadow-[0_34px_90px_rgba(3,10,22,0.48)]" />
           <span className="absolute inset-0 grid place-items-center rounded-[1.15rem] bg-ink/8 opacity-0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-ink/88 px-4 py-2.5 text-sm font-semibold text-white shadow-xl">
               Ver experiencia <Expand size={16} />
             </span>
           </span>
-        </button>
+        </button> : <a
+          href={demoHref}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Abrir ${browserTitle} en una pestaña nueva`}
+          className="focus-ring group relative block w-full rounded-[1.15rem] text-left"
+        >
+          <ProductVisual type={visual} className="transition-[transform,box-shadow,border-color] duration-300 ease-out group-hover:-translate-y-1 group-hover:border-sky/30 group-hover:shadow-[0_34px_90px_rgba(3,10,22,0.48)]" />
+          <span className="absolute inset-0 grid place-items-center rounded-[1.15rem] bg-ink/8 opacity-0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-ink/88 px-4 py-2.5 text-sm font-semibold text-white shadow-xl">
+              Abrir demo <ExternalLink size={16} />
+            </span>
+          </span>
+        </a>}
 
-        <div>
-          <p className="font-mono text-[0.67rem] font-bold uppercase tracking-[0.15em] text-sky">Ejemplo 01 · Web interactiva</p>
-          <h3 className="mt-5 text-balance text-[clamp(2.15rem,4.2vw,3.5rem)] font-semibold leading-[1.02] tracking-[-0.05em]">{title}</h3>
-          <p className="mt-6 max-w-xl text-base leading-7 text-white/62">{summary}</p>
+        <div className={compact ? "flex flex-1 flex-col px-1 pb-1" : undefined}>
+          <p className="font-mono text-[0.67rem] font-bold uppercase tracking-[0.15em] text-sky">{exampleLabel}</p>
+          <h3 className={compact ? "mt-4 text-balance text-[clamp(1.55rem,2.5vw,2.15rem)] font-semibold leading-[1.08] tracking-[-0.045em]" : "mt-5 text-balance text-[clamp(2.15rem,4.2vw,3.5rem)] font-semibold leading-[1.02] tracking-[-0.05em]"}>{title}</h3>
+          <p className={compact ? "mt-4 text-sm leading-6 text-white/58" : "mt-6 max-w-xl text-base leading-7 text-white/62"}>{summary}</p>
           <div className="mt-6 flex flex-wrap gap-2">
             {tags.map((tag) => <span key={tag} className="rounded-full border border-white/12 bg-white/[0.045] px-3 py-1.5 text-xs font-medium text-white/62">{tag}</span>)}
           </div>
-          <div className="mt-9 flex flex-wrap items-center gap-5">
-            <button type="button" onClick={openPreview} className={buttonClass("primary")}>
-              Ver la web aquí <Expand size={17} aria-hidden="true" />
-            </button>
+          <div className={compact ? "mt-auto flex flex-wrap items-center gap-5 pt-7" : "mt-9 flex flex-wrap items-center gap-5"}>
+            {embeddable ? (
+              <button type="button" onClick={openPreview} className={buttonClass("primary")}>
+                {actionLabel} <Expand size={17} aria-hidden="true" />
+              </button>
+            ) : (
+              <a href={demoHref} target="_blank" rel="noreferrer" className={buttonClass("primary")}>
+                Probar la herramienta <ExternalLink size={17} aria-hidden="true" />
+              </a>
+            )}
           </div>
         </div>
       </article>
 
-      <dialog
+      {embeddable && <dialog
         ref={dialogRef}
         aria-labelledby={titleId}
         data-closing={closing || undefined}
@@ -111,7 +144,7 @@ export function ExperiencePreview({
               <span className="size-2.5 rounded-full bg-[#46c799]" />
             </div>
             <div className="min-w-0 flex-1 rounded-lg border border-white/8 bg-white/[0.045] px-3 py-2 text-center">
-              <p id={titleId} className="truncate text-xs font-medium text-white/70">Portfolio · Adrián García</p>
+              <p id={titleId} className="truncate text-xs font-medium text-white/70">{browserTitle}</p>
             </div>
             <a href={demoHref} target="_blank" rel="noreferrer" className="focus-ring grid size-10 shrink-0 place-items-center rounded-lg text-white/65 transition hover:bg-white/8 hover:text-white" aria-label="Abrir la web en una pestaña nueva">
               <ExternalLink size={17} aria-hidden="true" />
@@ -133,7 +166,7 @@ export function ExperiencePreview({
             {active && (
               <iframe
                 src={demoHref}
-                title="Portfolio interactivo de Adrián García"
+                title={iframeTitle}
                 onLoad={() => setLoaded(true)}
                 className="size-full border-0 bg-white"
                 sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts"
@@ -142,7 +175,7 @@ export function ExperiencePreview({
             )}
           </div>
         </div>
-      </dialog>
+      </dialog>}
     </>
   );
 }

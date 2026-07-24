@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Brand } from "@/components/brand";
 import { services } from "@/lib/services";
+import { siteConfig } from "@/lib/config";
 
 const linkClass = "link-underline focus-ring rounded-md text-sm text-white/58 hover:text-white";
 
@@ -37,7 +38,6 @@ export function Footer() {
           <div>
             <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.15em] text-sky">Compañía</p>
             <ul className="mt-6 grid gap-3.5">
-              <li><Link href="/#metodo" className={linkClass}>Método</Link></li>
               <li><Link href="/nosotros" className={linkClass}>Nosotros</Link></li>
               <li><Link href="/#contacto" className={linkClass}>Contacto</Link></li>
               <li><Link href="/privacidad" className={linkClass}>Privacidad</Link></li>
@@ -45,7 +45,7 @@ export function Footer() {
           </div>
         </div>
         <div className="flex flex-col gap-4 py-7 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Nueva Empresa. Identidad provisional.</p>
+          <p>© {new Date().getFullYear()} {siteConfig.name}.</p>
           <div className="flex gap-5">
             <Link href="/terminos" className={linkClass}>Términos</Link>
             <Link href="/cookies" className={linkClass}>Cookies</Link>

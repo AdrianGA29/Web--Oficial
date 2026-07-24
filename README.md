@@ -1,6 +1,6 @@
-# Web oficial
+# Temis Λtrile
 
-Sitio corporativo en fase de desarrollo para una consultora de transformación operativa. La identidad definitiva —nombre, logotipo, dominio y paleta— se incorporará antes del lanzamiento público.
+Sitio corporativo en fase de desarrollo para Temis Λtrile, consultora de transformación operativa. El logotipo, el dominio y el resto de la identidad definitiva se incorporarán antes del lanzamiento público.
 
 ## Desarrollo local
 

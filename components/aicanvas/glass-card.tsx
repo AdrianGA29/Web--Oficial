@@ -15,7 +15,7 @@ export function GlassCard({ children, className, variant = "card" }: GlassCardPr
   const reducedMotion = useReducedMotion();
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
-  const tilt = variant === "feature" ? 1.2 : variant === "portrait" ? 2.2 : 4;
+  const tilt = variant === "feature" ? 1.7 : variant === "portrait" ? 2.9 : 5.1;
 
   const rotateX = useSpring(useTransform(mouseY, [0, 1], [tilt, -tilt]), { stiffness: 190, damping: 24, mass: 0.65 });
   const rotateY = useSpring(useTransform(mouseX, [0, 1], [-tilt, tilt]), { stiffness: 190, damping: 24, mass: 0.65 });
@@ -46,7 +46,7 @@ export function GlassCard({ children, className, variant = "card" }: GlassCardPr
       data-variant={variant}
       onPointerMove={updatePointer}
       onPointerLeave={resetPointer}
-      style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformPerspective: variant === "feature" ? 1400 : variant === "portrait" ? 1100 : 900 }}
+      style={{ rotateX: reducedMotion ? 0 : rotateX, rotateY: reducedMotion ? 0 : rotateY, transformPerspective: variant === "feature" ? 1250 : variant === "portrait" ? 1000 : 850 }}
       className={cn(
         "aicanvas-glass-card backdrop-saturate-125",
         variant === "feature" || variant === "portrait" ? "backdrop-blur-md" : "backdrop-blur-sm",

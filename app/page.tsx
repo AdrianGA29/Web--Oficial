@@ -1,38 +1,33 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
-import { getImageProps } from "next/image";
-import Link from "next/link";
 import {
-  ArrowDown,
-  ArrowRight,
   ArrowUpRight,
   Blocks,
   Check,
-  FileSearch,
   ShieldCheck,
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
-import heroDesktop from "@/assets/images/hero-desktop.webp";
-import heroMobile from "@/assets/images/hero-mobile.webp";
 import { GlassCard } from "@/components/aicanvas/glass-card";
-import { buttonClass } from "@/components/button";
+import { commitmentStatements } from "@/components/commitment-marquee";
 import { ContactForm } from "@/components/contact-form";
-import { CommitmentMarquee } from "@/components/commitment-marquee";
-import { ExperiencePreview } from "@/components/experience-preview";
 import { FaqList } from "@/components/faq";
 import { FrictionEditorial } from "@/components/friction-editorial";
+import { HeroGoldenSequence } from "@/components/hero-golden-sequence";
+import { HeroGlitchIntro } from "@/components/hero-glitch-intro";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import { TeamCard } from "@/components/team-card";
+import { ServicesIndex } from "@/components/services-index";
+import { TemisHeroVisual } from "@/components/temis-hero-visual";
 import { TechnologyMarquee } from "@/components/technology-marquee";
+import { ToolShowcase } from "@/components/tool-showcase";
 import { TrackedLink } from "@/components/tracked-link";
+import { GradientText } from "@/components/ui/gradient-text";
 import { KineticGrid } from "@/components/ui/kinetic-grid";
-import { differentiators, faqs, methodSteps, team } from "@/lib/site";
-import { services } from "@/lib/services";
+import { siteConfig } from "@/lib/config";
+import { differentiators, faqs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Transformación operativa para pymes",
+  title: { absolute: `${siteConfig.name} | Transformación operativa para pymes` },
   description:
     "Convertimos procesos manuales y herramientas desconectadas en sistemas claros, medibles y preparados para crecer.",
 };
@@ -43,15 +38,21 @@ const differentiatorIcons: Record<(typeof differentiators)[number]["icon"], Luci
   shield: ShieldCheck,
 };
 
-function HeroPicture() {
-  const common = { alt: "", sizes: "100vw", quality: 84, loading: "eager" } as const;
-  const { props: desktop } = getImageProps({ ...common, src: heroDesktop, fetchPriority: "high" });
-  const { props: mobile } = getImageProps({ ...common, src: heroMobile, fetchPriority: "high" });
+function HeroCommitmentGroup({ duplicate = false }: { duplicate?: boolean }) {
   return (
-    <picture className="absolute inset-0" aria-hidden="true">
-      <source media="(max-width: 767px)" srcSet={mobile.srcSet} />
-      <img {...desktop} alt="" className="size-full object-cover object-center" />
-    </picture>
+    <ul className="temis-hero-marquee-group" aria-hidden={duplicate || undefined}>
+      {Array.from({ length: 2 }, (_, cycle) =>
+        commitmentStatements.map((statement) => (
+          <li key={`${cycle}-${statement.accent}`} aria-hidden={cycle > 0 || undefined}>
+            <p>
+              <strong>{statement.accent}</strong>{" "}
+              <span>{statement.rest}</span>
+            </p>
+            <span className="temis-hero-marquee-separator" aria-hidden="true">—</span>
+          </li>
+        )),
+      )}
+    </ul>
   );
 }
 
@@ -68,98 +69,68 @@ export default function HomePage() {
 
   return (
     <>
-      <section id="inicio" className="relative flex min-h-[max(47rem,100svh)] overflow-hidden bg-[#d9ecff] pt-28">
-        <HeroPicture />
-        <div className="container-shell relative z-10 flex flex-1 items-center py-14 sm:py-20">
-          <div className="max-w-[46rem]">
+      <section id="inicio" className="temis-hero is-glitch-pending is-geometry-pending relative flex min-h-[max(47rem,100svh)] flex-col overflow-hidden bg-[#070B1A] pt-24 text-white">
+        <HeroGlitchIntro />
+        <HeroGoldenSequence />
+
+        <TemisHeroVisual />
+
+        <div className="temis-hero-content container-shell relative z-10 flex flex-1 items-center py-12 sm:py-16">
+          <div className="temis-hero-copy">
             <div className="hero-enter">
-              <div className="inline-flex items-center gap-2.5 rounded-full border border-white/70 bg-white/65 px-3.5 py-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.13em] text-primary shadow-sm backdrop-blur">
-                <span className="size-1.5 rounded-full bg-blue shadow-[0_0_0_5px_rgba(47,114,196,.12)]" />
-                Transformación operativa para pymes
+              <div className="temis-hero-eyebrow inline-flex items-center gap-2.5 font-mono text-[0.64rem] font-bold uppercase tracking-[0.16em] text-white/62">
+                <span className="size-1.5 rounded-full bg-[#9b8cff] shadow-[0_0_0_5px_rgba(155,140,255,.12),0_0_18px_rgba(155,140,255,.62)]" />
+                <span>Transformación operativa<span className="temis-hero-eyebrow-suffix"> para pymes</span></span>
               </div>
             </div>
             <div className="hero-enter">
-              <h1 className="display-title mt-6 max-w-[12ch] text-ink drop-shadow-[0_2px_16px_rgba(255,255,255,.85)]">
-                Del caos operativo a un <span className="gradient-text">sistema claro.</span>
+              <h1 className="temis-hero-title mt-5 text-white">
+                Del caos{" "}
+                <span className="block"><GradientText>al sistema.</GradientText></span>
               </h1>
             </div>
             <div className="hero-enter">
-              <p className="mt-7 max-w-2xl text-[clamp(1.05rem,1.7vw,1.28rem)] font-medium leading-8 text-primary drop-shadow-[0_1px_10px_rgba(255,255,255,.95)]">
-                Diagnosticamos procesos, conectamos herramientas y automatizamos con criterio técnico, legal y financiero. Primero entendemos tu empresa; después decidimos por dónde empezar.
+              <p className="temis-hero-subtitle mt-5 max-w-[35rem] text-[clamp(1rem,1.2vw,1.12rem)] leading-8 text-white/62">
+                Convertimos procesos manuales y herramientas desconectadas en una operativa clara, medible y preparada para crecer.
               </p>
             </div>
             <div className="hero-enter">
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <TrackedLink href="#contacto" eventName="CTA contact" eventLocation="hero" className={buttonClass("primary", "min-h-14 px-6")}>
-                  Cuéntanos tu caso <ArrowUpRight size={18} aria-hidden="true" />
-                </TrackedLink>
-                <Link href="#metodo" className={buttonClass("light", "min-h-14 px-6")}>
-                  Ver cómo trabajamos <ArrowDown size={17} aria-hidden="true" />
-                </Link>
+              <TrackedLink href="#contacto" eventName="CTA contact" eventLocation="hero" className="temis-matte-button temis-hero-cta mt-7">
+                Empezar por un diagnóstico <ArrowUpRight size={17} aria-hidden="true" />
+              </TrackedLink>
+            </div>
+          </div>
+        </div>
+
+        <div className="temis-hero-proof relative z-10">
+          <div className="container-shell temis-hero-proof-inner">
+            <p>
+              <span>Una visión completa</span>
+              de tu operativa
+            </p>
+            <div className="temis-hero-marquee">
+              <div className="temis-hero-marquee-track">
+                <HeroCommitmentGroup />
+                <HeroCommitmentGroup duplicate />
               </div>
-              <p className="mt-4 text-sm font-medium text-primary/80">Primera sesión sin coste · Sin permanencia · Sin soluciones prefabricadas</p>
             </div>
           </div>
         </div>
       </section>
 
-      <CommitmentMarquee />
+      <FrictionEditorial />
 
-      <section id="desafios" className="friction-editorial-section section-space">
-        <div className="container-shell friction-editorial-layout">
-          <Reveal className="friction-editorial-intro">
-            <SectionHeading eyebrow="Señales de fricción" title="Hay cosas que una empresa no debería normalizar." description="No parecen grandes problemas por separado. Repetidos cada semana, terminan convirtiéndose en coste, lentitud y oportunidades perdidas." />
-            <div className="friction-editorial-summary" aria-hidden="true">
-              <div><strong>06</strong><span>señales<br />recurrentes</span></div>
-              <div className="friction-editorial-dots">{Array.from({ length: 6 }, (_, index) => <i key={index} style={{ "--dot-delay": `${index * 0.16}s` } as CSSProperties} />)}</div>
-              <p>Un mismo patrón: la operativa necesita un sistema.</p>
-            </div>
-          </Reveal>
-          <Reveal y={14}><FrictionEditorial /></Reveal>
-        </div>
-      </section>
+      <ServicesIndex />
 
       <section id="soluciones" className="relative overflow-hidden text-white">
         <KineticGrid className="dark-grid noise kinetic-grid-surface section-space">
           <div className="container-shell relative z-10">
             <Reveal>
-              <SectionHeading dark eyebrow="Muestra de capacidad" title="Mejor verlo funcionando." description="Una experiencia real dice más que otra lista de promesas. Esta web es una muestra de lo que podemos diseñar y construir para un cliente." />
+              <SectionHeading dark eyebrow="Muestra de capacidad" title="Mejor verlo funcionando." description="Dos experiencias reales dicen más que otra lista de promesas: una web expresiva y una herramienta de gestión construida alrededor del trabajo diario." />
             </Reveal>
-            <Reveal className="mt-16">
-              <GlassCard variant="feature">
-                <div className="p-[clamp(1.2rem,3.5vw,2.75rem)]">
-                  <ExperiencePreview
-                    demoHref={services[2].demoHref!}
-                    title="Una web que demuestra el nivel antes de explicarlo."
-                    summary="Portfolio personal diseñado como una experiencia: narrativa visual, interacción y desarrollo frontend trabajando juntos. Puedes recorrerlo sin salir de esta página."
-                    tags={["Dirección visual", "Motion UI", "Desarrollo frontend"]}
-                  />
-                </div>
-              </GlassCard>
-            </Reveal>
+            <ToolShowcase />
           </div>
         </KineticGrid>
-      </section>
-
-      <section id="metodo" className="section-space bg-white">
-        <div className="container-shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <Reveal className="lg:sticky lg:top-28 lg:self-start">
-            <SectionHeading eyebrow="Método" title="Primero entender. Después construir." description="Cinco pasos para avanzar sin inflar el alcance ni confundir movimiento con progreso." />
-          </Reveal>
-          <div className="relative">
-            <div className="absolute bottom-8 left-[1.35rem] top-8 w-px bg-gradient-to-b from-blue via-sky/45 to-line" aria-hidden="true" />
-            {methodSteps.map((step, index) => (
-              <Reveal key={step.number} delay={index * 0.04} className="relative grid grid-cols-[2.7rem_1fr] gap-5 pb-9 last:pb-0">
-                <span className="system-node relative z-10 grid size-11 place-items-center rounded-full border border-sky/30 bg-white font-mono text-[0.65rem] font-bold text-blue">{step.number}</span>
-                <div className="rounded-card border border-line bg-cloud/65 p-6 sm:p-7">
-                  <h3 className="text-xl font-semibold tracking-[-0.025em] text-primary sm:text-2xl">{step.title}</h3>
-                  <p className="mt-3 text-[0.98rem] leading-7 text-muted">{step.description}</p>
-                  <p className="mt-5 inline-flex items-center gap-2 font-mono text-[0.62rem] font-bold uppercase tracking-[0.12em] text-blue"><FileSearch size={14} aria-hidden="true" /> Entregable · {step.output}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
       </section>
 
       <TechnologyMarquee />
@@ -192,28 +163,6 @@ export default function HomePage() {
             </Reveal>
           </div>
         </KineticGrid>
-      </section>
-
-      <section id="equipo" className="team-showcase section-space">
-        <div className="container-shell">
-          <div className="team-showcase-heading grid items-end gap-8 lg:grid-cols-[1fr_auto]">
-            <Reveal>
-              <SectionHeading eyebrow="Tres perspectivas" title="Tres criterios. Una decisión bien tomada." description="Tecnología, marco legal y realidad financiera revisando el mismo problema antes de implantar una solución." />
-            </Reveal>
-            <Reveal delay={0.08} className="team-showcase-count backdrop-blur-md" aria-hidden="true">
-              <strong>03</strong>
-              <span>perspectivas<br />responsables</span>
-            </Reveal>
-          </div>
-          <div className="mt-14 grid items-stretch gap-5 lg:grid-cols-3">
-            {team.map((member, index) => (
-              <Reveal key={member.name} delay={index * 0.07} className="h-full">
-                <TeamCard member={member} index={index} />
-              </Reveal>
-            ))}
-          </div>
-          <div className="mt-8 text-center"><Link href="/nosotros" className="focus-ring inline-flex items-center gap-2 rounded-lg font-semibold text-blue transition-colors hover:text-primary"><span className="link-underline">Conocer el enfoque del equipo</span> <ArrowRight size={17} aria-hidden="true" /></Link></div>
-        </div>
       </section>
 
       <section id="contacto" className="dark-grid noise section-space relative overflow-hidden text-white">

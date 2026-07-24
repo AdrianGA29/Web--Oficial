@@ -10,8 +10,8 @@ export function GlassNavbar({ compact, className, children, ...props }: GlassNav
     <nav
       data-compact={compact ? "true" : "false"}
       className={cn(
-        "glass-navbar backdrop-blur-2xl backdrop-saturate-150",
-        compact ? "is-compact" : "lg:backdrop-blur-none lg:backdrop-saturate-100",
+        "glass-navbar",
+        compact && "is-compact",
         className,
       )}
       {...props}

@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { Check, ChevronRight, CircleDot, Clock3, FileText, Layers3, LockKeyhole, RefreshCw, Sparkles, X } from "lucide-react";
+import gestionDashboardPreview from "@/assets/images/gestion-dashboard-preview.webp";
 import portfolioHeroPreview from "@/assets/images/portfolio-hero-preview.png";
 import { cn } from "@/lib/utils";
 
-export function ProductVisual({ type, className }: { type: "flow" | "budget" | "web"; className?: string }) {
+export function ProductVisual({ type, className }: { type: "flow" | "budget" | "web" | "crm"; className?: string }) {
   if (type === "budget") return <BudgetVisual className={className} />;
   if (type === "web") return <WebVisual className={className} />;
+  if (type === "crm") return <CrmVisual className={className} />;
   return <FlowVisual className={className} />;
 }
 
@@ -14,7 +16,7 @@ function Window({ children, label, className, address }: { children: React.React
     <div
       role="img"
       aria-label={label}
-      className={cn("overflow-hidden rounded-[1.15rem] border border-white/12 bg-[#08172d] shadow-[0_28px_80px_rgba(3,10,22,0.38)]", className)}
+      className={cn("w-full min-w-0 overflow-hidden rounded-[1.15rem] border border-white/12 bg-[#08172d] shadow-[0_28px_80px_rgba(3,10,22,0.38)]", className)}
     >
       <div className="flex h-12 items-center gap-2.5 border-b border-white/10 bg-gradient-to-r from-white/[0.055] to-white/[0.025] px-3 sm:px-4" aria-hidden="true">
         <div className="flex shrink-0 items-center gap-1.5">
@@ -145,6 +147,27 @@ function WebVisual({ className }: { className?: string }) {
         <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg border border-white/16 bg-black/42 px-3 py-2 text-[0.65rem] font-semibold text-white/78 shadow-xl backdrop-blur-md">
           <i className="size-1.5 rounded-full bg-[#66ff55] shadow-[0_0_10px_#66ff55]" aria-hidden="true" />
           Vista previa real
+        </span>
+      </div>
+    </Window>
+  );
+}
+
+function CrmVisual({ className }: { className?: string }) {
+  return (
+    <Window label="Vista previa real de Temis Atrile Gestión" className={className} address="azoragestion.vercel.app">
+      <div className="relative aspect-[16/10] min-h-[18rem] overflow-hidden bg-[#f4f7fb]">
+        <Image
+          src={gestionDashboardPreview}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 45vw, 100vw"
+          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#071326]/24 via-transparent to-white/5" />
+        <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg border border-white/55 bg-white/75 px-3 py-2 text-[0.65rem] font-semibold text-[#15213a]/80 shadow-xl backdrop-blur-md">
+          <i className="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,.8)]" aria-hidden="true" />
+          Dashboard actualizado
         </span>
       </div>
     </Window>

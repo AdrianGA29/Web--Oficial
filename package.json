@@ -1,5 +1,5 @@
 {
-  "name": "web-oficial",
+  "name": "temis-atrile-web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
+    "animejs": "^4.5.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^0.546.0",
