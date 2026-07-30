@@ -74,37 +74,55 @@ function WebHeroSystem() {
     <div className="web-hero-system" aria-hidden="true">
       <div className="web-system-grid" />
       <svg viewBox="0 0 760 600">
-        <defs>
-          <linearGradient id="web-hero-line" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f5f5f5" stopOpacity=".06" />
-            <stop offset=".55" stopColor="#9b90ff" stopOpacity=".9" />
-            <stop offset="1" stopColor="#f5f5f5" stopOpacity=".16" />
-          </linearGradient>
-        </defs>
-        <rect className="web-system-browser" x="88" y="78" width="520" height="358" rx="18" />
-        <path className="web-system-rule" d="M88 130h520M410 130v306" />
-        <circle className="web-system-dot" cx="116" cy="104" r="4" />
-        <circle className="web-system-dot" cx="132" cy="104" r="4" />
-        <circle className="web-system-dot" cx="148" cy="104" r="4" />
-        <rect className="web-system-copy" x="126" y="178" width="198" height="12" rx="6" />
-        <rect className="web-system-title" x="126" y="212" width="238" height="52" rx="8" />
-        <rect className="web-system-copy" x="126" y="290" width="206" height="7" rx="3.5" />
-        <rect className="web-system-copy" x="126" y="307" width="166" height="7" rx="3.5" />
-        <rect className="web-system-button" x="126" y="342" width="92" height="28" rx="14" />
-        <circle className="web-system-orbit" cx="505" cy="269" r="76" />
-        <circle className="web-system-orbit is-inner" cx="505" cy="269" r="43" />
-        <path className="web-system-figure" d="M458 294c28-59 42-87 91-80-11 17-11 35 1 51-15 32-43 45-92 29Z" />
-        <path className="web-system-route" d="M40 500h118c55 0 75-36 91-91M720 70h-80c-52 0-70 30-83 74" />
-        <circle className="web-system-node" cx="249" cy="409" r="6" />
-        <circle className="web-system-node" cx="557" cy="144" r="6" />
-        <rect className="web-system-mobile" x="532" y="340" width="116" height="174" rx="18" />
-        <path className="web-system-rule" d="M550 376h80M550 395h54M550 427h80M550 445h63M550 478h46" />
-        <path className="web-system-scan" d="M102 158h490" />
+        <text className="service-svg-kicker" x="78" y="62">SISTEMA WEB / RESPONSIVE</text>
+        <text className="service-svg-muted" x="682" y="62" textAnchor="end">1440 → 390 PX</text>
+        <path className="service-svg-guide" d="M78 81h604" />
+
+        <rect className="service-svg-surface web-system-browser" x="78" y="106" width="500" height="342" rx="18" />
+        <path className="service-svg-guide" d="M78 154h500" />
+        <circle className="service-svg-dot" cx="103" cy="130" r="3.5" />
+        <circle className="service-svg-dot" cx="117" cy="130" r="3.5" />
+        <circle className="service-svg-dot" cx="131" cy="130" r="3.5" />
+        <text className="service-svg-label" x="158" y="134">TEMIS / DESKTOP</text>
+
+        <g className="web-layout-copy">
+          <text className="service-svg-muted" x="110" y="188">01 / MENSAJE</text>
+          <path className="service-svg-strong" d="M110 215h205M110 236h168M110 257h190" />
+          <path className="service-svg-line" d="M110 292h184M110 308h151M110 324h173" />
+          <rect className="service-svg-button" x="110" y="354" width="108" height="34" rx="9" />
+          <text className="service-svg-button-text" x="164" y="375" textAnchor="middle">SIGUIENTE PASO</text>
+        </g>
+
+        <g className="web-layout-interface">
+          <text className="service-svg-muted" x="350" y="188">02 / EXPERIENCIA</text>
+          <rect className="service-svg-panel is-accent" x="350" y="205" width="196" height="112" rx="12" />
+          <path className="service-svg-guide" d="M350 243h196M414 243v74M480 243v74" />
+          <circle className="is-accent-fill web-layout-focus" cx="448" cy="280" r="17" />
+          <path className="is-light" d="M440 280l6 6 12-15" />
+          <rect className="service-svg-panel" x="350" y="334" width="94" height="54" rx="10" />
+          <rect className="service-svg-panel" x="452" y="334" width="94" height="54" rx="10" />
+          <path className="service-svg-line" d="M365 351h62M365 366h43M467 351h62M467 366h35" />
+        </g>
+
+        <g className="web-mobile-layout">
+          <rect className="service-svg-surface web-system-mobile" x="602" y="188" width="104" height="224" rx="18" />
+          <path className="service-svg-guide" d="M602 226h104" />
+          <circle className="service-svg-dot" cx="622" cy="207" r="3" />
+          <text className="service-svg-muted" x="640" y="211">MOBILE</text>
+          <path className="service-svg-strong" d="M620 250h68M620 266h53" />
+          <path className="service-svg-line" d="M620 296h67M620 309h48" />
+          <rect className="service-svg-panel is-accent" x="620" y="332" width="68" height="42" rx="8" />
+          <path className="service-svg-line" d="M632 347h44M632 360h28" />
+        </g>
+
+        <path className="service-svg-route web-responsive-route" d="M578 277h24" />
+        <path className="service-svg-guide" d="M78 492h604" />
+        <path className="service-svg-dimension" d="M78 480v24M578 480v24M602 480v24M706 480v24" />
+        <path className="service-svg-dimension is-desktop" d="M78 492h500" />
+        <path className="service-svg-dimension is-mobile" d="M602 492h104" />
+        <text className="service-svg-muted" x="328" y="520" textAnchor="middle">JERARQUÍA · LECTURA · CONVERSIÓN</text>
+        <text className="service-svg-muted" x="654" y="520" textAnchor="middle">SIN PERDER CONTEXTO</text>
       </svg>
-      <span className="web-system-label is-message">MENSAJE / 01</span>
-      <span className="web-system-label is-ui">INTERFAZ / 02</span>
-      <span className="web-system-label is-performance">RENDIMIENTO / 03</span>
-      <div className="web-system-state"><span /> SYSTEM / RESPONSIVE</div>
     </div>
   );
 }
@@ -326,7 +344,7 @@ export function WebServiceShowcase() {
       <nav className="web-service-next" aria-label="Navegación entre servicios">
         <div className="container-shell">
           <span>SIGUIENTE CAPACIDAD</span>
-          <Link href="/#contacto">
+          <Link href="/servicios/automatizacion">
             <div><small>02 / FLUJOS E INTEGRACIONES</small><strong>Automatización</strong></div>
             <ArrowRight size={28} aria-hidden="true" />
           </Link>
@@ -335,4 +353,3 @@ export function WebServiceShowcase() {
     </div>
   );
 }
-

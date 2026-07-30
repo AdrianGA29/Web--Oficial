@@ -37,8 +37,8 @@ export const serviceCatalog: readonly ServiceCatalogItem[] = [
       "Conectamos sistemas, eliminamos pasos repetitivos y diseñamos flujos fiables para que la operativa avance sin depender de tareas manuales invisibles.",
     signal: "Las personas copian datos, persiguen estados o rehacen documentos.",
     capabilities: ["Procesos internos", "Integraciones", "Documentos", "Seguimiento"],
-    href: "/#contacto",
-    action: "Consultar esta línea",
+    href: "/servicios/automatizacion",
+    action: "Explorar servicio",
   },
   {
     id: "apps",
@@ -50,8 +50,8 @@ export const serviceCatalog: readonly ServiceCatalogItem[] = [
       "Construimos paneles, aplicaciones internas y soluciones conectadas con la lógica concreta del negocio, sin añadir complejidad innecesaria.",
     signal: "Las herramientas disponibles no encajan con el proceso real.",
     capabilities: ["Paneles internos", "Aplicaciones web", "Android y escritorio", "APIs y datos"],
-    href: "/#contacto",
-    action: "Consultar esta línea",
+    href: "/servicios/aplicaciones-a-medida",
+    action: "Explorar servicio",
   },
   {
     id: "ai",
@@ -63,8 +63,7 @@ export const serviceCatalog: readonly ServiceCatalogItem[] = [
       "Analizamos dónde la IA puede reducir carga, ordenar información o asistir una decisión, y planteamos una implantación viable, trazable y responsable.",
     signal: "El volumen de información ya supera el tiempo disponible para procesarla.",
     capabilities: ["Consultoría", "Pruebas de concepto", "Asistentes", "Procesamiento de información"],
-    href: "/#contacto",
-    action: "Consultar esta línea",
+    href: "/servicios/inteligencia-artificial",
+    action: "Explorar servicio",
   },
 ] as const;
-

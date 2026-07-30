@@ -161,7 +161,7 @@ export function ServicesHub() {
                   </ul>
                   <Link href={service.href} className="service-directory-link">
                     <span>{service.action}</span>
-                    {service.id === "web" ? <ArrowRight size={18} aria-hidden="true" /> : <ArrowUpRight size={18} aria-hidden="true" />}
+                    <ArrowRight size={18} aria-hidden="true" />
                   </Link>
                 </div>
                 <div className="service-directory-visual">
