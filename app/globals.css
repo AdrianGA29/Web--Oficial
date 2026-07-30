@@ -8213,6 +8213,21 @@ button:hover > .link-underline {
   background: rgba(239, 68, 68, 0.09);
 }
 
+.contact-form-status a {
+  color: inherit;
+  font-weight: 680;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18rem;
+}
+
+.contact-form-status a:focus-visible {
+  border-radius: 0.15rem;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 @keyframes contact-orbit {
   to { transform: rotate(1turn); }
 }

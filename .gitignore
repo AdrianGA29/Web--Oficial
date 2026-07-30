@@ -1,7 +1,9 @@
 node_modules/
 dist/
 .next/
+out/
 .artifacts/
+*.tsbuildinfo
 
 *.log
 npm-debug.log*

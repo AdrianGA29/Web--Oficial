@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { siteConfig } from "@/lib/config";
@@ -58,7 +57,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="contenido">{children}</main>
         <Footer />
-        {process.env.VERCEL === "1" && <Analytics />}
       </body>
     </html>
   );

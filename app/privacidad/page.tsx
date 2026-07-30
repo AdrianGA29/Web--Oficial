@@ -36,7 +36,7 @@ const sections: LegalSection[] = [
   {
     title: "Proveedores y destinatarios",
     paragraphs: [
-      "El formulario se procesa mediante Formspree como proveedor técnico. La web se aloja en infraestructura de Vercel, que también puede intervenir en la entrega, seguridad y medición técnica del sitio.",
+      "El formulario se procesa mediante un endpoint propio alojado en la infraestructura de IONOS. Cuando se envía correctamente, su contenido se entrega directamente en el buzón corporativo de Temis Atrile.",
       "No vendemos datos personales ni los cedemos con fines publicitarios. El acceso queda limitado a los proveedores necesarios para operar la web y atender la solicitud.",
     ],
   },

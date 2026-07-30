@@ -2,7 +2,6 @@
 
 import type { ComponentProps } from "react";
 import Link from "next/link";
-import { track } from "@vercel/analytics";
 
 type TrackedLinkProps = ComponentProps<typeof Link> & {
   eventName?: string;
@@ -14,7 +13,13 @@ export function TrackedLink({ eventName, eventLocation, onClick, ...props }: Tra
     <Link
       {...props}
       onClick={(event) => {
-        if (eventName) track(eventName, eventLocation ? { location: eventLocation } : undefined);
+        if (eventName) {
+          window.dispatchEvent(
+            new CustomEvent("temis:interaction", {
+              detail: { name: eventName, location: eventLocation },
+            }),
+          );
+        }
         onClick?.(event);
       }}
     />

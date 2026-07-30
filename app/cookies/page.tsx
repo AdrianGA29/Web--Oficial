@@ -8,17 +8,17 @@ export const metadata: Metadata = {
 
 const sections: LegalSection[] = [
   {
-    title: "Cómo utiliza esta web las cookies",
+    title: "Configuración actual",
     paragraphs: [
-      "Esta web mantiene una configuración de medición reducida. No utiliza píxeles publicitarios ni herramientas destinadas a crear perfiles comerciales de las personas que la visitan.",
+      "Esta web no utiliza actualmente herramientas de analítica, píxeles publicitarios ni tecnologías destinadas a crear perfiles comerciales de las personas que la visitan.",
       "Determinados mecanismos técnicos pueden resultar necesarios para entregar el sitio, protegerlo y conservar ajustes básicos de funcionamiento.",
     ],
   },
   {
-    title: "Medición con Vercel",
+    title: "Infraestructura técnica",
     paragraphs: [
-      "Utilizamos Vercel Web Analytics para comprender de forma agregada cómo se visita la web y detectar oportunidades de mejora en rendimiento y experiencia de navegación.",
-      "La información introducida en el formulario de contacto no se utiliza como parte de esta medición.",
+      "El sitio se aloja en infraestructura de IONOS. Como parte de la prestación técnica, el servidor puede generar registros necesarios para entregar la web, mantener su estabilidad y detectar incidencias de seguridad.",
+      "Estos registros técnicos no se utilizan para elaborar perfiles publicitarios ni para personalizar comunicaciones comerciales.",
     ],
   },
   {
@@ -28,7 +28,7 @@ const sections: LegalSection[] = [
     ],
     points: [
       "Necesarias: entrega, estabilidad y seguridad del sitio.",
-      "Analíticas: medición agregada del uso y del rendimiento.",
+      "Analíticas: no utilizadas actualmente.",
       "Publicitarias: no utilizadas actualmente.",
     ],
   },

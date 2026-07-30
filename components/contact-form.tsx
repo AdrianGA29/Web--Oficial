@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { AlertCircle, ArrowUpRight, CheckCircle2, LoaderCircle } from "lucide-react";
-import { track } from "@vercel/analytics";
 import { siteConfig } from "@/lib/config";
 
 type Values = {
@@ -44,12 +43,19 @@ export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [validated, setValidated] = useState(false);
   const [honeypot, setHoneypot] = useState("");
+  const startedAt = useRef(0);
+  const [errorMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   const update = <K extends keyof Values>(field: K, value: Values[K]) => {
     const next = { ...values, [field]: value };
     setValues(next);
     setStatus("idle");
+    setErrorMessage("");
     if (validated) setErrors(validate(next));
   };
 
@@ -65,24 +71,46 @@ export function ContactForm() {
     }
 
     setStatus("submitting");
-    const data = new FormData();
-    data.append("name", values.name.trim());
-    data.append("email", values.email.trim());
-    data.append("phone", values.phone.trim() || "No indicado");
-    data.append("company", values.company.trim());
-    data.append("message", values.message.trim());
-    data.append("privacy_accepted", "Sí");
-    data.append("_subject", `Nueva solicitud web — ${values.company.trim()}`);
-    data.append("_gotcha", honeypot);
 
     try {
-      const response = await fetch(siteConfig.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: data });
-      if (!response.ok) throw new Error("Submission rejected");
-      track("Form submitted", { form: "home-contact" });
+      const response = await fetch(siteConfig.contactEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          phone: values.phone.trim(),
+          company: values.company.trim(),
+          message: values.message.trim(),
+          privacy: values.privacy,
+          website: honeypot,
+          startedAt: startedAt.current,
+          page: window.location.href,
+        }),
+      });
+
+      const result = (await response.json().catch(() => null)) as
+        | { ok?: boolean }
+        | null;
+
+      if (!response.ok || !result?.ok) {
+        if (response.status === 429) {
+          setErrorMessage("Has enviado varias solicitudes seguidas. Espera unos minutos antes de intentarlo de nuevo.");
+        } else {
+          setErrorMessage("No hemos podido enviar la solicitud.");
+        }
+        throw new Error("Submission rejected");
+      }
+
       setValues(initialValues);
       setValidated(false);
       setErrors({});
       setHoneypot("");
+      startedAt.current = Date.now();
+      setErrorMessage("");
       setStatus("success");
     } catch {
       setStatus("error");
@@ -144,7 +172,12 @@ export function ContactForm() {
 
       <div aria-live="polite" aria-atomic="true">
         {status === "success" && <Status type="success">Solicitud recibida. Revisaremos el contexto antes de responderte.</Status>}
-        {status === "error" && <Status type="error">No hemos podido enviarla. Inténtalo de nuevo en unos minutos.</Status>}
+        {status === "error" && (
+          <Status type="error">
+            {errorMessage || "No hemos podido enviarla."} Puedes escribirnos directamente a{" "}
+            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+          </Status>
+        )}
       </div>
     </form>
   );
