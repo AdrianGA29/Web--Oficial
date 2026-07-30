@@ -74,6 +74,16 @@ export function ToolShowcase() {
             "-=520",
           )
           .add(
+            section.querySelectorAll("[data-tool-detail]"),
+            {
+              opacity: [0, 1],
+              translateX: [-16, 0],
+              duration: 760,
+              delay: stagger(65),
+            },
+            "-=880",
+          )
+          .add(
             section.querySelectorAll("[data-tool-rule]"),
             {
               scaleX: [0, 1],
@@ -107,6 +117,13 @@ export function ToolShowcase() {
         <span />
         <span />
       </div>
+      <div className="tool-studio-ambient" aria-hidden="true">
+        <span />
+        <span />
+      </div>
+      <span className="tool-studio-wordmark" aria-hidden="true">
+        CAPABILITY
+      </span>
 
       <div className="container-shell tool-studio-inner">
         <header className="tool-studio-header">
@@ -121,9 +138,16 @@ export function ToolShowcase() {
               No te lo contamos.
               <strong>Te lo enseñamos.</strong>
             </h2>
-            <p data-tool-heading>
-              Dos productos reales. Dos maneras de convertir una necesidad en algo que se puede utilizar.
-            </p>
+            <div className="tool-studio-intro-note" data-tool-heading>
+              <span>02 / PRODUCTOS ACTIVOS</span>
+              <p>
+                Dos productos reales. Dos maneras de convertir una necesidad en algo que se puede utilizar.
+              </p>
+              <div aria-hidden="true">
+                <i />
+                <span>EXPLORA LOS PROYECTOS</span>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -140,19 +164,20 @@ export function ToolShowcase() {
                 <span>{project.label}</span>
               </div>
 
-              <ExperiencePreview
-                presentation="tool-case"
-                reverse={index === 1}
-                demoHref={project.demoHref}
-                title={project.title}
-                summary={project.summary}
-                tags={[...project.capabilities]}
-                exampleLabel={`${project.number} / ${project.label}`}
-                browserTitle={project.browserTitle}
-                iframeTitle={project.iframeTitle}
-                actionLabel={project.action}
-                visual={project.visual}
-              />
+              <div data-tool-detail>
+                <ExperiencePreview
+                  reverse={index === 1}
+                  demoHref={project.demoHref}
+                  title={project.title}
+                  summary={project.summary}
+                  tags={[...project.capabilities]}
+                  exampleLabel={`${project.number} / ${project.label}`}
+                  browserTitle={project.browserTitle}
+                  iframeTitle={project.iframeTitle}
+                  actionLabel={project.action}
+                  visual={project.visual}
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -164,6 +189,12 @@ export function ToolShowcase() {
           <i data-tool-rule aria-hidden="true" />
           <span>OPERATIVA</span>
         </footer>
+      </div>
+
+      <div className="tool-studio-signal" aria-hidden="true">
+        <span>03</span>
+        <i />
+        <span>TEMIS ΛTRILE / DIGITAL SYSTEMS</span>
       </div>
     </section>
   );

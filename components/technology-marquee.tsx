@@ -1,3 +1,9 @@
+"use client";
+
+import { useEffect, useMemo } from "react";
+import AutoScroll from "embla-carousel-auto-scroll";
+import useEmblaCarousel from "embla-carousel-react";
+import { useReducedMotion } from "framer-motion";
 import type { SimpleIcon } from "simple-icons";
 import {
   siAndroid,
@@ -53,45 +59,71 @@ const product: Technology[] = [
   { label: "Vercel", icon: siVercel },
 ];
 
-function TechnologyList({
+function TechnologyRow({
   technologies,
-  duplicate = false,
+  direction,
 }: {
   technologies: Technology[];
-  duplicate?: boolean;
+  direction: "forward" | "backward";
 }) {
-  return (
-    <ul className="technology-bridge-group" aria-hidden={duplicate || undefined}>
-      {Array.from({ length: 3 }, (_, cycle) =>
-        technologies.map(({ label, icon }) => (
-          <li
-            key={`${cycle}-${label}`}
-            className="technology-bridge-item"
-            aria-hidden={cycle > 0 || undefined}
-          >
-            <span className="technology-bridge-icon" style={{ color: `#${icon.hex}` }} aria-hidden="true">
-              <svg viewBox="0 0 24 24" role="presentation"><path fill="currentColor" d={icon.path} /></svg>
-            </span>
-            <span>{label}</span>
-          </li>
-        )),
-      )}
-    </ul>
+  const reducedMotion = useReducedMotion();
+  const autoScroll = useMemo(
+    () =>
+      AutoScroll({
+        direction,
+        speed: 0.82,
+        startDelay: 0,
+        playOnInit: !reducedMotion,
+        stopOnInteraction: false,
+        stopOnMouseEnter: false,
+        stopOnFocusIn: false,
+      }),
+    [direction, reducedMotion],
   );
-}
+  const [viewportRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "start",
+      dragFree: true,
+      skipSnaps: true,
+      watchDrag: false,
+    },
+    [autoScroll],
+  );
 
-function TechnologyTrack({
-  technologies,
-  reverse = false,
-}: {
-  technologies: Technology[];
-  reverse?: boolean;
-}) {
+  useEffect(() => {
+    if (!emblaApi) return;
+    const plugin = emblaApi.plugins().autoScroll;
+    if (reducedMotion) {
+      plugin.stop();
+      return;
+    }
+    plugin.play(0);
+    return () => plugin.stop();
+  }, [emblaApi, reducedMotion]);
+
   return (
-    <div className="technology-bridge-marquee">
-      <div className={`technology-bridge-track${reverse ? " is-reverse" : ""}`}>
-        <TechnologyList technologies={technologies} />
-        <TechnologyList technologies={technologies} duplicate />
+    <div className="technology-logo-rail">
+      <div ref={viewportRef} className="technology-logo-viewport">
+        <ul className="technology-logo-track">
+          {Array.from({ length: 4 }, (_, cycle) =>
+            technologies.map(({ label, icon }) => (
+              <li
+                key={`${cycle}-${label}`}
+                className="technology-logo-item"
+                aria-hidden={cycle > 0 || undefined}
+              >
+                <span className="technology-logo-mark" style={{ color: `#${icon.hex}` }} aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path fill="currentColor" d={icon.path} />
+                  </svg>
+                </span>
+                <span>{label}</span>
+                <i aria-hidden="true" />
+              </li>
+            )),
+          )}
+        </ul>
       </div>
     </div>
   );
@@ -111,9 +143,9 @@ export function TechnologyMarquee() {
       <div className="technology-bridge-panel">
         <span className="technology-bridge-corner is-left" aria-hidden="true" />
         <span className="technology-bridge-corner is-right" aria-hidden="true" />
-        <div className="technology-bridge-rails" aria-label="Tecnologías que podemos integrar">
-        <TechnologyTrack technologies={intelligence} />
-        <TechnologyTrack technologies={product} reverse />
+        <div className="technology-logo-rails" aria-label="Tecnologías que utilizamos">
+          <TechnologyRow technologies={intelligence} direction="forward" />
+          <TechnologyRow technologies={product} direction="backward" />
         </div>
       </div>
     </section>

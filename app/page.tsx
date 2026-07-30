@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import {
-  ArrowUpRight,
-  Blocks,
-  Check,
-  ShieldCheck,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
-import { GlassCard } from "@/components/aicanvas/glass-card";
+import { ArrowUpRight, Check } from "lucide-react";
 import { commitmentStatements } from "@/components/commitment-marquee";
 import { ContactForm } from "@/components/contact-form";
+import { DifferentiationShowcase } from "@/components/differentiation-showcase";
 import { FaqList } from "@/components/faq";
 import { FrictionEditorial } from "@/components/friction-editorial";
 import { HeroGoldenSequence } from "@/components/hero-golden-sequence";
@@ -22,20 +15,13 @@ import { TechnologyMarquee } from "@/components/technology-marquee";
 import { ToolShowcase } from "@/components/tool-showcase";
 import { TrackedLink } from "@/components/tracked-link";
 import { GradientText } from "@/components/ui/gradient-text";
-import { KineticGrid } from "@/components/ui/kinetic-grid";
 import { siteConfig } from "@/lib/config";
-import { differentiators, faqs } from "@/lib/site";
+import { faqs } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: { absolute: `${siteConfig.name} | Transformación operativa para pymes` },
   description:
     "Convertimos procesos manuales y herramientas desconectadas en sistemas claros, medibles y preparados para crecer.",
-};
-
-const differentiatorIcons: Record<(typeof differentiators)[number]["icon"], LucideIcon> = {
-  sparkles: Sparkles,
-  blocks: Blocks,
-  shield: ShieldCheck,
 };
 
 function HeroCommitmentGroup({ duplicate = false }: { duplicate?: boolean }) {
@@ -126,35 +112,7 @@ export default function HomePage() {
 
       <ToolShowcase />
 
-      <section id="diferenciacion" className="relative overflow-hidden text-white">
-        <KineticGrid className="dark-grid noise kinetic-grid-surface section-space">
-          <div className="container-shell relative z-10">
-            <Reveal>
-              <SectionHeading dark align="center" eyebrow="Criterio antes que ruido" title="La tecnología es el medio. El sistema es el resultado." />
-            </Reveal>
-            <div className="mt-14 grid gap-4 lg:grid-cols-3">
-            {differentiators.map((item, index) => {
-              const Icon = differentiatorIcons[item.icon];
-              return (
-                <Reveal key={item.title} delay={index * 0.07}>
-                  <GlassCard className="h-full">
-                    <article className="h-full p-7">
-                      <span className="grid size-11 place-items-center rounded-xl border border-sky/18 bg-sky/8 text-sky"><Icon size={21} aria-hidden="true" /></span>
-                      <h3 className="mt-7 text-2xl font-semibold tracking-[-0.03em]">{item.title}</h3>
-                      <p className="mt-4 leading-7 text-white/52">{item.description}</p>
-                    </article>
-                  </GlassCard>
-                </Reveal>
-              );
-            })}
-            </div>
-            <Reveal className="mt-6 grid overflow-hidden rounded-card border border-white/10 md:grid-cols-2">
-              <div className="bg-white/[0.025] p-7 sm:p-9"><p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/65">Enfoque habitual</p><ul className="mt-6 grid gap-4 text-white/65">{["Empezar por una herramienta", "Prometer una transformación completa", "Automatizar antes de ordenar"].map((item) => <li key={item} className="flex gap-3"><span className="text-white/55">—</span>{item}</li>)}</ul></div>
-              <div className="border-t border-sky/15 bg-sky/[0.065] p-7 sm:p-9 md:border-l md:border-t-0"><p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.15em] text-sky">Nuestro enfoque</p><ul className="mt-6 grid gap-4 text-white/78">{["Empezar por el proceso", "Cerrar un primer alcance útil", "Automatizar con supervisión y medida"].map((item) => <li key={item} className="flex gap-3"><Check size={17} className="mt-0.5 shrink-0 text-sky" aria-hidden="true" />{item}</li>)}</ul></div>
-            </Reveal>
-          </div>
-        </KineticGrid>
-      </section>
+      <DifferentiationShowcase />
 
       <section id="contacto" className="dark-grid noise section-space relative overflow-hidden text-white">
         <div className="container-shell relative z-10 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">

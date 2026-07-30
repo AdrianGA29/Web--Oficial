@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-import { Expand, ExternalLink, X } from "lucide-react";
-import { buttonClass } from "@/components/button";
-import { ProductVisual } from "@/components/product-visual";
+import { useEffect, useId, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { createTimeline } from "animejs/timeline";
+import { ArrowUpRight, Expand, ExternalLink, MousePointer2, X } from "lucide-react";
 import { ToolProductFrame } from "@/components/tool-product-frame";
 
 export function ExperiencePreview({
@@ -16,9 +15,6 @@ export function ExperiencePreview({
   browserTitle = "Portfolio · Adrián García",
   iframeTitle = "Portfolio interactivo de Adrián García",
   actionLabel = "Ver la web aquí",
-  embeddable = true,
-  compact = false,
-  presentation = "default",
   reverse = false,
 }: {
   demoHref: string;
@@ -30,18 +26,25 @@ export function ExperiencePreview({
   browserTitle?: string;
   iframeTitle?: string;
   actionLabel?: string;
-  embeddable?: boolean;
-  compact?: boolean;
-  presentation?: "default" | "tool-case";
   reverse?: boolean;
 }) {
-  const toolCase = presentation === "tool-case";
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const cardRef = useRef<HTMLButtonElement>(null);
+  const cueRef = useRef<HTMLSpanElement>(null);
+  const cueContentRef = useRef<HTMLSpanElement>(null);
+  const cuePointerRef = useRef<HTMLSpanElement>(null);
+  const cuePulseRef = useRef<HTMLElement>(null);
+  const hintRevealRef = useRef<ReturnType<typeof createTimeline> | null>(null);
+  const hintSequenceRef = useRef<ReturnType<typeof createTimeline> | null>(null);
+  const hintDismissedRef = useRef(false);
   const closeTimerRef = useRef<number | null>(null);
+  const pointerFrameRef = useRef<number | null>(null);
   const [active, setActive] = useState(false);
   const [closing, setClosing] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const titleId = useId();
+  const descriptionId = useId();
+  const hostname = demoHref.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
   useEffect(() => {
     if (!active) return;
@@ -58,11 +61,136 @@ export function ExperiencePreview({
     };
   }, [active]);
 
-  useEffect(() => () => {
-    if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+  useEffect(
+    () => () => {
+      if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+      if (pointerFrameRef.current) window.cancelAnimationFrame(pointerFrameRef.current);
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const cue = cueRef.current;
+    const content = cueContentRef.current;
+    const pointer = cuePointerRef.current;
+    const pulse = cuePulseRef.current;
+    if (!card || !cue || !content || !pointer || !pulse) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (hintDismissedRef.current) return;
+
+        if (!entry.isIntersecting) {
+          hintRevealRef.current?.pause();
+          hintSequenceRef.current?.pause();
+          return;
+        }
+
+        if (hintSequenceRef.current) {
+          hintRevealRef.current?.play();
+          hintSequenceRef.current.play();
+          return;
+        }
+
+        hintRevealRef.current = createTimeline({
+          defaults: { ease: "out(5)" },
+        })
+          .add(cue, {
+            opacity: [0, 1],
+            duration: 520,
+            delay: 700,
+          })
+          .add(
+            content,
+            {
+              scale: [0.955, 1],
+              translateY: [4, 0],
+              duration: 620,
+            },
+            "-=500",
+          );
+
+        hintSequenceRef.current = createTimeline({
+          loop: true,
+          loopDelay: 1450,
+          defaults: { ease: "out(5)" },
+        })
+          .add(
+            pointer,
+            {
+              opacity: [0, 1],
+              translateX: [42, 10],
+              translateY: [38, 13],
+              rotate: [7, 0],
+              duration: 760,
+              delay: 1150,
+            },
+          )
+          .add(
+            pointer,
+            {
+              scale: [1, 0.86, 1],
+              translateX: [10, 8, 10],
+              translateY: [13, 15, 13],
+              duration: 320,
+              ease: "inOut(4)",
+            },
+          )
+          .add(
+            pulse,
+            {
+              opacity: [0, 0.82, 0],
+              scale: [0.28, 1.7],
+              duration: 520,
+              ease: "out(4)",
+            },
+            "-=285",
+          )
+          .add(
+            content,
+            {
+              scale: [1, 0.97, 1],
+              duration: 330,
+              ease: "inOut(4)",
+            },
+            "-=500",
+          )
+          .add(pointer, {
+            opacity: [1, 0],
+            translateX: 18,
+            translateY: 20,
+            rotate: -3,
+            duration: 380,
+            delay: 520,
+            ease: "in(3)",
+          });
+      },
+      { threshold: 0.58 },
+    );
+
+    observer.observe(card);
+    return () => {
+      observer.disconnect();
+      hintRevealRef.current?.revert();
+      hintSequenceRef.current?.revert();
+      hintRevealRef.current = null;
+      hintSequenceRef.current = null;
+    };
   }, []);
 
+  const cancelHint = () => {
+    hintDismissedRef.current = true;
+    hintSequenceRef.current?.revert();
+    hintRevealRef.current?.revert();
+    hintRevealRef.current = null;
+    hintSequenceRef.current = null;
+  };
+
   const openPreview = () => {
+    cancelHint();
     setLoaded(false);
     setClosing(false);
     setActive(true);
@@ -75,134 +203,191 @@ export function ExperiencePreview({
       setActive(false);
       setClosing(false);
       closeTimerRef.current = null;
-    }, 240);
+    }, 320);
+  };
+
+  const updateTilt = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const card = cardRef.current;
+    if (!card) return;
+    const { left, top, width, height } = card.getBoundingClientRect();
+    const x = (event.clientX - left) / width;
+    const y = (event.clientY - top) / height;
+
+    if (pointerFrameRef.current) window.cancelAnimationFrame(pointerFrameRef.current);
+    pointerFrameRef.current = window.requestAnimationFrame(() => {
+      card.style.setProperty("--tool-rotate-x", `${(0.5 - y) * 5.5}deg`);
+      card.style.setProperty("--tool-rotate-y", `${(x - 0.5) * 7}deg`);
+      card.style.setProperty("--tool-glow-x", `${x * 100}%`);
+      card.style.setProperty("--tool-glow-y", `${y * 100}%`);
+    });
+  };
+
+  const resetTilt = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.setProperty("--tool-rotate-x", "0deg");
+    card.style.setProperty("--tool-rotate-y", "0deg");
+    card.style.setProperty("--tool-glow-x", "50%");
+    card.style.setProperty("--tool-glow-y", "50%");
   };
 
   return (
     <>
-      <article className={
-        toolCase
-          ? `tool-case-layout${reverse ? " tool-case-layout-reverse" : ""}`
-          : compact
-            ? "flex h-full min-w-0 flex-col gap-7"
-            : "grid min-w-0 items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16"
-      }>
-        {embeddable ? <button
+      <article className={`tool-case-layout${reverse ? " tool-case-layout-reverse" : ""}`}>
+        <button
+          ref={cardRef}
           type="button"
           onClick={openPreview}
+          onPointerMove={updateTilt}
+          onPointerEnter={cancelHint}
+          onPointerLeave={resetTilt}
+          onFocus={cancelHint}
           aria-label={`Abrir ${browserTitle} en una vista interactiva`}
-          className={toolCase ? "focus-ring tool-case-window" : "focus-ring group relative block w-full rounded-[1.15rem] text-left"}
+          className="focus-ring tool-case-window"
         >
-          {toolCase ? (
-            <>
-              <ToolProductFrame type={visual} />
-              <span className="tool-case-open-cue" aria-hidden="true">
-                Abrir experiencia <Expand size={15} />
-              </span>
-            </>
-          ) : (
-            <>
-              <ProductVisual type={visual} className="transition-[transform,box-shadow,border-color] duration-300 ease-out group-hover:-translate-y-1 group-hover:border-sky/30 group-hover:shadow-[0_34px_90px_rgba(3,10,22,0.48)]" />
-              <span className="absolute inset-0 grid place-items-center rounded-[1.15rem] bg-ink/8 opacity-0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-ink/88 px-4 py-2.5 text-sm font-semibold text-white shadow-xl">
-                  Ver experiencia <Expand size={16} />
-                </span>
-              </span>
-            </>
-          )}
-        </button> : <a
-          href={demoHref}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Abrir ${browserTitle} en una pestaña nueva`}
-          className="focus-ring group relative block w-full rounded-[1.15rem] text-left"
-        >
-          <ProductVisual type={visual} className="transition-[transform,box-shadow,border-color] duration-300 ease-out group-hover:-translate-y-1 group-hover:border-sky/30 group-hover:shadow-[0_34px_90px_rgba(3,10,22,0.48)]" />
-          <span className="absolute inset-0 grid place-items-center rounded-[1.15rem] bg-ink/8 opacity-0 backdrop-blur-[1px] transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-ink/88 px-4 py-2.5 text-sm font-semibold text-white shadow-xl">
-              Abrir demo <ExternalLink size={16} />
+          <span className="tool-case-window-stage">
+            <ToolProductFrame type={visual} />
+          </span>
+          <span ref={cueRef} className="tool-case-open-cue" aria-hidden="true">
+            <span ref={cueContentRef} className="tool-case-open-cue-content">
+              <span>Explorar</span>
+              <Expand size={15} />
+            </span>
+            <span ref={cuePointerRef} className="tool-case-cue-pointer">
+              <MousePointer2 size={18} fill="currentColor" />
+              <i ref={cuePulseRef} />
             </span>
           </span>
-        </a>}
+        </button>
 
-        <div className={toolCase ? "tool-case-copy" : compact ? "flex flex-1 flex-col px-1 pb-1" : undefined}>
-          <p className={toolCase ? "tool-case-kicker" : "font-mono text-[0.67rem] font-bold uppercase tracking-[0.15em] text-sky"}>{exampleLabel}</p>
-          <h3 className={toolCase ? "tool-case-title" : compact ? "mt-4 text-balance text-[clamp(1.55rem,2.5vw,2.15rem)] font-semibold leading-[1.08] tracking-[-0.045em]" : "mt-5 text-balance text-[clamp(2.15rem,4.2vw,3.5rem)] font-semibold leading-[1.02] tracking-[-0.05em]"}>{title}</h3>
-          <p className={toolCase ? "tool-case-summary" : compact ? "mt-4 text-sm leading-6 text-white/58" : "mt-6 max-w-xl text-base leading-7 text-white/62"}>{summary}</p>
-          {toolCase ? (
-            <p className="tool-case-capabilities">{tags.join(" — ")}</p>
-          ) : (
-            <div className="mt-6 flex flex-wrap gap-2">
-              {tags.map((tag) => <span key={tag} className="rounded-full border border-white/12 bg-white/[0.045] px-3 py-1.5 text-xs font-medium text-white/62">{tag}</span>)}
-            </div>
-          )}
-          <div className={toolCase ? "tool-case-action" : compact ? "mt-auto flex flex-wrap items-center gap-5 pt-7" : "mt-9 flex flex-wrap items-center gap-5"}>
-            {embeddable ? (
-              <button type="button" onClick={openPreview} className={toolCase ? "tool-case-cta" : buttonClass("primary")}>
-                {actionLabel} <Expand size={17} aria-hidden="true" />
-              </button>
-            ) : (
-              <a href={demoHref} target="_blank" rel="noreferrer" className={buttonClass("primary")}>
-                Probar la herramienta <ExternalLink size={17} aria-hidden="true" />
-              </a>
-            )}
+        <div className="tool-case-copy">
+          <div className="tool-case-copy-index" aria-hidden="true">
+            <span>CASE / {exampleLabel.slice(0, 2)}</span>
+            <i />
+          </div>
+          <p className="tool-case-kicker">PRODUCTO EN FUNCIONAMIENTO</p>
+          <h3 className="tool-case-title">{title}</h3>
+          <p className="tool-case-summary">{summary}</p>
+          <ul className="tool-case-capabilities" aria-label="Capacidades del proyecto">
+            {tags.map((tag, index) => (
+              <li key={tag}>
+                <span>0{index + 1}</span>
+                {tag}
+              </li>
+            ))}
+          </ul>
+          <div className="tool-case-action">
+            <button type="button" onClick={openPreview} className="tool-case-cta">
+              {actionLabel}
+              <ArrowUpRight size={17} aria-hidden="true" />
+            </button>
+            <span aria-hidden="true">LIVE / {hostname}</span>
           </div>
         </div>
       </article>
 
-      {embeddable && <dialog
-        ref={dialogRef}
-        aria-labelledby={titleId}
-        data-closing={closing || undefined}
-        onCancel={(event) => {
-          event.preventDefault();
-          closePreview();
-        }}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) closePreview();
-        }}
-        className="experience-dialog"
-      >
-        <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-[inherit] bg-[#071326]">
-          <div className="flex min-h-14 items-center gap-3 border-b border-white/10 bg-[#0b1b31] px-3 sm:px-4">
-            <div className="hidden items-center gap-1.5 sm:flex" aria-hidden="true">
-              <span className="size-2.5 rounded-full bg-[#ff6b63]" />
-              <span className="size-2.5 rounded-full bg-gold" />
-              <span className="size-2.5 rounded-full bg-[#46c799]" />
-            </div>
-            <div className="min-w-0 flex-1 rounded-lg border border-white/8 bg-white/[0.045] px-3 py-2 text-center">
-              <p id={titleId} className="truncate text-xs font-medium text-white/70">{browserTitle}</p>
-            </div>
-            <a href={demoHref} target="_blank" rel="noreferrer" className="focus-ring grid size-10 shrink-0 place-items-center rounded-lg text-white/65 transition hover:bg-white/8 hover:text-white" aria-label="Abrir la web en una pestaña nueva">
-              <ExternalLink size={17} aria-hidden="true" />
-            </a>
-            <button type="button" onClick={closePreview} className="focus-ring grid size-10 shrink-0 place-items-center rounded-lg text-white/65 transition hover:bg-white/8 hover:text-white" aria-label="Cerrar vista interactiva">
-              <X size={19} aria-hidden="true" />
-            </button>
-          </div>
-
-          <div className="relative min-h-0 flex-1 bg-white">
-            {active && !loaded && (
-              <div className="absolute inset-0 z-10 grid place-items-center bg-[#071326] text-white">
-                <div className="text-center">
-                  <span className="mx-auto block size-8 animate-spin rounded-full border-2 border-sky/25 border-t-sky" />
-                  <p className="mt-4 text-sm text-white/60">Preparando la experiencia…</p>
+      {active && (
+        <dialog
+          ref={dialogRef}
+          aria-labelledby={titleId}
+          aria-describedby={descriptionId}
+          data-closing={closing || undefined}
+          data-loaded={loaded || undefined}
+          onCancel={(event) => {
+            event.preventDefault();
+            closePreview();
+          }}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) closePreview();
+          }}
+          className="experience-dialog"
+        >
+          <div className="experience-dialog-shell">
+            <header className="experience-dialog-header">
+              <div className="experience-dialog-identity">
+                <span className="experience-dialog-status" aria-hidden="true">
+                  <i />
+                  {loaded ? "LIVE PREVIEW" : "CONNECTING"}
+                </span>
+                <div>
+                  <p id={titleId}>{browserTitle}</p>
+                  <span>{hostname}</span>
                 </div>
               </div>
-            )}
-            {active && (
-              <iframe
-                src={demoHref}
-                title={iframeTitle}
-                onLoad={() => setLoaded(true)}
-                className="size-full border-0 bg-white"
-                sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts"
-                allow="fullscreen"
-              />
-            )}
+
+              <div className="experience-dialog-actions">
+                <a
+                  href={demoHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="focus-ring"
+                  aria-label="Abrir el proyecto en una pestaña nueva"
+                >
+                  <span>Abrir aparte</span>
+                  <ExternalLink size={16} aria-hidden="true" />
+                </a>
+                <button
+                  type="button"
+                  onClick={closePreview}
+                  className="focus-ring"
+                  aria-label="Cerrar vista interactiva"
+                >
+                  <X size={18} aria-hidden="true" />
+                </button>
+              </div>
+            </header>
+
+            <div className="experience-dialog-body">
+              <aside className="experience-dialog-aside">
+                <span className="experience-dialog-aside-number" aria-hidden="true">
+                  {exampleLabel.slice(0, 2)}
+                </span>
+                <p>{exampleLabel}</p>
+                <h3>{title}</h3>
+                <p id={descriptionId}>{summary}</p>
+                <ul>
+                  {tags.map((tag) => (
+                    <li key={tag}>
+                      <i aria-hidden="true" />
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+                <div aria-hidden="true">
+                  <span>INTERACTIVE BUILD</span>
+                  <i />
+                  <span>ONLINE</span>
+                </div>
+              </aside>
+
+              <div className="experience-dialog-viewport">
+                {!loaded && (
+                  <div className="experience-dialog-loader" role="status">
+                    <div aria-hidden="true">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <p>Conectando con la experiencia</p>
+                    <span>{hostname}</span>
+                  </div>
+                )}
+                <iframe
+                  src={demoHref}
+                  title={iframeTitle}
+                  onLoad={() => setLoaded(true)}
+                  className="experience-dialog-iframe"
+                  sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts"
+                  allow="fullscreen"
+                />
+                <span className="experience-dialog-viewport-corner is-top" aria-hidden="true" />
+                <span className="experience-dialog-viewport-corner is-bottom" aria-hidden="true" />
+              </div>
+            </div>
           </div>
-        </div>
-      </dialog>}
+        </dialog>
+      )}
     </>
   );
 }

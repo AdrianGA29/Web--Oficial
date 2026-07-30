@@ -10,6 +10,8 @@ const frames = {
     type: "EXPERIENCIA WEB",
     status: "ONLINE",
     number: "01",
+    metric: "60 FPS",
+    coordinate: "40.4168° N",
     position: "object-center",
   },
   crm: {
@@ -19,6 +21,8 @@ const frames = {
     type: "SISTEMA OPERATIVO",
     status: "DEMO ACTIVA",
     number: "02",
+    metric: "LIVE DATA",
+    coordinate: "03.7038° W",
     position: "object-top",
   },
 } as const;
@@ -28,10 +32,15 @@ export function ToolProductFrame({ type }: { type: "web" | "crm" }) {
 
   return (
     <div className="tool-product-frame">
+      <span className="tool-product-frame-glow" aria-hidden="true" />
+      <span className="tool-product-frame-depth" aria-hidden="true" />
+
       <div className="tool-product-frame-top">
-        <span>{frame.name}</span>
-        <i aria-hidden="true" />
-        <span>{frame.type}</span>
+        <span className="tool-product-frame-identity">
+          <b>{frame.number}</b>
+          {frame.name}
+        </span>
+        <span className="tool-product-frame-path">{frame.type} / TEMIS ΛTRILE</span>
       </div>
 
       <div className="tool-product-frame-media">
@@ -44,6 +53,18 @@ export function ToolProductFrame({ type }: { type: "web" | "crm" }) {
         />
         <div className="tool-product-frame-grid" aria-hidden="true" />
         <div className="tool-product-frame-scan" aria-hidden="true" />
+        <div className="tool-product-frame-reticle" aria-hidden="true">
+          <span />
+          <span />
+        </div>
+        <span className="tool-product-frame-coordinate" aria-hidden="true">
+          {frame.coordinate}
+        </span>
+        <div className="tool-product-frame-telemetry" aria-hidden="true">
+          <span>VISUAL SYSTEM</span>
+          <i />
+          <span>{frame.metric}</span>
+        </div>
       </div>
 
       <div className="tool-product-frame-bottom">
@@ -51,10 +72,11 @@ export function ToolProductFrame({ type }: { type: "web" | "crm" }) {
           <i aria-hidden="true" />
           {frame.status}
         </span>
-        <span>PREVIEW / {frame.number}</span>
+        <span>INTERACTIVE PREVIEW / {frame.number}</span>
       </div>
 
       <span className="tool-product-frame-corner" aria-hidden="true" />
+      <span className="tool-product-frame-corner is-bottom" aria-hidden="true" />
     </div>
   );
 }
