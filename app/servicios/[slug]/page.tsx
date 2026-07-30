@@ -18,7 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return {};
-  return { title: service.shortTitle, description: service.summary };
+  return {
+    title: service.shortTitle,
+    description: service.summary,
+    robots: { index: false, follow: true },
+  };
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {

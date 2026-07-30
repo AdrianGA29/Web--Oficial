@@ -15,6 +15,7 @@ const services = [
       "Webs corporativas, ecommerce y productos digitales que explican bien, funcionan rápido y acompañan el proceso comercial.",
     capabilities: ["Landing pages", "Web corporativa", "Ecommerce", "Rediseño"],
     visual: "web",
+    href: "/servicios/desarrollo-web",
   },
   {
     number: "02",
@@ -24,24 +25,27 @@ const services = [
       "Procesos conectados y menos trabajo repetitivo, con supervisión, trazabilidad y una lógica adaptada a tu operativa.",
     capabilities: ["Flujos", "Integraciones", "Paneles", "Documentos"],
     visual: "automation",
+    href: "/servicios#servicio-automation",
   },
   {
     number: "03",
-    code: "CRITERIO / INTELIGENCIA",
-    title: "Inteligencia artificial",
-    description:
-      "Análisis, pruebas de concepto e implantación responsable de IA alrededor de necesidades concretas del negocio.",
-    capabilities: ["Estrategia", "Implantación", "Formación", "Pruebas de concepto"],
-    visual: "ai",
-  },
-  {
-    number: "04",
     code: "SOFTWARE / OPERATIVA",
     title: "Aplicaciones a medida",
     description:
       "Herramientas internas, aplicaciones de escritorio y soluciones móviles construidas alrededor de la forma real de trabajar.",
     capabilities: ["Windows", "Android", "APIs", "Sistemas internos"],
     visual: "apps",
+    href: "/servicios#servicio-apps",
+  },
+  {
+    number: "04",
+    code: "CRITERIO / INTELIGENCIA",
+    title: "Inteligencia artificial",
+    description:
+      "Análisis, pruebas de concepto e implantación responsable de IA alrededor de necesidades concretas del negocio.",
+    capabilities: ["Estrategia", "Implantación", "Formación", "Pruebas de concepto"],
+    visual: "ai",
+    href: "/servicios#servicio-ai",
   },
 ] as const;
 
@@ -211,24 +215,14 @@ export function ServicesIndex() {
           className={`services-index-list${activeService !== null ? " has-active" : ""}`}
         >
           {services.map((service, index) => (
-            <div
+            <Link
               key={service.number}
+              href={service.href}
               className={`services-index-row${activeService === index ? " is-active" : ""}`}
               data-service-row
-              tabIndex={0}
-              role="button"
-              aria-expanded={activeService === index}
               onPointerEnter={() => setActiveService(index)}
               onFocus={() => setActiveService(index)}
               onBlur={() => setActiveService(null)}
-              onClick={() =>
-                setActiveService((current) => (current === index ? null : index))
-              }
-              onKeyDown={(event) => {
-                if (event.key !== "Enter" && event.key !== " ") return;
-                event.preventDefault();
-                setActiveService(index);
-              }}
             >
               <div className="services-index-row-backdrop" aria-hidden="true" />
               <span className="services-index-number">{service.number}</span>
@@ -249,7 +243,7 @@ export function ServicesIndex() {
               </div>
 
               <span className="services-index-cue" aria-hidden="true">↗</span>
-            </div>
+            </Link>
           ))}
         </div>
 
