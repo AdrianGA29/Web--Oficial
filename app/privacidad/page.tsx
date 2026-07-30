@@ -1,17 +1,75 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/legal-page";
 
-export const metadata: Metadata = { title: "Privacidad" };
+export const metadata: Metadata = {
+  title: "Política de privacidad",
+  description: "Información sobre el tratamiento de los datos enviados a través del sitio web de Temis Atrile.",
+};
 
 const sections: LegalSection[] = [
-  { title: "Datos que se solicitan", paragraphs: ["El formulario de contacto puede solicitar nombre, empresa, correo electrónico, teléfono opcional, el área de fricción seleccionada y cualquier contexto adicional que la persona decida proporcionar.", "No se solicitan categorías especiales de datos personales. Recomendamos no incluir información confidencial, de terceros o innecesaria para valorar la consulta."] },
-  { title: "Finalidad del tratamiento", paragraphs: ["La información enviada se utiliza para responder a la consulta, preparar una posible sesión de diagnóstico y mantener las comunicaciones necesarias relacionadas con esa solicitud.", "Los datos no se utilizarán para comunicaciones comerciales adicionales sin una base jurídica adecuada."] },
-  { title: "Base jurídica", paragraphs: ["El tratamiento inicial se basa en el consentimiento expresado al enviar el formulario. Si posteriormente existe una relación contractual, ciertos tratamientos podrán apoyarse en la ejecución del contrato o en obligaciones legales aplicables."] },
-  { title: "Proveedor del formulario", paragraphs: ["El formulario se procesa mediante Formspree como proveedor técnico. Antes del lanzamiento definitivo se documentarán el responsable del tratamiento, las condiciones aplicables, las posibles transferencias internacionales y los plazos de conservación."] },
-  { title: "Conservación y seguridad", paragraphs: ["Los datos se conservarán únicamente durante el tiempo necesario para atender la solicitud y cumplir las obligaciones que resulten aplicables. Se adoptarán medidas razonables para evitar accesos no autorizados, pérdida o uso indebido."] },
-  { title: "Derechos", paragraphs: ["La persona interesada podrá solicitar acceso, rectificación, supresión, oposición, limitación o portabilidad cuando corresponda. El canal corporativo definitivo para ejercer estos derechos se publicará antes de indexar el sitio."] },
+  {
+    title: "Información que recopilamos",
+    paragraphs: [
+      "El formulario de contacto puede solicitar nombre, empresa o nombre del proyecto, correo electrónico, teléfono opcional y el contexto que la persona decida compartir con nosotros.",
+      "No necesitamos categorías especiales de datos personales para valorar una consulta. Recomendamos no incluir información confidencial, de terceros o que no resulte necesaria para explicar el proyecto.",
+    ],
+    points: [
+      "Datos de identificación y contacto.",
+      "Información profesional o relativa al proyecto.",
+      "Contenido incluido voluntariamente en el mensaje.",
+    ],
+  },
+  {
+    title: "Para qué utilizamos los datos",
+    paragraphs: [
+      "Utilizamos la información recibida para estudiar la consulta, responder a la persona interesada y preparar, cuando corresponda, una primera sesión de análisis.",
+      "También podremos conservar las comunicaciones necesarias para organizar el seguimiento de la solicitud y documentar las decisiones tomadas durante esa conversación.",
+    ],
+  },
+  {
+    title: "Base del tratamiento",
+    paragraphs: [
+      "El tratamiento inicial se apoya en el consentimiento expresado al enviar voluntariamente el formulario y solicitar que contactemos contigo.",
+      "Si la conversación deriva en una relación profesional, determinados tratamientos podrán resultar necesarios para preparar o ejecutar el servicio acordado y cumplir las obligaciones legales aplicables.",
+    ],
+  },
+  {
+    title: "Proveedores y destinatarios",
+    paragraphs: [
+      "El formulario se procesa mediante Formspree como proveedor técnico. La web se aloja en infraestructura de Vercel, que también puede intervenir en la entrega, seguridad y medición técnica del sitio.",
+      "No vendemos datos personales ni los cedemos con fines publicitarios. El acceso queda limitado a los proveedores necesarios para operar la web y atender la solicitud.",
+    ],
+  },
+  {
+    title: "Conservación y seguridad",
+    paragraphs: [
+      "Conservamos la información durante el tiempo necesario para atender la consulta, gestionar la posible relación profesional y cumplir las obligaciones que puedan resultar aplicables.",
+      "Aplicamos medidas técnicas y organizativas razonables para reducir el riesgo de acceso no autorizado, pérdida, alteración o uso indebido de la información.",
+    ],
+  },
+  {
+    title: "Tus derechos",
+    paragraphs: [
+      "Puedes solicitar el acceso a tus datos, su rectificación o supresión y, cuando corresponda, la oposición, limitación o portabilidad del tratamiento.",
+      "También puedes retirar un consentimiento previamente otorgado. La retirada no afecta a la licitud del tratamiento realizado antes de solicitarla.",
+    ],
+    points: [
+      "Acceso, rectificación y supresión.",
+      "Oposición y limitación del tratamiento.",
+      "Portabilidad y retirada del consentimiento cuando proceda.",
+    ],
+  },
 ];
 
 export default function PrivacyPage() {
-  return <LegalPage eyebrow="Privacidad" title="Política de privacidad" description="Cómo se tratará la información enviada a través de este sitio." notice="Documento provisional pendiente de identificación fiscal, domicilio, canal corporativo y revisión legal antes del lanzamiento." sections={sections} />;
+  return (
+    <LegalPage
+      eyebrow="Privacidad y datos"
+      title="Política de privacidad"
+      description="Explicamos con claridad qué información recibimos, para qué la utilizamos y qué control tienes sobre ella."
+      documentCode="LEGAL / 01"
+      currentPath="/privacidad"
+      sections={sections}
+    />
+  );
 }

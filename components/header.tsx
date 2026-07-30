@@ -16,7 +16,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const compact = scrolled || open;
-  const overDarkHero = pathname === "/" && !compact;
+  const legalOpening = ["/privacidad", "/cookies", "/terminos"].includes(pathname);
+  const overDarkHero = (pathname === "/" || legalOpening) && !compact;
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 16);

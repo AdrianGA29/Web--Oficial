@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { commitmentStatements } from "@/components/commitment-marquee";
-import { ContactForm } from "@/components/contact-form";
+import { ContactShowcase } from "@/components/contact-showcase";
 import { DifferentiationShowcase } from "@/components/differentiation-showcase";
-import { FaqList } from "@/components/faq";
+import { FaqShowcase } from "@/components/faq-showcase";
 import { FrictionEditorial } from "@/components/friction-editorial";
 import { HeroGoldenSequence } from "@/components/hero-golden-sequence";
 import { HeroGlitchIntro } from "@/components/hero-glitch-intro";
-import { Reveal } from "@/components/reveal";
-import { SectionHeading } from "@/components/section-heading";
 import { ServicesIndex } from "@/components/services-index";
 import { TemisHeroVisual } from "@/components/temis-hero-visual";
 import { TechnologyMarquee } from "@/components/technology-marquee";
@@ -114,30 +112,9 @@ export default function HomePage() {
 
       <DifferentiationShowcase />
 
-      <section id="contacto" className="dark-grid noise section-space relative overflow-hidden text-white">
-        <div className="container-shell relative z-10 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-          <Reveal>
-            <p className="eyebrow text-sky">Hablemos de tu caso</p>
-            <h2 className="section-title mt-5">Demos el primer paso hacia una operativa más clara.</h2>
-            <p className="mt-6 max-w-lg text-lg leading-8 text-white/58">Revisamos dónde se atasca el trabajo, qué impacto tiene y si existe una primera mejora razonable. Sin venderte una solución cerrada antes de escucharte.</p>
-            <div className="mt-9 grid gap-3 border-t border-white/10 pt-7 text-sm text-white/62">
-              {["60 minutos para ordenar el problema", "Una prioridad explicada con criterio", "Sin compromiso ni permanencia"].map((item) => <p key={item} className="flex items-center gap-3"><Check size={16} className="text-sky" aria-hidden="true" />{item}</p>)}
-            </div>
-          </Reveal>
-          <Reveal delay={0.08} className="rounded-[1.35rem] border border-white/12 bg-white/[0.045] p-6 shadow-[0_28px_80px_rgba(3,10,22,.32)] backdrop-blur sm:p-8">
-            <h3 className="text-2xl font-semibold tracking-[-0.03em]">Cuéntanos qué os está frenando</h3>
-            <p className="mb-7 mt-2 text-sm leading-6 text-white/65">Con unas pocas señales podemos preparar mejor la primera conversación.</p>
-            <ContactForm />
-          </Reveal>
-        </div>
-      </section>
+      <ContactShowcase />
 
-      <section id="preguntas" className="section-space bg-white">
-        <div className="container-shell">
-          <Reveal><SectionHeading align="center" eyebrow="Preguntas frecuentes" title="Lo importante, antes de empezar" /></Reveal>
-          <Reveal delay={0.08} className="mt-12"><FaqList /></Reveal>
-        </div>
-      </section>
+      <FaqShowcase />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }} />
     </>

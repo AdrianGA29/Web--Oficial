@@ -1,16 +1,62 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/legal-page";
 
-export const metadata: Metadata = { title: "Cookies" };
+export const metadata: Metadata = {
+  title: "Política de cookies",
+  description: "Información sobre cookies, medición y tecnologías utilizadas en la web de Temis Atrile.",
+};
 
 const sections: LegalSection[] = [
-  { title: "Configuración actual", paragraphs: ["El MVP no utiliza Google Analytics, píxeles publicitarios ni herramientas de personalización comercial. Por ese motivo no se muestra un banner de consentimiento en esta fase."] },
-  { title: "Analítica de Vercel", paragraphs: ["El sitio utiliza Vercel Web Analytics para obtener información agregada sobre visitas y rendimiento. La integración se ha elegido como opción de medición mínima y no debe recibir datos personales incluidos en formularios."] },
-  { title: "Cookies técnicas", paragraphs: ["La infraestructura o el navegador pueden utilizar mecanismos estrictamente necesarios para entregar el sitio, protegerlo o conservar ajustes técnicos. Estos mecanismos no se emplean para crear perfiles publicitarios."] },
-  { title: "Cambios futuros", paragraphs: ["Si se incorpora una herramienta que requiera consentimiento —por ejemplo, analítica publicitaria o seguimiento entre sitios— se actualizará esta política y se implementará un sistema de gestión del consentimiento antes de cargarla."] },
-  { title: "Control desde el navegador", paragraphs: ["Los navegadores permiten consultar, bloquear o eliminar cookies desde sus ajustes. Desactivar mecanismos esenciales puede afectar al funcionamiento de algunos servicios web."] },
+  {
+    title: "Cómo utiliza esta web las cookies",
+    paragraphs: [
+      "Esta web mantiene una configuración de medición reducida. No utiliza píxeles publicitarios ni herramientas destinadas a crear perfiles comerciales de las personas que la visitan.",
+      "Determinados mecanismos técnicos pueden resultar necesarios para entregar el sitio, protegerlo y conservar ajustes básicos de funcionamiento.",
+    ],
+  },
+  {
+    title: "Medición con Vercel",
+    paragraphs: [
+      "Utilizamos Vercel Web Analytics para comprender de forma agregada cómo se visita la web y detectar oportunidades de mejora en rendimiento y experiencia de navegación.",
+      "La información introducida en el formulario de contacto no se utiliza como parte de esta medición.",
+    ],
+  },
+  {
+    title: "Categorías de tecnologías",
+    paragraphs: [
+      "La función de cada tecnología determina cómo debe tratarse. En este sitio diferenciamos entre mecanismos necesarios para operar la web y herramientas de medición destinadas a entender su funcionamiento.",
+    ],
+    points: [
+      "Necesarias: entrega, estabilidad y seguridad del sitio.",
+      "Analíticas: medición agregada del uso y del rendimiento.",
+      "Publicitarias: no utilizadas actualmente.",
+    ],
+  },
+  {
+    title: "Gestión desde el navegador",
+    paragraphs: [
+      "Los principales navegadores permiten consultar, bloquear o eliminar cookies y otros datos almacenados desde sus ajustes de privacidad.",
+      "El bloqueo de mecanismos estrictamente necesarios puede afectar a determinadas funciones o impedir que algunos servicios web se comporten correctamente.",
+    ],
+  },
+  {
+    title: "Cambios en las tecnologías utilizadas",
+    paragraphs: [
+      "Si incorporamos nuevas herramientas de analítica, personalización o publicidad, revisaremos esta información y aplicaremos los controles de consentimiento que correspondan antes de activarlas.",
+      "Cualquier cambio relevante se reflejará en esta página para mantener una explicación fiel a la configuración real del sitio.",
+    ],
+  },
 ];
 
 export default function CookiesPage() {
-  return <LegalPage eyebrow="Transparencia" title="Política de cookies" description="Medición mínima y sin herramientas publicitarias en el MVP." notice="Esta política describe la configuración técnica prevista para el MVP y se revisará junto con los textos legales definitivos antes del lanzamiento." sections={sections} />;
+  return (
+    <LegalPage
+      eyebrow="Medición y navegación"
+      title="Política de cookies"
+      description="Una explicación directa de las tecnologías que intervienen al navegar por esta web y de cómo puedes gestionarlas."
+      documentCode="LEGAL / 02"
+      currentPath="/cookies"
+      sections={sections}
+    />
+  );
 }

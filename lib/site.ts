@@ -153,34 +153,52 @@ export const team = [
 
 export const faqs = [
   {
-    question: "¿Sois una agencia de IA?",
+    category: "PROYECTO",
+    question: "¿Qué tipo de proyectos podéis desarrollar?",
     answer:
-      "No. Somos una consultora de transformación operativa. La IA es una herramienta más: si no mejora la rentabilidad, el control o la seguridad del proceso, no la proponemos.",
+      "Trabajamos en desarrollo web, automatizaciones, herramientas internas, aplicaciones a medida y consultoría e implantación de inteligencia artificial. Antes de aceptar un proyecto revisamos el contexto, la viabilidad y si realmente podemos aportar valor.",
   },
   {
+    category: "PROYECTO",
     question: "¿Tengo que saber exactamente qué necesito?",
     answer:
-      "No. La primera sesión sirve precisamente para ordenar el problema, identificar la fricción principal y decidir si existe una oportunidad de mejora razonable.",
+      "No. Es suficiente con que puedas explicar qué ocurre ahora, qué os está costando tiempo o qué queréis mejorar. La primera conversación sirve precisamente para ordenar el problema antes de hablar de herramientas.",
   },
   {
-    question: "¿Tengo que cambiar todas mis herramientas?",
+    category: "PROCESO",
+    question: "¿Cómo empieza la colaboración?",
     answer:
-      "Normalmente no. Analizamos lo que ya funciona e intentamos conectarlo y simplificarlo antes de sustituir nada.",
+      "Empezamos con una hora de consultoría gratuita y sin compromiso. La dedicamos a conocer la empresa, revisar el contexto y valorar si existe una primera línea de trabajo razonable.",
   },
   {
-    question: "¿Empezáis siempre con proyectos grandes?",
+    category: "PROCESO",
+    question: "¿Cuánto cuesta y cuánto tarda un proyecto?",
     answer:
-      "No. Preferimos una primera mejora acotada, con un resultado observable y una base que permita avanzar sin rehacerlo todo.",
+      "Depende del alcance, las integraciones y el punto de partida. No damos una cifra o un plazo genérico sin revisar el caso: antes de empezar dejamos por escrito qué incluye la propuesta, sus fases, el coste y una planificación realista.",
   },
   {
-    question: "¿La IA toma decisiones sola?",
+    category: "PROCESO",
+    question: "¿Es necesario empezar con un proyecto grande?",
     answer:
-      "Nunca en procesos sensibles. Diseñamos puntos de supervisión humana, trazabilidad y límites claros para cada automatización.",
+      "No. Cuando tiene sentido preferimos una primera fase acotada, útil por sí misma y suficientemente clara para comprobar su valor. Así reducimos riesgo y evitamos transformar toda la operativa de golpe.",
   },
   {
-    question: "¿Qué empresas encajan mejor?",
+    category: "TECNOLOGÍA",
+    question: "¿Tengo que sustituir las herramientas que ya utilizo?",
     answer:
-      "Pymes que están creciendo, acumulan trabajo manual o necesitan profesionalizar procesos sin perder flexibilidad.",
+      "Normalmente no. Primero revisamos qué funciona, qué está desconectado y qué puede simplificarse o integrarse. Solo proponemos sustituir una herramienta cuando mantenerla limita de verdad la solución.",
+  },
+  {
+    category: "TECNOLOGÍA",
+    question: "¿Cómo abordáis la inteligencia artificial y la seguridad?",
+    answer:
+      "La IA es una herramienta, no el punto de partida. Definimos qué datos intervienen, qué puede automatizarse y dónde debe existir supervisión humana. En procesos sensibles priorizamos límites claros, trazabilidad y control.",
+  },
+  {
+    category: "CONTINUIDAD",
+    question: "¿Qué ocurre después de entregar el proyecto?",
+    answer:
+      "Acordamos desde el inicio la entrega, los accesos, las licencias, la documentación y la propiedad aplicable a cada elemento. Si el proyecto necesita mantenimiento, soporte o evolución, lo planteamos como una fase separada y transparente.",
   },
 ] as const;
 

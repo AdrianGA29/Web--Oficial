@@ -1,60 +1,103 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Heart } from "lucide-react";
 import { Brand } from "@/components/brand";
-import { services } from "@/lib/services";
 import { siteConfig } from "@/lib/config";
 
-const linkClass = "link-underline focus-ring rounded-md text-sm text-white/58 hover:text-white";
+const exploreLinks = [
+  { href: "/#inicio", label: "Inicio" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/nosotros", label: "Nosotros" },
+  { href: "/#preguntas", label: "Preguntas" },
+] as const;
+
+const legalLinks = [
+  { href: "/privacidad", label: "Privacidad" },
+  { href: "/cookies", label: "Cookies" },
+  { href: "/terminos", label: "Términos" },
+] as const;
 
 export function Footer() {
+  const scrollToTop = () => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  };
+
   return (
-    <footer className="dark-grid noise relative overflow-hidden border-t border-white/10 text-white">
-      <div className="container-shell relative z-10 pt-20">
-        <div className="grid gap-12 border-b border-white/12 pb-14 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr_0.8fr]">
-          <div>
-            <Brand className="text-white" />
-            <p className="mt-6 max-w-md text-base leading-7 text-white/58">
-              Diagnóstico, sistemas y automatización para convertir fricción operativa en una base clara para crecer.
+    <footer className="editorial-footer">
+      <div className="editorial-footer-accent" aria-hidden="true" />
+
+      <div className="container-shell editorial-footer-inner">
+        <div className="editorial-footer-top">
+          <Brand className="editorial-footer-brand" />
+
+          <h2>
+            La tecnología debe encajar con la empresa.
+            <strong> No al revés.</strong>
+          </h2>
+
+          <Link href="/#contacto" className="editorial-footer-cta">
+            <span>Hablemos</span>
+            <i aria-hidden="true"><ArrowUpRight size={17} /></i>
+          </Link>
+        </div>
+
+        <div className="editorial-footer-body">
+          <div className="editorial-footer-intro">
+            <p>
+              Diseñamos sistemas, automatizaciones y productos digitales que
+              reducen fricción y mejoran la forma de trabajar.
             </p>
-            <Link
-              href="/#contacto"
-              className="focus-ring mt-7 inline-flex items-center gap-2 rounded-lg font-semibold text-sky transition-colors hover:text-white"
-            >
-              <span className="link-underline">Cuéntanos tu caso</span> <ArrowUpRight size={17} aria-hidden="true" />
-            </Link>
+            <span>
+              <i aria-hidden="true" />
+              Primera hora de consultoría gratuita
+            </span>
           </div>
-          <div>
-            <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.15em] text-sky">Servicios</p>
-            <ul className="mt-6 grid gap-3.5">
-              {services.map((service) => (
-                <li key={service.slug}>
-                  <Link href={`/servicios/${service.slug}`} className={linkClass}>
-                    {service.shortTitle}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.15em] text-sky">Compañía</p>
-            <ul className="mt-6 grid gap-3.5">
-              <li><Link href="/nosotros" className={linkClass}>Nosotros</Link></li>
-              <li><Link href="/#contacto" className={linkClass}>Contacto</Link></li>
-              <li><Link href="/privacidad" className={linkClass}>Privacidad</Link></li>
-            </ul>
-          </div>
+
+          <FooterLinks title="Explora" links={exploreLinks} />
+          <FooterLinks title="Legal" links={legalLinks} />
         </div>
-        <div className="flex flex-col gap-4 py-7 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+
+        <div className="editorial-footer-bottom">
           <p>© {new Date().getFullYear()} {siteConfig.name}.</p>
-          <div className="flex gap-5">
-            <Link href="/terminos" className={linkClass}>Términos</Link>
-            <Link href="/cookies" className={linkClass}>Cookies</Link>
-          </div>
+
+          <p className="editorial-footer-credit">
+            <span>Diseñada y desarrollada con</span>
+            <Heart size={12} aria-hidden="true" />
+            <span>por Adrián</span>
+          </p>
+
+          <button type="button" onClick={scrollToTop} aria-label="Volver al inicio">
+            <span>Volver arriba</span>
+            <i aria-hidden="true"><ArrowUp size={15} /></i>
+          </button>
         </div>
-        <p aria-hidden="true" className="select-none overflow-hidden pb-2 text-center text-[clamp(4rem,13vw,10.5rem)] font-semibold leading-[0.78] tracking-[-0.07em] text-white/[0.035]">
-          SISTEMA
-        </p>
       </div>
     </footer>
+  );
+}
+
+function FooterLinks({
+  title,
+  links,
+}: {
+  title: string;
+  links: ReadonlyArray<{ href: string; label: string }>;
+}) {
+  return (
+    <nav className="editorial-footer-links" aria-label={title}>
+      <p>{title}</p>
+      <ul>
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link href={link.href}>
+              <span>{link.label}</span>
+              <ArrowUpRight size={12} aria-hidden="true" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
