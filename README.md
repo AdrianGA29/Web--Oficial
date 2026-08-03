@@ -22,8 +22,8 @@ npm run build
 
 Copia `.env.example` a `.env.local` y completa únicamente los valores disponibles. El formulario necesita `NEXT_PUBLIC_FORMSPREE_ENDPOINT` para enviar solicitudes reales.
 
-Mientras `NEXT_PUBLIC_SITE_INDEXABLE` no sea `true`, la web emite `noindex`, `nofollow` y bloquea el rastreo en `robots.txt`. Esta protección debe mantenerse hasta disponer de identidad, dominio y contenido definitivos.
+Los builds de producción son indexables por defecto. `NEXT_PUBLIC_SITE_INDEXABLE=false` queda reservado para previews privadas y entornos que no deban aparecer en buscadores.
 
 ## Despliegue
 
-El proyecto de Vercel está conectado al repositorio de GitHub. Los cambios integrados en la rama principal generan un nuevo despliegue automáticamente.
+La web se exporta como contenido estático y se publica en el directorio `/public` del hosting de IONOS. Antes de desplegar se deben ejecutar las comprobaciones de tipos, build y SEO.

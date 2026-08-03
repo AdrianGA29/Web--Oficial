@@ -4,19 +4,18 @@ const { chromium } = require("playwright");
 
 const routes = [
   "/",
-  "/servicios",
-  "/servicios/automatizacion-procesos",
-  "/servicios/presupuestacion-tecnica",
-  "/servicios/webs-interactivas-ia",
-  "/nosotros",
-  "/diagnostico",
-  "/contacto",
-  "/privacidad",
-  "/terminos",
-  "/cookies",
+  "/servicios/",
+  "/servicios/desarrollo-web/",
+  "/servicios/automatizacion/",
+  "/servicios/aplicaciones-a-medida/",
+  "/servicios/inteligencia-artificial/",
+  "/nosotros/",
+  "/privacidad/",
+  "/terminos/",
+  "/cookies/",
 ];
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = process.env.QA_BASE_URL ?? "http://localhost:3000";
 const axePath = require.resolve("axe-core/axe.min.js");
 
 (async () => {
@@ -44,7 +43,7 @@ const axePath = require.resolve("axe-core/axe.min.js");
     const checks = {
       status: response?.status() === 200,
       oneH1: result.h1Count === 1,
-      noindex: result.robots?.includes("noindex") === true,
+      indexable: result.robots?.includes("noindex") !== true,
       noOverflow: result.overflow <= 0,
       htmlContainsH1: rawHtml.includes("<h1"),
       cleanConsole: consoleErrors.length === 0,
@@ -68,17 +67,6 @@ const axePath = require.resolve("axe-core/axe.min.js");
   };
   if (!report.interactions.mobileMenu.expanded || report.interactions.mobileMenu.visibleLinks < 5) report.failures.push("mobile menu");
   await mobile.close();
-
-  const methodNavigation = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
-  await methodNavigation.goto(`${baseUrl}/servicios`, { waitUntil: "networkidle" });
-  await methodNavigation.locator('header nav a[href="/#metodo"]').click();
-  await methodNavigation.waitForURL(`${baseUrl}/#metodo`);
-  report.interactions.methodAnchor = {
-    url: methodNavigation.url(),
-    sectionVisible: await methodNavigation.locator("#metodo").isVisible(),
-  };
-  if (!report.interactions.methodAnchor.sectionVisible) report.failures.push("method anchor navigation");
-  await methodNavigation.close();
 
   const experience = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: "no-preference" });
   await experience.goto(baseUrl, { waitUntil: "networkidle" });
@@ -128,7 +116,7 @@ const axePath = require.resolve("axe-core/axe.min.js");
   await experienceMobile.close();
 
   const form = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
-  await form.goto(`${baseUrl}/diagnostico`, { waitUntil: "networkidle" });
+  await form.goto(`${baseUrl}/#contacto`, { waitUntil: "networkidle" });
   await form.getByRole("button", { name: "Enviar solicitud" }).click();
   report.interactions.formValidation = {
     invalidFields: await form.locator('[aria-invalid="true"]').count(),
@@ -139,7 +127,7 @@ const axePath = require.resolve("axe-core/axe.min.js");
 
   const robots = await (await fetch(`${baseUrl}/robots.txt`)).text();
   report.interactions.robots = robots;
-  if (!robots.includes("Disallow: /")) report.failures.push("robots disallow");
+  if (!robots.includes("Allow: /") || robots.includes("Disallow: /")) report.failures.push("robots indexability");
 
   const removedMethodPage = await fetch(`${baseUrl}/metodo`);
   report.interactions.removedMethodPage = removedMethodPage.status;

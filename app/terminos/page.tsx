@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/legal-page";
+import { socialImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Términos de uso",
   description: "Condiciones generales para navegar y utilizar el sitio web de Temis Atrile.",
+  alternates: { canonical: "/terminos/" },
+  openGraph: { url: "/terminos/", images: [socialImage] },
 };
 
 const sections: LegalSection[] = [

@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "tsc --noEmit",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seo:check": "node scripts/seo-check.cjs",
+    "verify": "npm run typecheck && npm run build && npm run seo:check"
   },
   "dependencies": {
     "animejs": "^4.5.0",

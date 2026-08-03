@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/legal-page";
+import { socialImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Política de cookies",
   description: "Información sobre cookies, medición y tecnologías utilizadas en la web de Temis Atrile.",
+  alternates: { canonical: "/cookies/" },
+  openGraph: { url: "/cookies/", images: [socialImage] },
 };
 
 const sections: LegalSection[] = [

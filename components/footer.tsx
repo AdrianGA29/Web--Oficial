@@ -60,7 +60,7 @@ export function Footer() {
         </div>
 
         <div className="editorial-footer-bottom">
-          <p>© {new Date().getFullYear()} {siteConfig.name}.</p>
+          <p>© {new Date().getFullYear()} {siteConfig.displayName}.</p>
 
           <p className="editorial-footer-credit">
             <span>Diseñada y desarrollada con</span>

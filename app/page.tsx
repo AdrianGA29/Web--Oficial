@@ -14,12 +14,14 @@ import { ToolShowcase } from "@/components/tool-showcase";
 import { TrackedLink } from "@/components/tracked-link";
 import { GradientText } from "@/components/ui/gradient-text";
 import { siteConfig } from "@/lib/config";
+import { jsonLd, organizationSchema, socialImage, websiteSchema } from "@/lib/seo";
 import { faqs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: `${siteConfig.name} | Transformación operativa para pymes` },
-  description:
-    "Convertimos procesos manuales y herramientas desconectadas en sistemas claros, medibles y preparados para crecer.",
+  title: { absolute: `Consultoría estratégica y tecnológica | ${siteConfig.name}` },
+  description: siteConfig.description,
+  alternates: { canonical: "/" },
+  openGraph: { url: "/", images: [socialImage] },
 };
 
 function HeroCommitmentGroup({ duplicate = false }: { duplicate?: boolean }) {
@@ -41,6 +43,11 @@ function HeroCommitmentGroup({ duplicate = false }: { duplicate?: boolean }) {
 }
 
 export default function HomePage() {
+  const siteSchema = {
+    "@context": "https://schema.org",
+    "@graph": [organizationSchema, websiteSchema],
+  };
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -116,7 +123,8 @@ export default function HomePage() {
 
       <FaqShowcase />
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(siteSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
     </>
   );
 }

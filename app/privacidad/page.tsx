@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/legal-page";
+import { socialImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Política de privacidad",
   description: "Información sobre el tratamiento de los datos enviados a través del sitio web de Temis Atrile.",
+  alternates: { canonical: "/privacidad/" },
+  openGraph: { url: "/privacidad/", images: [socialImage] },
 };
 
 const sections: LegalSection[] = [

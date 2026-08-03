@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import temisHero from "@/assets/images/temis-hero-v2.webp";
+import { HeroPortraitImage } from "@/components/hero-portrait-image";
 
 let hasPlayedHeroGlitch = false;
 
@@ -45,15 +44,13 @@ export function HeroGlitchIntro() {
       setActive(true);
     };
 
-    if (document.readyState === "complete") {
-      startTimer = window.setTimeout(play, 0);
-    } else {
-      window.addEventListener("load", play, { once: true });
-    }
+    // The intro is decorative and must never wait for every image, iframe or
+    // third-party resource to finish loading. Starting shortly after hydration
+    // preserves the sequence without delaying the hero's primary content.
+    startTimer = window.setTimeout(play, 80);
 
     return () => {
       window.clearTimeout(startTimer);
-      window.removeEventListener("load", play);
     };
   }, []);
 
@@ -96,14 +93,7 @@ export function HeroGlitchIntro() {
               ease: "linear",
             }}
           >
-            <Image
-              src={temisHero}
-              alt=""
-              fill
-              quality={90}
-              sizes="(max-width: 900px) 124vw, 64vw"
-              className="object-contain object-bottom"
-            />
+            <HeroPortraitImage className="object-contain object-bottom" />
           </motion.div>
         ))}
       </div>

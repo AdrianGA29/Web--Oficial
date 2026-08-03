@@ -5,7 +5,7 @@ export function Brand({ className, compact = false }: { className?: string; comp
   return (
     <Link
       href="/"
-      aria-label="Temis Λtrile, ir al inicio"
+      aria-label="Temis Atrile, ir al inicio"
       className={cn("group focus-ring inline-flex items-center rounded-lg", className)}
     >
       {!compact && (

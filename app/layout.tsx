@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { siteConfig } from "@/lib/config";
+import { socialImage } from "@/lib/seo";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +16,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | Transformación operativa para pymes`,
+    default: `Consultoría estratégica y tecnológica | ${siteConfig.name}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -24,15 +25,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     siteName: siteConfig.name,
-    title: `${siteConfig.name} | Del caos operativo a un sistema claro`,
+    title: `Consultoría estratégica y tecnológica | ${siteConfig.name}`,
     description: siteConfig.description,
-    images: [{ url: "/og/social.png", width: 1680, height: 937, alt: "Paisaje abstracto azul" }],
+    images: [socialImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | Transformación operativa para pymes`,
+    title: `Consultoría estratégica y tecnológica | ${siteConfig.name}`,
     description: siteConfig.description,
-    images: ["/og/social.png"],
+    images: ["/og/social.jpg"],
   },
   robots: siteConfig.indexable
     ? { index: true, follow: true }
