@@ -18,6 +18,7 @@ const fragments = [
 
 export function HeroGlitchIntro() {
   const [active, setActive] = useState(false);
+  const [fragmentLimit, setFragmentLimit] = useState<number>(fragments.length);
 
   useEffect(() => {
     const hero = document.getElementById("inicio");
@@ -41,6 +42,9 @@ export function HeroGlitchIntro() {
       hero.dataset.glitchStartedAt = String(performance.now());
       hero.classList.remove("is-glitch-pending");
       hero.classList.add("is-glitching");
+      if (window.matchMedia("(max-width: 900px), (pointer: coarse)").matches) {
+        setFragmentLimit(3);
+      }
       setActive(true);
     };
 
@@ -75,7 +79,7 @@ export function HeroGlitchIntro() {
       onAnimationComplete={finish}
     >
       <div className="temis-hero-glitch-figure">
-        {fragments.map((fragment, index) => (
+        {fragments.slice(0, fragmentLimit).map((fragment) => (
           <motion.div
             key={fragment.clip}
             className={`temis-hero-glitch-fragment is-${fragment.tone}`}

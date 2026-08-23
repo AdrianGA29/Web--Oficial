@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../legal.css";
 import { LegalPage, type LegalSection } from "@/components/legal-page";
 import { socialImage } from "@/lib/seo";
 

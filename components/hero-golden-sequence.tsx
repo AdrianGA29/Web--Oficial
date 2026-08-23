@@ -22,7 +22,7 @@ function createGoldenSpiral(width: number, height: number) {
   const initialRadius = Math.hypot(startX - centerX, startY - centerY);
   const initialAngle = Math.atan2(startY - centerY, startX - centerX);
   const turns = 2.15;
-  const points = 320;
+  const points = portrait ? 180 : 320;
 
   return Array.from({ length: points + 1 }, (_, index) => {
     const angle = initialAngle + (index / points) * turns * Math.PI * 2;
@@ -68,12 +68,13 @@ export function HeroGoldenSequence() {
       if (hasPlayedGoldenSequence) return;
 
       hasPlayedGoldenSequence = true;
+      const mobileViewport = window.matchMedia("(max-width: 900px)").matches;
       const bounds = hero.getBoundingClientRect();
       setViewport({
         width: Math.max(1, Math.round(bounds.width)),
         height: Math.max(1, Math.round(bounds.height)),
       });
-      hero.classList.add("is-golden-revealing");
+      if (!mobileViewport) hero.classList.add("is-golden-revealing");
       hero.classList.remove("is-geometry-pending");
       setPhase("running");
     };
@@ -83,7 +84,9 @@ export function HeroGoldenSequence() {
   }, []);
 
   const finish = () => {
-    document.getElementById("inicio")?.classList.add("is-golden-complete");
+    if (!window.matchMedia("(max-width: 900px)").matches) {
+      document.getElementById("inicio")?.classList.add("is-golden-complete");
+    }
     setPhase("complete");
   };
 

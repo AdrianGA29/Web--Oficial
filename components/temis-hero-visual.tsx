@@ -1,5 +1,3 @@
-"use client";
-
 import { HeroPortraitImage } from "@/components/hero-portrait-image";
 
 export function TemisHeroVisual() {

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
-import { createTimeline } from "animejs/timeline";
 import { ArrowUpRight, Expand, ExternalLink, MousePointer2, X } from "lucide-react";
 import { ToolProductFrame } from "@/components/tool-product-frame";
+import { loadEditorialMotion, supportsFinePointerMotion, type MotionTimeline } from "@/lib/motion";
 
 export function ExperiencePreview({
   demoHref,
@@ -34,8 +34,8 @@ export function ExperiencePreview({
   const cueContentRef = useRef<HTMLSpanElement>(null);
   const cuePointerRef = useRef<HTMLSpanElement>(null);
   const cuePulseRef = useRef<HTMLElement>(null);
-  const hintRevealRef = useRef<ReturnType<typeof createTimeline> | null>(null);
-  const hintSequenceRef = useRef<ReturnType<typeof createTimeline> | null>(null);
+  const hintRevealRef = useRef<MotionTimeline | null>(null);
+  const hintSequenceRef = useRef<MotionTimeline | null>(null);
   const hintDismissedRef = useRef(false);
   const closeTimerRef = useRef<number | null>(null);
   const pointerFrameRef = useRef<number | null>(null);
@@ -76,11 +76,15 @@ export function ExperiencePreview({
     const pointer = cuePointerRef.current;
     const pulse = cuePulseRef.current;
     if (!card || !cue || !content || !pointer || !pulse) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!supportsFinePointerMotion()) return;
+
+    let disposed = false;
+    let loading = false;
+    let intersecting = false;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      async ([entry]) => {
+        intersecting = entry.isIntersecting;
         if (hintDismissedRef.current) return;
 
         if (!entry.isIntersecting) {
@@ -94,6 +98,13 @@ export function ExperiencePreview({
           hintSequenceRef.current.play();
           return;
         }
+
+        if (loading) return;
+        loading = true;
+
+        const { createTimeline } = await loadEditorialMotion();
+        loading = false;
+        if (disposed || !intersecting || hintDismissedRef.current) return;
 
         hintRevealRef.current = createTimeline({
           defaults: { ease: "out(5)" },
@@ -173,6 +184,7 @@ export function ExperiencePreview({
 
     observer.observe(card);
     return () => {
+      disposed = true;
       observer.disconnect();
       hintRevealRef.current?.revert();
       hintSequenceRef.current?.revert();

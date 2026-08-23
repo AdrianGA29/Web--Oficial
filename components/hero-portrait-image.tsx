@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils";
 import temisHero from "@/assets/images/temis-hero-v2.webp";
 import temisHeroMobile from "@/assets/images/temis-hero-v2-mobile.webp";
+import temisHeroMobile480 from "@/assets/images/temis-hero-v2-mobile-480.webp";
+import temisHeroMobile640 from "@/assets/images/temis-hero-v2-mobile-640.webp";
+import temisHeroMobile768 from "@/assets/images/temis-hero-v2-mobile-768.webp";
 
 export function HeroPortraitImage({
   className,
@@ -11,7 +14,16 @@ export function HeroPortraitImage({
 }) {
   return (
     <picture>
-      <source media="(max-width: 900px)" srcSet={temisHeroMobile.src} />
+      <source
+        media="(max-width: 900px)"
+        sizes="100vw"
+        srcSet={[
+          `${temisHeroMobile480.src} 480w`,
+          `${temisHeroMobile640.src} 640w`,
+          `${temisHeroMobile768.src} 768w`,
+          `${temisHeroMobile.src} 1000w`,
+        ].join(", ")}
+      />
       <img
         src={temisHero.src}
         width={temisHero.width}

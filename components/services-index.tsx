@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { createTimeline } from "animejs/timeline";
-import { stagger } from "animejs/utils";
 import { useEffect, useRef, useState } from "react";
+import { loadEditorialMotion, shouldReduceInterfaceMotion, type MotionTimeline } from "@/lib/motion";
 
 const services = [
   {
@@ -182,18 +181,23 @@ export function ServicesIndex() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = shouldReduceInterfaceMotion();
     if (reduceMotion) {
       section.classList.add("is-revealed");
       return;
     }
 
     section.classList.add("is-motion-ready");
-    let sequence: ReturnType<typeof createTimeline> | null = null;
+    let sequence: MotionTimeline | null = null;
+    let disposed = false;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      async ([entry]) => {
         if (!entry.isIntersecting) return;
+        observer.disconnect();
+
+        const { createTimeline, stagger } = await loadEditorialMotion();
+        if (disposed) return;
 
         sequence = createTimeline({
           defaults: { ease: "out(4)" },
@@ -223,6 +227,7 @@ export function ServicesIndex() {
 
     observer.observe(section);
     return () => {
+      disposed = true;
       observer.disconnect();
       sequence?.revert();
     };

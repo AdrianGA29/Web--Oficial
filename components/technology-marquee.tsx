@@ -1,9 +1,3 @@
-"use client";
-
-import { useEffect, useMemo } from "react";
-import AutoScroll from "embla-carousel-auto-scroll";
-import useEmblaCarousel from "embla-carousel-react";
-import { useReducedMotion } from "framer-motion";
 import type { SimpleIcon } from "simple-icons";
 import {
   siAndroid,
@@ -66,64 +60,30 @@ function TechnologyRow({
   technologies: Technology[];
   direction: "forward" | "backward";
 }) {
-  const reducedMotion = useReducedMotion();
-  const autoScroll = useMemo(
-    () =>
-      AutoScroll({
-        direction,
-        speed: 0.82,
-        startDelay: 0,
-        playOnInit: !reducedMotion,
-        stopOnInteraction: false,
-        stopOnMouseEnter: false,
-        stopOnFocusIn: false,
-      }),
-    [direction, reducedMotion],
-  );
-  const [viewportRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      align: "start",
-      dragFree: true,
-      skipSnaps: true,
-      watchDrag: false,
-    },
-    [autoScroll],
-  );
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    const plugin = emblaApi.plugins().autoScroll;
-    if (reducedMotion) {
-      plugin.stop();
-      return;
-    }
-    plugin.play(0);
-    return () => plugin.stop();
-  }, [emblaApi, reducedMotion]);
-
   return (
     <div className="technology-logo-rail">
-      <div ref={viewportRef} className="technology-logo-viewport">
-        <ul className="technology-logo-track">
-          {Array.from({ length: 4 }, (_, cycle) =>
-            technologies.map(({ label, icon }) => (
-              <li
-                key={`${cycle}-${label}`}
-                className="technology-logo-item"
-                aria-hidden={cycle > 0 || undefined}
-              >
-                <span className="technology-logo-mark" style={{ color: `#${icon.hex}` }} aria-hidden="true">
-                  <svg viewBox="0 0 24 24" role="presentation">
-                    <path fill="currentColor" d={icon.path} />
-                  </svg>
-                </span>
-                <span>{label}</span>
-                <i aria-hidden="true" />
-              </li>
-            )),
-          )}
-        </ul>
+      <div className="technology-logo-viewport">
+        <div className={`technology-logo-track is-${direction}`}>
+          {Array.from({ length: 2 }, (_, cycle) => (
+            <ul
+              key={cycle}
+              className="technology-logo-group"
+              aria-hidden={cycle > 0 || undefined}
+            >
+              {technologies.map(({ label, icon }) => (
+                <li key={label} className="technology-logo-item">
+                  <span className="technology-logo-mark" style={{ color: `#${icon.hex}` }} aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation">
+                      <path fill="currentColor" d={icon.path} />
+                    </svg>
+                  </span>
+                  <span>{label}</span>
+                  <i aria-hidden="true" />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
       </div>
     </div>
   );

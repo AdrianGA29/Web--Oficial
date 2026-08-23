@@ -7,14 +7,13 @@ import {
   useSpring,
   type MotionStyle,
 } from "framer-motion";
-import { createTimeline } from "animejs/timeline";
-import { stagger } from "animejs/utils";
 import {
   useEffect,
   useRef,
   useState,
   type PointerEvent,
 } from "react";
+import { loadEditorialMotion, shouldReduceInterfaceMotion, type MotionTimeline } from "@/lib/motion";
 
 const signals = [
   {
@@ -235,20 +234,25 @@ export function FrictionEditorial() {
     const section = sectionRef.current;
     if (!section) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (shouldReduceInterfaceMotion()) {
       section.classList.add("is-revealed");
       return;
     }
 
     section.classList.add("is-motion-ready");
-    let sequence: ReturnType<typeof createTimeline> | null = null;
+    let sequence: MotionTimeline | null = null;
+    let disposed = false;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      async ([entry]) => {
         if (!entry.isIntersecting) return;
+        observer.disconnect();
 
         const headingTargets = section.querySelectorAll("[data-friction-heading]");
         const cardTargets = section.querySelectorAll("[data-friction-card]");
+
+        const { createTimeline, stagger } = await loadEditorialMotion();
+        if (disposed) return;
 
         sequence = createTimeline({
           defaults: {
@@ -283,6 +287,7 @@ export function FrictionEditorial() {
     observer.observe(section);
 
     return () => {
+      disposed = true;
       observer.disconnect();
       sequence?.revert();
     };

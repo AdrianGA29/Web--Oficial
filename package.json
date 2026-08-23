@@ -10,13 +10,12 @@
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "seo:check": "node scripts/seo-check.cjs",
-    "verify": "npm run typecheck && npm run build && npm run seo:check"
+    "perf:budget": "node scripts/performance-budget.cjs",
+    "verify": "npm run typecheck && npm run build && npm run seo:check && npm run perf:budget"
   },
   "dependencies": {
     "animejs": "^4.5.0",
     "clsx": "^2.1.1",
-    "embla-carousel-auto-scroll": "^8.6.0",
-    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.42.2",
     "lucide-react": "^0.546.0",
     "next": "^16.2.12",

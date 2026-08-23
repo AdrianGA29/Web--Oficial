@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../about.css";
 import { AboutShowcase } from "@/components/about-showcase";
 import { absoluteUrl, breadcrumbSchema, jsonLd, organizationId, socialImage } from "@/lib/seo";
 
