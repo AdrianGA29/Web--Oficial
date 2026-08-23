@@ -1039,8 +1039,8 @@ select {
   }
 
   .temis-hero-title {
-    font-size: clamp(3.8rem, 17.2vw, 5.4rem);
-    line-height: 0.84;
+    font-size: clamp(2.9rem, 15vw, 4.8rem);
+    line-height: 0.88;
   }
 
   .temis-hero-subtitle {
@@ -2526,6 +2526,24 @@ button:hover > .link-underline {
 }
 
 @media (max-width: 1023px) {
+  .site-header {
+    transition:
+      opacity 320ms ease,
+      transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 0s;
+  }
+
+  .site-header.mobile-hero-header-hidden {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(calc(-100% - 1rem));
+    transition:
+      opacity 240ms ease,
+      transform 420ms cubic-bezier(0.4, 0, 1, 1),
+      visibility 0s linear 420ms;
+  }
+
   .friction-stage-heading h2 span {
     white-space: normal;
   }
@@ -2547,6 +2565,77 @@ button:hover > .link-underline {
     grid-column: 1 / -1;
     width: calc(50% - 0.5rem);
     justify-self: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .friction-card-grid-layout {
+    margin-top: 2.4rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.15rem;
+  }
+
+  .friction-card-entry:last-child {
+    width: 100%;
+    grid-column: auto;
+  }
+
+  .friction-card {
+    height: 25.5rem;
+    filter: drop-shadow(0 18px 22px rgba(7, 11, 26, 0.16));
+    transition:
+      height 620ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .friction-card.is-active {
+    height: 30rem;
+  }
+
+  .friction-card-shell {
+    padding: 1.2rem;
+  }
+
+  .friction-card-number {
+    top: 3.35rem;
+    right: 1.2rem;
+    font-size: clamp(3.8rem, 18vw, 5.1rem);
+  }
+
+  .friction-card-visual {
+    top: 15%;
+    right: 4%;
+    left: 4%;
+    height: 48%;
+  }
+
+  .friction-card-copy {
+    right: 1.2rem;
+    bottom: 3.7rem;
+    left: 1.2rem;
+  }
+
+  .friction-card-title {
+    max-width: 16ch;
+    font-size: clamp(1.8rem, 8.7vw, 2.45rem);
+    line-height: 0.98;
+  }
+
+  .friction-card-description {
+    max-width: 38ch;
+    font-size: 0.9rem;
+    line-height: 1.52;
+  }
+
+  .friction-card.is-active .friction-card-description {
+    max-height: 10rem;
+    margin-top: 0.85rem;
+  }
+
+  .friction-card-footer {
+    right: 1.2rem;
+    bottom: 1.15rem;
+    left: 1.2rem;
   }
 }
 

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mando Agente</title>
+  <style>
+    :root { color-scheme: dark; --bg:#080b12; --panel:#101620; --line:#243042; --text:#eef4ff; --muted:#91a0b5; --cyan:#5ee7f3; --violet:#9d7bff; --danger:#ff5d73; }
+    * { box-sizing:border-box }
+    body { margin:0; min-height:100vh; font:15px/1.5 Inter,Segoe UI,sans-serif; color:var(--text); background:radial-gradient(circle at 15% 10%,#17213c 0,transparent 35%),var(--bg); }
+    .shell { width:min(1120px,100%); margin:auto; min-height:100vh; padding:24px; display:grid; grid-template-columns:330px 1fr; gap:18px; }
+    .panel { border:1px solid var(--line); border-radius:22px; background:rgba(16,22,32,.88); box-shadow:0 20px 80px #0007; }
+    aside { padding:22px; align-self:start; }
+    h1 { margin:0; font-size:23px; letter-spacing:-.03em; } h2 { font-size:13px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin:26px 0 12px; }
+    .status { display:flex; align-items:center; gap:9px; color:var(--muted); margin-top:7px; font-size:13px; }
+    .dot { width:9px; height:9px; border-radius:50%; background:#566273; box-shadow:0 0 0 4px #56627322; } .dot.on { background:#4ce0a0; box-shadow:0 0 0 4px #4ce0a022; }
+    label { display:flex; justify-content:space-between; margin:14px 0 6px; color:#c5d0df; } input[type=range] { width:100%; accent-color:var(--cyan); }
+    button,select { border:1px solid var(--line); border-radius:12px; color:var(--text); background:#182231; padding:10px 13px; font:inherit; cursor:pointer; }
+    button:hover { border-color:#51637c; } button:disabled { opacity:.55; cursor:not-allowed; } button.primary { background:linear-gradient(135deg,var(--violet),#526cff); border:0; font-weight:700; } button.stop { background:#32151c; border-color:#702635; color:#ffadba; width:100%; margin-top:9px; } button.continuous { width:100%; margin-top:9px; border-color:#315c68; color:var(--cyan); } button.continuous.active { background:#164753; color:#fff; box-shadow:0 0 20px #5ee7f333; }
+    .row { display:flex; gap:8px; } .row > * { flex:1; min-width:0; } select { width:100%; }
+    main { min-height:calc(100vh - 48px); display:flex; flex-direction:column; overflow:hidden; }
+    header { padding:14px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .tabs { display:flex; gap:5px; padding:4px; background:#0b1018; border:1px solid var(--line); border-radius:12px; } .tab { border:0; padding:7px 11px; background:transparent; color:var(--muted); } .tab.active { background:#253147; color:var(--text); }
+    .voice { display:flex; gap:8px; align-items:center; color:var(--muted); font-size:13px; }
+    .view { min-height:0; flex:1; } #chatView { display:flex; flex-direction:column; } .hidden { display:none!important; }
+    #messages { flex:1; overflow:auto; padding:24px; display:flex; flex-direction:column; gap:14px; }
+    .message { max-width:78%; padding:12px 15px; border-radius:16px; white-space:pre-wrap; }
+    .assistant { align-self:flex-start; background:#172130; border-bottom-left-radius:5px; } .user { align-self:flex-end; background:linear-gradient(135deg,#5e4fd1,#3d61ca); border-bottom-right-radius:5px; }
+    .action { color:var(--cyan); font-size:12px; margin-top:7px; }
+    .chat-form { padding:15px; border-top:1px solid var(--line); display:flex; gap:9px; }
+    textarea { flex:1; resize:none; height:48px; max-height:130px; border:1px solid var(--line); border-radius:14px; background:#0b1018; color:var(--text); padding:12px 14px; font:inherit; outline:none; } textarea:focus { border-color:var(--violet); }
+    #mic.active { color:#fff; background:#743248; } .hint { color:var(--muted); font-size:12px; margin-top:13px; }
+    #patternView { overflow:auto; padding:20px; }
+    .pattern-toolbar { display:grid; grid-template-columns:1fr auto auto; gap:9px; margin-bottom:14px; } .pattern-toolbar input,.step input[type=number] { min-width:0; border:1px solid var(--line); border-radius:11px; background:#0b1018; color:var(--text); padding:9px 11px; font:inherit; }
+    .template-row { display:grid; grid-template-columns:1fr auto auto; gap:8px; margin-bottom:18px; }
+    .steps { display:flex; flex-direction:column; gap:10px; }
+    .step { border:1px solid var(--line); border-radius:16px; padding:14px; background:#0c121c; transition:.2s; } .step.playing { border-color:var(--cyan); box-shadow:0 0 0 3px #5ee7f31c; }
+    .step-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; } .step-title { display:flex; align-items:center; gap:9px; font-weight:700; } .step-number { display:grid; place-items:center; width:25px; height:25px; border-radius:8px; background:#27344b; color:var(--cyan); font-size:12px; }
+    .step-actions { display:flex; gap:5px; } .step-actions button { padding:5px 8px; border-radius:8px; }
+    .step-fields { display:grid; grid-template-columns:1fr 1fr 130px; gap:14px; } .step.pause-step .step-fields { grid-template-columns:130px; }
+    .field label { margin:0 0 6px; font-size:12px; color:var(--muted); } .field output { color:var(--cyan); font-weight:700; } .field input[type=number] { width:100%; }
+    .pattern-actions { position:sticky; bottom:-20px; margin:18px -20px -20px; padding:14px 20px; display:flex; gap:9px; align-items:center; background:linear-gradient(0deg,#101620 75%,transparent); } .pattern-actions .status-text { margin-left:auto; color:var(--muted); font-size:12px; }
+    .loop-label { display:flex; align-items:center; gap:7px; margin:0; white-space:nowrap; }
+    @media(max-width:780px){ .shell{grid-template-columns:1fr;padding:10px}.panel{border-radius:17px}main{min-height:70vh}.message{max-width:90%} header{flex-wrap:wrap}.step-fields{grid-template-columns:1fr}.pattern-toolbar,.template-row{grid-template-columns:1fr 1fr}.pattern-toolbar input,.template-row select{grid-column:1/-1}.pattern-actions{flex-wrap:wrap}.pattern-actions .status-text{width:100%;margin:0} }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="panel">
+      <h1>◉ Mando Agente</h1>
+      <div class="status"><span id="padDot" class="dot"></span><span id="padStatus">Buscando mando…</span></div>
+      <div class="status"><span id="lmDot" class="dot"></span><span id="lmStatus">Buscando LM Studio…</span></div>
+
+      <h2>Control manual</h2>
+      <label>Motor fuerte <b id="lowValue">35</b></label><input id="low" type="range" min="0" max="100" value="35">
+      <label>Motor fino <b id="highValue">55</b></label><input id="high" type="range" min="0" max="100" value="55">
+      <label>Duración <b id="durationValue">600 ms</b></label><input id="duration" type="range" min="50" max="10000" step="50" value="600">
+      <div class="row" style="margin-top:15px"><button id="test" class="primary">Vibrar</button><button id="rescan">Reconectar</button></div>
+      <button id="continuous" class="continuous">∞ Iniciar vibración continua</button>
+      <button id="stop" class="stop">■ PARAR AHORA</button>
+
+      <h2>Modelo local</h2>
+      <select id="model"><option value="">Automático</option></select>
+      <p class="hint">Conecta el mando antes de abrir la app. Para una vibración más fiable, usa USB. La parada manual funciona aunque LM Studio esté desconectado.</p>
+    </aside>
+
+    <main class="panel">
+      <header>
+        <div><strong id="viewTitle">Conversación local</strong><div id="viewSubtitle" class="hint" style="margin:1px 0 0">El modelo puede usar el mando como herramienta</div></div>
+        <div class="tabs"><button class="tab active" data-view="chat">Chat</button><button class="tab" data-view="pattern">Plantillas</button></div>
+        <label id="voiceControl" class="voice"><input id="speak" type="checkbox" checked> Leer respuestas</label>
+      </header>
+      <div id="chatView" class="view">
+        <section id="messages"><div class="message assistant">Hola. Pídeme algo como “haz dos motores suaves durante medio segundo” o simplemente charla conmigo.</div></section>
+        <form id="chatForm" class="chat-form">
+          <button type="button" id="mic" title="Dictar">🎙</button>
+          <textarea id="prompt" placeholder="Escribe o dicta una orden…" required></textarea>
+          <button class="primary" id="send">Enviar</button>
+        </form>
+      </div>
+      <div id="patternView" class="view hidden">
+        <div class="template-row">
+          <select id="templates"><option value="">Plantillas guardadas…</option></select>
+          <button id="loadTemplate">Cargar</button>
+          <button id="deleteTemplate" title="Eliminar plantilla">Eliminar</button>
+        </div>
+        <div class="pattern-toolbar">
+          <input id="templateName" maxlength="50" placeholder="Nombre de la plantilla">
+          <button id="saveTemplate" class="primary">Guardar</button>
+          <button id="clearPattern">Nueva</button>
+        </div>
+        <div class="row" style="margin-bottom:14px"><button id="addVibration">+ Vibración</button><button id="addPause">+ Pausa</button></div>
+        <div id="steps" class="steps"></div>
+        <div class="pattern-actions">
+          <button id="playPattern" class="primary">▶ Reproducir</button>
+          <button id="stopPattern">■ Detener</button>
+          <label class="loop-label"><input id="loopPattern" type="checkbox"> Repetir</label>
+          <span id="patternStatus" class="status-text">Lista para reproducir</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    const $ = id => document.getElementById(id);
+    const history = [];
+    const STORAGE_KEY = 'mandoAgente.patterns.v1';
+    let patternSteps = [
+      {kind:'vibration',duration_seconds:0.6,low_motor:35,high_motor:55},
+      {kind:'pause',duration_seconds:0.4,low_motor:0,high_motor:0}
+    ];
+    function escapeHtml(text){ const d=document.createElement('div'); d.textContent=text; return d.innerHTML; }
+    function addMessage(role,text,action=''){ const el=document.createElement('div'); el.className=`message ${role}`; el.innerHTML=`${escapeHtml(text)}${action?`<div class="action">${escapeHtml(action)}</div>`:''}`; $('messages').append(el); $('messages').scrollTop=$('messages').scrollHeight; }
+    async function api(path,options={}){ const r=await fetch(path,{headers:{'Content-Type':'application/json'},...options}); const data=await r.json(); if(!r.ok) throw new Error(data.detail||'Error inesperado'); return data; }
+    function updatePlayback(s){
+      const continuous=s.continuous&&!s.pattern.active;
+      $('continuous').classList.toggle('active',continuous);
+      $('continuous').textContent=continuous?'∞ Vibración continua activa':'∞ Iniciar vibración continua';
+      $('playPattern').disabled=s.pattern.active;
+      $('patternStatus').textContent=s.pattern.error?`Error: ${s.pattern.error}`:s.pattern.active?`Reproduciendo paso ${(s.pattern.current_step??0)+1}${s.pattern.loop?' · en bucle':''}`:continuous?'Vibración continua activa':'Lista para reproducir';
+      document.querySelectorAll('.step').forEach((el,index)=>el.classList.toggle('playing',s.pattern.active&&index===s.pattern.current_step));
+    }
+    async function refresh(){ try{ const s=await api('/api/status'); $('padDot').classList.toggle('on',s.connected); $('padStatus').textContent=s.connected?s.name:'Mando no conectado'; $('lmDot').classList.toggle('on',s.lm_studio); $('lmStatus').textContent=s.lm_studio?'LM Studio listo':'LM Studio desconectado'; const current=$('model').value; $('model').innerHTML='<option value="">Automático</option>'+s.models.map(m=>`<option>${escapeHtml(m)}</option>`).join(''); $('model').value=current; updatePlayback(s); }catch(e){ $('lmStatus').textContent='Servidor local no disponible'; } }
+    async function refreshPlayback(){ try{ updatePlayback(await api('/api/playback/status')); }catch(e){} }
+    ['low','high','duration'].forEach(id=>$(id).addEventListener('input',()=>$(id+'Value').textContent=$(id).value+(id==='duration'?' ms':'')));
+    $('test').onclick=async()=>{ try{ await api('/api/rumble',{method:'POST',body:JSON.stringify({low_motor:+$('low').value,high_motor:+$('high').value,duration_ms:+$('duration').value})}); }catch(e){ alert(e.message); } };
+    $('continuous').onclick=async()=>{ try{ await api('/api/rumble/continuous',{method:'POST',body:JSON.stringify({low_motor:+$('low').value,high_motor:+$('high').value})}); refreshPlayback(); }catch(e){ alert(e.message); } };
+    async function stopAll(){ try{ await api('/api/stop',{method:'POST'}); await refreshPlayback(); }catch(e){ alert(e.message); } }
+    $('stop').onclick=stopAll;
+    $('rescan').onclick=async()=>{ await api('/api/rescan',{method:'POST'}); refresh(); };
+    $('chatForm').onsubmit=async e=>{ e.preventDefault(); const message=$('prompt').value.trim(); if(!message)return; addMessage('user',message); $('prompt').value=''; $('send').disabled=true; try{ const result=await api('/api/chat',{method:'POST',body:JSON.stringify({message,history,model:$('model').value||null})}); const action=result.actions.map(a=>a.tool==='vibrar_mando'?'Vibración ejecutada':a.tool==='detener_vibracion'?'Vibración detenida':'Mando comprobado').join(' · '); addMessage('assistant',result.reply,action); history.push({role:'user',content:message},{role:'assistant',content:result.reply}); if(history.length>16)history.splice(0,2); if($('speak').checked&&'speechSynthesis'in window){ speechSynthesis.cancel(); speechSynthesis.speak(new SpeechSynthesisUtterance(result.reply)); } }catch(err){ addMessage('assistant','No he podido completar la petición: '+err.message); }finally{$('send').disabled=false;$('prompt').focus();} };
+    $('prompt').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('chatForm').requestSubmit();}});
+    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition; if(Recognition){ const rec=new Recognition(); rec.lang='es-ES'; rec.interimResults=false; rec.onstart=()=>$('mic').classList.add('active'); rec.onend=()=>$('mic').classList.remove('active'); rec.onresult=e=>{ $('prompt').value=e.results[0][0].transcript; $('chatForm').requestSubmit(); }; $('mic').onclick=()=>rec.start(); } else { $('mic').disabled=true; $('mic').title='Dictado no disponible en este navegador'; }
+
+    document.querySelectorAll('.tab').forEach(tab=>tab.onclick=()=>{
+      document.querySelectorAll('.tab').forEach(item=>item.classList.toggle('active',item===tab));
+      const pattern=tab.dataset.view==='pattern';
+      $('chatView').classList.toggle('hidden',pattern); $('patternView').classList.toggle('hidden',!pattern); $('voiceControl').classList.toggle('hidden',pattern);
+      $('viewTitle').textContent=pattern?'Editor de plantillas':'Conversación local'; $('viewSubtitle').textContent=pattern?'Combina vibraciones y pausas con tiempos exactos':'El modelo puede usar el mando como herramienta';
+    });
+
+    function renderSteps(){
+      if(!patternSteps.length){ $('steps').innerHTML='<div class="hint" style="text-align:center;padding:30px">Añade una vibración o una pausa para empezar.</div>'; return; }
+      $('steps').innerHTML=patternSteps.map((step,index)=>{
+        const vibration=step.kind==='vibration';
+        return `<article class="step ${vibration?'':'pause-step'}" data-index="${index}">
+          <div class="step-head"><div class="step-title"><span class="step-number">${index+1}</span><span>${vibration?'〰 Vibración':'◌ Pausa'}</span></div>
+          <div class="step-actions"><button data-action="up" title="Subir">↑</button><button data-action="down" title="Bajar">↓</button><button data-action="copy" title="Duplicar">⧉</button><button data-action="delete" title="Eliminar">×</button></div></div>
+          <div class="step-fields">
+            ${vibration?`<div class="field"><label>Motor fuerte <output>${step.low_motor}</output></label><input type="range" min="0" max="100" value="${step.low_motor}" data-field="low_motor"></div>
+            <div class="field"><label>Motor fino <output>${step.high_motor}</output></label><input type="range" min="0" max="100" value="${step.high_motor}" data-field="high_motor"></div>`:''}
+            <div class="field"><label>Duración en segundos</label><input type="number" min="0.05" max="3600" step="0.05" value="${step.duration_seconds}" data-field="duration_seconds"></div>
+          </div></article>`;
+      }).join('');
+    }
+    function addStep(kind){ patternSteps.push(kind==='vibration'?{kind,duration_seconds:0.5,low_motor:+$('low').value,high_motor:+$('high').value}:{kind,duration_seconds:0.5,low_motor:0,high_motor:0}); renderSteps(); }
+    $('addVibration').onclick=()=>addStep('vibration'); $('addPause').onclick=()=>addStep('pause');
+    $('steps').addEventListener('input',event=>{ const field=event.target.dataset.field;if(!field)return;const index=+event.target.closest('.step').dataset.index;const value=+event.target.value;patternSteps[index][field]=value;if(event.target.type==='range')event.target.closest('.field').querySelector('output').textContent=value; });
+    $('steps').addEventListener('click',event=>{ const action=event.target.dataset.action;if(!action)return;const index=+event.target.closest('.step').dataset.index;if(action==='delete')patternSteps.splice(index,1);if(action==='copy')patternSteps.splice(index+1,0,{...patternSteps[index]});if(action==='up'&&index>0)[patternSteps[index-1],patternSteps[index]]=[patternSteps[index],patternSteps[index-1]];if(action==='down'&&index<patternSteps.length-1)[patternSteps[index+1],patternSteps[index]]=[patternSteps[index],patternSteps[index+1]];renderSteps(); });
+
+    function readTemplates(){ try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return{};} }
+    function updateTemplates(){ const templates=readTemplates(); $('templates').innerHTML='<option value="">Plantillas guardadas…</option>'; Object.keys(templates).sort().forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;$('templates').append(option);}); }
+    function seedTemplates(){ if(localStorage.getItem(STORAGE_KEY))return; localStorage.setItem(STORAGE_KEY,JSON.stringify({'Pulso suave':{steps:[{kind:'vibration',duration_seconds:0.35,low_motor:25,high_motor:35},{kind:'pause',duration_seconds:0.3,low_motor:0,high_motor:0},{kind:'vibration',duration_seconds:0.35,low_motor:25,high_motor:35}],loop:false},'Latido':{steps:[{kind:'vibration',duration_seconds:0.18,low_motor:65,high_motor:15},{kind:'pause',duration_seconds:0.12,low_motor:0,high_motor:0},{kind:'vibration',duration_seconds:0.28,low_motor:80,high_motor:20},{kind:'pause',duration_seconds:0.7,low_motor:0,high_motor:0}],loop:true}})); }
+    $('saveTemplate').onclick=()=>{ const name=$('templateName').value.trim();if(!name){alert('Escribe un nombre para la plantilla.');return;}const templates=readTemplates();templates[name]={steps:patternSteps.map(step=>({...step})),loop:$('loopPattern').checked};localStorage.setItem(STORAGE_KEY,JSON.stringify(templates));updateTemplates();$('templates').value=name;$('patternStatus').textContent='Plantilla guardada'; };
+    $('loadTemplate').onclick=()=>{ const name=$('templates').value;const saved=readTemplates()[name];if(!saved){alert('Selecciona una plantilla guardada.');return;}patternSteps=saved.steps.map(step=>({...step}));$('loopPattern').checked=!!saved.loop;$('templateName').value=name;renderSteps();$('patternStatus').textContent=`Plantilla “${name}” cargada`; };
+    $('deleteTemplate').onclick=()=>{ const name=$('templates').value;if(!name)return;if(!confirm(`¿Eliminar la plantilla “${name}”?`))return;const templates=readTemplates();delete templates[name];localStorage.setItem(STORAGE_KEY,JSON.stringify(templates));$('templateName').value='';updateTemplates(); };
+    $('clearPattern').onclick=()=>{ patternSteps=[];$('templateName').value='';$('loopPattern').checked=false;renderSteps(); };
+    $('playPattern').onclick=async()=>{ if(!patternSteps.length){alert('Añade al menos un paso.');return;}if(patternSteps.some(step=>!Number.isFinite(step.duration_seconds)||step.duration_seconds<0.05)){alert('Cada paso debe durar al menos 0,05 segundos.');return;}try{await api('/api/pattern/play',{method:'POST',body:JSON.stringify({steps:patternSteps,loop:$('loopPattern').checked})});refreshPlayback();}catch(e){alert(e.message);} };
+    $('stopPattern').onclick=stopAll;
+
+    seedTemplates(); updateTemplates(); renderSteps(); refresh(); setInterval(refresh,5000); setInterval(refreshPlayback,500); window.addEventListener('beforeunload',()=>navigator.sendBeacon('/api/stop'));
+  </script>
+</body>
+</html>

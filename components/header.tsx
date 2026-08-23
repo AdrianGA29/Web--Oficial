@@ -14,20 +14,31 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [heroPassed, setHeroPassed] = useState(pathname !== "/");
   const toggleRef = useRef<HTMLButtonElement>(null);
   const compact = scrolled || open;
   const legalOpening = ["/privacidad", "/cookies", "/terminos"].includes(pathname);
   const overDarkHero = (pathname === "/" || legalOpening) && !compact;
+  const hideOverMobileHero = pathname === "/" && !heroPassed && !open;
 
   useEffect(() => {
     let frame = 0;
     let previous = window.scrollY > 16;
+    let previousHeroPassed = pathname !== "/";
     const commit = () => {
       frame = 0;
       const next = window.scrollY > 16;
-      if (next === previous) return;
-      previous = next;
-      setScrolled(next);
+      if (next !== previous) {
+        previous = next;
+        setScrolled(next);
+      }
+
+      const hero = pathname === "/" ? document.getElementById("inicio") : null;
+      const nextHeroPassed = !hero || hero.getBoundingClientRect().bottom <= 1;
+      if (nextHeroPassed !== previousHeroPassed) {
+        previousHeroPassed = nextHeroPassed;
+        setHeroPassed(nextHeroPassed);
+      }
     };
     const update = () => {
       if (!frame) frame = window.requestAnimationFrame(commit);
@@ -39,7 +50,7 @@ export function Header() {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", update);
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -59,7 +70,12 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+    <header
+      className={cn(
+        "site-header fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5",
+        hideOverMobileHero && "mobile-hero-header-hidden",
+      )}
+    >
       <div className={cn("mobile-nav-cluster", open && "is-open")}>
         <GlassNavbar
           compact={compact}
