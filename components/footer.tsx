@@ -37,7 +37,7 @@ export function Footer() {
             <strong> No al revés.</strong>
           </h2>
 
-          <Link href="/#contacto" className="editorial-footer-cta">
+          <Link href="/#formulario-contacto" className="editorial-footer-cta">
             <span>Hablemos</span>
             <i aria-hidden="true"><ArrowUpRight size={17} /></i>
           </Link>

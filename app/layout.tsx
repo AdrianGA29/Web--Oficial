@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { AnchorScrollManager } from "@/components/anchor-scroll-manager";
 import { siteConfig } from "@/lib/config";
 import { socialImage } from "@/lib/seo";
 import "./globals.css";
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es" className={cn("font-sans", montserrat.variable)}>
       <body>
+        <AnchorScrollManager />
         <a
           href="#contenido"
           className="focus-ring fixed left-4 top-3 z-[100] -translate-y-24 rounded-lg bg-white px-4 py-3 font-semibold text-ink shadow-xl transition-transform focus:translate-y-0"

@@ -931,7 +931,7 @@ export function AboutShowcase() {
               </div>
             </div>
             <p>Consultoría inicial gratuita y sin compromiso.</p>
-            <Link href="/#contacto">
+            <Link href="/#formulario-contacto">
               Hablar con el equipo
               <ArrowUpRight size={18} aria-hidden="true" />
             </Link>

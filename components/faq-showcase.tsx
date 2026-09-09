@@ -38,7 +38,7 @@ export function FaqShowcase() {
               <span>¿No encuentras tu pregunta?</span>
               <p>La primera hora de consultoría es gratuita y sin compromiso.</p>
               <TrackedLink
-                href="#contacto"
+                href="#formulario-contacto"
                 eventName="CTA contact"
                 eventLocation="faq"
               >

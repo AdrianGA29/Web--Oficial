@@ -216,6 +216,23 @@ select {
   isolation: isolate;
 }
 
+.anchor-scroll-revealed {
+  content-visibility: visible !important;
+}
+
+.contact-terminal-wrap {
+  position: relative;
+}
+
+.contact-form-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
 .temis-hero.is-glitch-pending .temis-hero-float {
   opacity: 0;
 }
@@ -2583,9 +2600,24 @@ button:hover > .link-underline {
   .friction-card {
     height: auto;
     min-height: 25.5rem;
+    transform: none !important;
+    will-change: auto;
     filter: drop-shadow(0 18px 22px rgba(7, 11, 26, 0.16));
     transition:
       filter 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .friction-card-entry {
+    contain: style;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 25.5rem;
+  }
+
+  .friction-card-entry,
+  .friction-card-hitbox,
+  .friction-card,
+  .friction-card-shell {
+    transform-style: flat;
   }
 
   .friction-card-shell {
@@ -2626,11 +2658,47 @@ button:hover > .link-underline {
     max-width: 38ch;
     font-size: 0.9rem;
     line-height: 1.52;
+    filter: none;
+    transition:
+      opacity 280ms ease,
+      transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .friction-card.is-active .friction-card-description {
     max-height: 20rem;
     margin-top: 0.85rem;
+  }
+
+  .friction-card-glare {
+    display: none;
+  }
+
+  .friction-card-topline,
+  .friction-card-number,
+  .friction-card-visual,
+  .friction-card-copy,
+  .friction-card-footer {
+    transform: none;
+  }
+
+  .friction-card-visual {
+    transform: translateY(0.75rem);
+  }
+
+  .friction-card.is-active .friction-card-number {
+    transform: translate(-0.2rem, -0.25rem) scale(1.04);
+  }
+
+  .friction-card.is-active .friction-card-visual {
+    transform: translateY(-0.8rem) scale(1.035);
+  }
+
+  .friction-card.is-active .friction-card-copy {
+    transform: translateY(-0.35rem);
+  }
+
+  .friction-card-grid-layout:has(.friction-card.is-active) .friction-card:not(.is-active) {
+    filter: drop-shadow(0 18px 22px rgba(7, 11, 26, 0.16));
   }
 
   .friction-card-footer {
@@ -9705,10 +9773,14 @@ button:hover > .link-underline {
     backdrop-filter: blur(14px) saturate(108%);
   }
 
-  .friction-card-shell,
   .difference-principle-surface {
     -webkit-backdrop-filter: blur(8px) saturate(106%);
     backdrop-filter: blur(8px) saturate(106%);
+  }
+
+  .friction-card-shell {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .technology-logo-rail {

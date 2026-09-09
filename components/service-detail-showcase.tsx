@@ -566,7 +566,7 @@ export function ServiceDetailShowcase({ service }: { service: DetailService }) {
             <h1>{service.hero}</h1>
             <p>{service.lead}</p>
             <div className="web-service-hero-actions">
-              <Link href="/#contacto">{service.heroAction} <ArrowUpRight size={18} aria-hidden="true" /></Link>
+              <Link href="/#formulario-contacto">{service.heroAction} <ArrowUpRight size={18} aria-hidden="true" /></Link>
               <a href="#resultado">Ver qué cambia <ArrowDown size={17} aria-hidden="true" /></a>
             </div>
           </div>
@@ -660,7 +660,7 @@ export function ServiceDetailShowcase({ service }: { service: DetailService }) {
       <section className="web-service-cta">
         <div className="container-shell web-service-cta-inner" data-web-reveal>
           <div><p>{service.ctaKicker}</p><h2>{service.ctaTitle}</h2></div>
-          <div><p>{service.ctaText}</p><Link href="/#contacto">Revisar vuestro caso <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
+          <div><p>{service.ctaText}</p><Link href="/#formulario-contacto">Revisar vuestro caso <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
         </div>
       </section>
 

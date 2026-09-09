@@ -223,7 +223,7 @@ export function ServicesHub() {
           </div>
           <div>
             <p>Revisamos el contexto de tu empresa, detectamos una primera línea razonable y te decimos con claridad si podemos aportar valor.</p>
-            <Link href="/#contacto">
+            <Link href="/#formulario-contacto">
               Hablar de vuestro caso
               <ArrowUpRight size={18} aria-hidden="true" />
             </Link>

@@ -206,7 +206,7 @@ export function WebServiceShowcase() {
               Diseñamos webs corporativas, tiendas online y productos digitales que convierten una visita dispersa en un recorrido claro: entender, confiar y dar el siguiente paso.
             </p>
             <div className="web-service-hero-actions">
-              <Link href="/#contacto">Hablar de tu web <ArrowUpRight size={18} aria-hidden="true" /></Link>
+            <Link href="/#formulario-contacto">Hablar de tu web <ArrowUpRight size={18} aria-hidden="true" /></Link>
               <a href="#resultado">Ver qué cambia <ArrowDown size={17} aria-hidden="true" /></a>
             </div>
           </div>
@@ -336,7 +336,7 @@ export function WebServiceShowcase() {
           </div>
           <div>
             <p>Cuéntanos qué debería conseguir, qué no está funcionando ahora y qué papel tiene dentro del negocio. Te ayudaremos a definir un primer alcance razonable.</p>
-            <Link href="/#contacto">Revisar vuestro caso <ArrowUpRight size={18} aria-hidden="true" /></Link>
+            <Link href="/#formulario-contacto">Revisar vuestro caso <ArrowUpRight size={18} aria-hidden="true" /></Link>
           </div>
         </div>
       </section>

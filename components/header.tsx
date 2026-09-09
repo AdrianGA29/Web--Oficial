@@ -105,7 +105,7 @@ export function Header() {
           </div>
           <div className="hidden lg:block">
             <Link
-              href="/#contacto"
+              href="/#formulario-contacto"
               className={buttonClass("dark", cn(
                 compact ? "min-h-10 px-4 text-sm" : "min-h-12 px-5 text-base",
                 overDarkHero && "temis-matte-button border border-white/10 shadow-none",
@@ -151,7 +151,7 @@ export function Header() {
               ))}
             </div>
             <Link
-              href="/#contacto"
+              href="/#formulario-contacto"
               onClick={() => setOpen(false)}
               className={buttonClass("dark", "temis-matte-button mt-3 w-full")}
             >

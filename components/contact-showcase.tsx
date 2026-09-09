@@ -80,6 +80,7 @@ export function ContactShowcase() {
           </Reveal>
 
           <Reveal delay={0.08} className="contact-terminal-wrap" y={34}>
+            <span id="formulario-contacto" className="contact-form-anchor" aria-hidden="true" />
             <div className="contact-terminal">
               <header className="contact-terminal-head">
                 <div>

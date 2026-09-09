@@ -86,7 +86,7 @@ export default function HomePage() {
               </p>
             </div>
             <div className="hero-enter">
-              <TrackedLink href="#contacto" eventName="CTA contact" eventLocation="hero" className="temis-matte-button temis-hero-cta mt-7">
+              <TrackedLink href="#formulario-contacto" eventName="CTA contact" eventLocation="hero" className="temis-matte-button temis-hero-cta mt-7">
                 Empezar por un diagnóstico <ArrowUpRight size={17} aria-hidden="true" />
               </TrackedLink>
             </div>
