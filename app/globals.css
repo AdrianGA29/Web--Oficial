@@ -2581,18 +2581,16 @@ button:hover > .link-underline {
   }
 
   .friction-card {
-    height: 25.5rem;
+    height: auto;
+    min-height: 25.5rem;
     filter: drop-shadow(0 18px 22px rgba(7, 11, 26, 0.16));
     transition:
-      height 620ms cubic-bezier(0.16, 1, 0.3, 1),
       filter 520ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .friction-card.is-active {
-    height: 30rem;
-  }
-
   .friction-card-shell {
+    position: relative;
+    min-height: 25.5rem;
     padding: 1.2rem;
   }
 
@@ -2610,9 +2608,12 @@ button:hover > .link-underline {
   }
 
   .friction-card-copy {
-    right: 1.2rem;
-    bottom: 3.7rem;
-    left: 1.2rem;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    margin-top: 17rem;
+    padding-bottom: 2.7rem;
   }
 
   .friction-card-title {
@@ -2628,7 +2629,7 @@ button:hover > .link-underline {
   }
 
   .friction-card.is-active .friction-card-description {
-    max-height: 10rem;
+    max-height: 20rem;
     margin-top: 0.85rem;
   }
 
