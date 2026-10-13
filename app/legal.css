@@ -160,12 +160,40 @@
   text-wrap: balance;
 }
 
-.legal-hero-copy > p:last-child {
+.legal-hero-copy > h1 + p {
   max-width: 43rem;
   margin-top: 1.6rem;
   color: rgba(245, 245, 245, 0.58);
   font-size: clamp(0.95rem, 1.3vw, 1.1rem);
   line-height: 1.75;
+}
+
+.legal-hero-copy .legal-updated {
+  margin-top: 1rem;
+  color: rgba(245, 245, 245, 0.72);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.legal-source-links {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+  padding: 0;
+  list-style: none;
+  gap: 0.75rem 1.5rem;
+}
+
+.legal-source-links a {
+  color: var(--legal-paper);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  line-height: 1.7;
+}
+
+.legal-source-links a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 
 .legal-hero-stamp {

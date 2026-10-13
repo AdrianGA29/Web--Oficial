@@ -68,13 +68,12 @@ export function HeroGoldenSequence() {
       if (hasPlayedGoldenSequence) return;
 
       hasPlayedGoldenSequence = true;
-      const mobileViewport = window.matchMedia("(max-width: 900px)").matches;
       const bounds = hero.getBoundingClientRect();
       setViewport({
         width: Math.max(1, Math.round(bounds.width)),
         height: Math.max(1, Math.round(bounds.height)),
       });
-      if (!mobileViewport) hero.classList.add("is-golden-revealing");
+      hero.classList.add("is-golden-revealing");
       hero.classList.remove("is-geometry-pending");
       setPhase("running");
     };
@@ -84,9 +83,7 @@ export function HeroGoldenSequence() {
   }, []);
 
   const finish = () => {
-    if (!window.matchMedia("(max-width: 900px)").matches) {
-      document.getElementById("inicio")?.classList.add("is-golden-complete");
-    }
+    document.getElementById("inicio")?.classList.add("is-golden-complete");
     setPhase("complete");
   };
 

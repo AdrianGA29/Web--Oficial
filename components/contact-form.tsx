@@ -34,7 +34,7 @@ function validate(values: Values): Errors {
   if (values.phone.trim() && !phonePattern.test(values.phone.trim())) errors.phone = "Revisa el número o deja el campo vacío.";
   if (values.company.trim().length < 2) errors.company = "Introduce la empresa o el nombre del proyecto.";
   if (values.message.trim().length < 20) errors.message = "Cuéntanos un poco más (mínimo 20 caracteres).";
-  if (!values.privacy) errors.privacy = "Debes aceptar la política de privacidad.";
+  if (!values.privacy) errors.privacy = "Confirma que has leído la información de protección de datos.";
   return errors;
 }
 
@@ -88,7 +88,8 @@ export function ContactForm() {
           privacy: values.privacy,
           website: honeypot,
           startedAt: startedAt.current,
-          page: window.location.href,
+          // No remitir parámetros o fragmentos que puedan contener datos personales.
+          page: window.location.origin + window.location.pathname,
         }),
       });
 
@@ -155,10 +156,15 @@ export function ContactForm() {
       </div>
 
       <div className="contact-consent">
+        <p className="contact-privacy-summary" id="contact-privacy-summary">
+          Temis Atrile usa tus datos para atender tu consulta.
+          <br />
+          Consulta tus derechos en la <Link href="/privacidad/">política de privacidad</Link>.
+        </p>
         <label>
           <input id="privacy" type="checkbox" checked={values.privacy} onChange={(event) => update("privacy", event.target.checked)} aria-invalid={Boolean(errors.privacy)} aria-describedby={errors.privacy ? "privacy-error" : undefined} />
           <span className="contact-consent-box" aria-hidden="true"><CheckCircle2 size={13} /></span>
-          <span>He leído y acepto la <Link href="/privacidad">política de privacidad</Link>.</span>
+          <span>He leído la <Link href="/privacidad/">política de privacidad</Link>.</span>
         </label>
         {errors.privacy && <p id="privacy-error" className="contact-field-error">{errors.privacy}</p>}
       </div>

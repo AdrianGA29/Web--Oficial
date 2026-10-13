@@ -15,7 +15,7 @@ const exploreLinks = [
 const legalLinks = [
   { href: "/privacidad", label: "Privacidad" },
   { href: "/cookies", label: "Cookies" },
-  { href: "/terminos", label: "Términos" },
+  { href: "/terminos", label: "Aviso legal" },
 ] as const;
 
 export function Footer() {

@@ -150,7 +150,7 @@ $phone = clean_text($data['phone'] ?? '');
 $company = clean_text($data['company'] ?? '');
 $message = clean_text($data['message'] ?? '');
 $page = clean_text($data['page'] ?? '');
-$privacyAccepted = ($data['privacy'] ?? false) === true;
+$privacyAcknowledged = ($data['privacy'] ?? false) === true;
 
 $errors = [];
 
@@ -183,8 +183,8 @@ if (text_length($message) < 20 || text_length($message) > 2000) {
     $errors['message'] = 'El mensaje debe tener entre 20 y 2000 caracteres.';
 }
 
-if (!$privacyAccepted) {
-    $errors['privacy'] = 'Debes aceptar la política de privacidad.';
+if (!$privacyAcknowledged) {
+    $errors['privacy'] = 'Confirma que has leído la información de protección de datos.';
 }
 
 if ($page !== '' && text_length($page) > 500) {
@@ -227,7 +227,8 @@ $body = implode("\r\n", [
     '',
     'INFORMACIÓN DEL ENVÍO',
     '---------------------',
-    'Privacidad aceptada: Sí',
+    'Información de privacidad leída: Sí',
+    'Versión de la información de privacidad: 2026-10-07',
     'Página: ' . ($page !== '' ? $page : 'No indicada'),
     'Fecha: ' . date('d/m/Y H:i:s T'),
 ]);

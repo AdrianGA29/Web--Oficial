@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { LegalSectionNav } from "@/components/legal-section-nav";
+import { legalIdentity } from "@/lib/legal";
 
 export type LegalSection = {
   title: string;
   paragraphs: string[];
   points?: string[];
+  links?: { label: string; href: string }[];
 };
 
 const legalDocuments = [
@@ -18,12 +20,12 @@ const legalDocuments = [
   {
     href: "/cookies",
     label: "Cookies",
-    description: "Qué tecnologías de medición utiliza este sitio.",
+    description: "Almacenamiento y control del contenido externo.",
     code: "02",
   },
   {
     href: "/terminos",
-    label: "Términos de uso",
+    label: "Aviso legal",
     description: "Las condiciones generales para navegar y contactar.",
     code: "03",
   },
@@ -76,6 +78,7 @@ export function LegalPage({
             <p className="legal-eyebrow">{eyebrow}</p>
             <h1>{title}</h1>
             <p>{description}</p>
+            <p className="legal-updated">Última actualización: <time dateTime={legalIdentity.updatedAt}>{legalIdentity.updatedLabel}</time></p>
           </div>
 
           <div className="legal-hero-stamp" aria-hidden="true">
@@ -118,6 +121,13 @@ export function LegalPage({
                               <span aria-hidden="true"><Check size={13} /></span>
                               {point}
                             </li>
+                          ))}
+                        </ul>
+                      )}
+                      {section.links && (
+                        <ul className="legal-source-links">
+                          {section.links.map((link) => (
+                            <li key={link.href}><a href={link.href}>{link.label}</a></li>
                           ))}
                         </ul>
                       )}

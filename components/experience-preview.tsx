@@ -42,6 +42,7 @@ export function ExperiencePreview({
   const [active, setActive] = useState(false);
   const [closing, setClosing] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [externalEnabled, setExternalEnabled] = useState(false);
   const titleId = useId();
   const descriptionId = useId();
   const hostname = demoHref.replace(/^https?:\/\//, "").replace(/\/$/, "");
@@ -203,6 +204,7 @@ export function ExperiencePreview({
 
   const openPreview = () => {
     cancelHint();
+    setExternalEnabled(false);
     setLoaded(false);
     setClosing(false);
     setActive(true);
@@ -210,6 +212,8 @@ export function ExperiencePreview({
 
   const closePreview = () => {
     if (closing) return;
+    setExternalEnabled(false);
+    setLoaded(false);
     setClosing(true);
     closeTimerRef.current = window.setTimeout(() => {
       setActive(false);
@@ -320,7 +324,7 @@ export function ExperiencePreview({
               <div className="experience-dialog-identity">
                 <span className="experience-dialog-status" aria-hidden="true">
                   <i />
-                  {loaded ? "LIVE PREVIEW" : "CONNECTING"}
+                  {externalEnabled ? (loaded ? "LIVE PREVIEW" : "CONNECTING") : "PREVIEW"}
                 </span>
                 <div>
                   <p id={titleId}>{browserTitle}</p>
@@ -329,6 +333,11 @@ export function ExperiencePreview({
               </div>
 
               <div className="experience-dialog-actions">
+                {externalEnabled && (
+                  <button type="button" className="focus-ring" onClick={() => { setExternalEnabled(false); setLoaded(false); }}>
+                    Desactivar demo
+                  </button>
+                )}
                 <a
                   href={demoHref}
                   target="_blank"
@@ -374,7 +383,23 @@ export function ExperiencePreview({
               </aside>
 
               <div className="experience-dialog-viewport">
-                {!loaded && (
+                {!externalEnabled && (
+                  <div className="experience-external-notice">
+                    <p className="experience-external-eyebrow">Contenido externo opcional</p>
+                    <h3>Explora la demo con control sobre tus datos.</h3>
+                    <p>Al cargarla, tu navegador se conectará a <strong>{hostname}</strong>, alojado en Vercel, y comunicará tu IP y datos técnicos. El sitio externo puede utilizar sus propias tecnologías y proveedores. No introduzcas datos reales o confidenciales.</p>
+                    <p>Puedes desactivarla o cerrar esta vista en cualquier momento. No guardaremos tu elección para futuras aperturas.</p>
+                    <div className="experience-external-links">
+                      <a href="/cookies/">Cookies y contenido externo</a>
+                      <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Privacidad del proveedor</a>
+                    </div>
+                    <div className="experience-external-actions">
+                      <button type="button" className="focus-ring" onClick={() => setExternalEnabled(true)}>Cargar demo externa <ArrowUpRight size={16} aria-hidden="true" /></button>
+                      <button type="button" className="focus-ring" onClick={closePreview}>Ahora no</button>
+                    </div>
+                  </div>
+                )}
+                {externalEnabled && !loaded && (
                   <div className="experience-dialog-loader" role="status">
                     <div aria-hidden="true">
                       <span />
@@ -385,14 +410,15 @@ export function ExperiencePreview({
                     <span>{hostname}</span>
                   </div>
                 )}
-                <iframe
+                {externalEnabled && <iframe
                   src={demoHref}
                   title={iframeTitle}
                   onLoad={() => setLoaded(true)}
                   className="experience-dialog-iframe"
                   sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts"
                   allow="fullscreen"
-                />
+                  referrerPolicy="no-referrer"
+                />}
                 <span className="experience-dialog-viewport-corner is-top" aria-hidden="true" />
                 <span className="experience-dialog-viewport-corner is-bottom" aria-hidden="true" />
               </div>
