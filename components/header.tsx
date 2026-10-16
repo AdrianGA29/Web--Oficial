@@ -85,7 +85,7 @@ export function Header() {
             overDarkHero && "hero-navbar-open",
           )}
         >
-          <Brand className={cn("transition-[transform,color] duration-500", !compact && "lg:scale-[1.08] lg:origin-left", overDarkHero && "text-white")} />
+          <Brand animated className={cn("header-brand", overDarkHero && "text-white")} />
           <div className={cn("hidden items-center transition-[gap] duration-500 lg:flex", compact ? "gap-1" : "gap-2")}>
             {navigation.map((item) => (
               <Link

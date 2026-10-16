@@ -82,7 +82,7 @@ for (const [route, relativeFile, requiredSchemaTypes] of expectedPages) {
     }
   }
 
-  if (openGraphImage !== "https://temisatrile.com/og/social.jpg") {
+  if (openGraphImage !== "https://temisatrile.com/og/social-brand.jpg") {
     failures.push(`${route}: og:image ${openGraphImage || "ausente"}`);
   }
 
@@ -90,6 +90,13 @@ for (const [route, relativeFile, requiredSchemaTypes] of expectedPages) {
 }
 
 const robotsFile = path.join(outputDirectory, "robots.txt");
+for (const asset of [
+  "favicon.ico", "apple-touch-icon.png", "brand/logo.svg",
+  "brand/logo-512.png", "brand/icon-48.png", "brand/icon-96.png",
+  "brand/icon-192.png", "brand/icon-512.png", "og/social-brand.jpg",
+]) {
+  if (!fs.existsSync(path.join(outputDirectory, asset))) failures.push(`Falta el recurso de marca: ${asset}`);
+}
 const sitemapFile = path.join(outputDirectory, "sitemap.xml");
 
 if (!fs.existsSync(robotsFile)) {

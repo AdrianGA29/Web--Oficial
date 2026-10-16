@@ -22,6 +22,15 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  icons: {
+    icon: [
+      { url: "/brand/icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/brand/icon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/brand/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+  },
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -34,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Consultoría estratégica y tecnológica | ${siteConfig.name}`,
     description: siteConfig.description,
-    images: ["/og/social.jpg"],
+    images: [socialImage],
   },
   robots: siteConfig.indexable
     ? { index: true, follow: true }

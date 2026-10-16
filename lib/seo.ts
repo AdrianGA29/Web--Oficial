@@ -3,9 +3,9 @@ import { siteConfig } from "@/lib/config";
 const baseUrl = siteConfig.url.replace(/\/$/, "");
 
 export const socialImage = {
-  url: "/og/social.jpg",
-  width: 1690,
-  height: 931,
+  url: "/og/social-brand.jpg",
+  width: 1200,
+  height: 630,
   alt: "Temis Atrile, consultoría estratégica y tecnológica",
 };
 
@@ -22,6 +22,12 @@ export const organizationReference = {
 
 export const organizationSchema = {
   ...organizationReference,
+  logo: {
+    "@type": "ImageObject",
+    url: `${baseUrl}/brand/logo-512.png`,
+    width: 512,
+    height: 512,
+  },
   email: siteConfig.email,
   areaServed: {
     "@type": "Country",

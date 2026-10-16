@@ -1,16 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="temis-mark" x1="16" y1="48" x2="48" y2="16" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#8f82ff"/>
-      <stop offset=".52" stop-color="#c2b8ff"/>
-      <stop offset="1" stop-color="#edbc75"/>
-    </linearGradient>
-    <linearGradient id="temis-surface" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#151a2b"/>
-      <stop offset="1" stop-color="#070b16"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="url(#temis-surface)"/>
-  <rect x=".75" y=".75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="1.5"/>
-  <path d="M17.5 46.5 32 17.5l14.5 29" fill="none" stroke="url(#temis-mark)" stroke-width="5.25" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="88" fill="#070B1A"/>
+  <g transform="translate(44 44) scale(.828125) translate(-42 -165)">
+    <circle cx="297.64" cy="420.94" r="244.96" fill="none" stroke="#F5F5F5" stroke-width="10"/>
+    <g fill="none" stroke="#F5F5F5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M115.01 320.07H191.62L194.31 565.82"/>
+      <path d="M352.24 565.82L191.62 320.07"/>
+      <path d="M215.19 320.07H393.95"/>
+      <path d="M192.92 438.55H397.94"/>
+      <path d="M377.32 565.82H453.77"/>
+    </g>
+    <g fill="#F5F5F5" stroke="#F5F5F5" stroke-width="11">
+      <circle cx="74.11" cy="320.07" r="10.02"/>
+      <circle cx="495.15" cy="565.82" r="10.02"/>
+    </g>
+  </g>
 </svg>
