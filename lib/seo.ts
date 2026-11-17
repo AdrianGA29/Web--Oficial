@@ -12,6 +12,13 @@ export const socialImage = {
 export const organizationId = `${baseUrl}/#organization`;
 export const websiteId = `${baseUrl}/#website`;
 
+// Public service areas, not an office address or a claim of customer-facing premises.
+export const serviceAreas = [
+  { "@type": "City", name: "Toledo" },
+  { "@type": "AdministrativeArea", name: "Provincia de Toledo" },
+  { "@type": "Country", name: "España" },
+];
+
 export const organizationReference = {
   "@type": "Organization",
   "@id": organizationId,
@@ -29,10 +36,7 @@ export const organizationSchema = {
     height: 512,
   },
   email: siteConfig.email,
-  areaServed: {
-    "@type": "Country",
-    name: "España",
-  },
+  areaServed: serviceAreas,
   knowsAbout: [
     "Transformación digital",
     "Automatización de procesos",
@@ -92,10 +96,7 @@ export function serviceSchema({
     description,
     url,
     provider: { "@id": organizationId },
-    areaServed: {
-      "@type": "Country",
-      name: "España",
-    },
+    areaServed: serviceAreas,
   };
 }
 

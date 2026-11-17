@@ -5,7 +5,7 @@ export const siteConfig = {
   displayName: "Temis Λtrile",
   alternateName: "Temis Λtrile",
   description:
-    "Ayudamos a empresas de toda España a crecer con estrategia, inteligencia artificial, automatización, desarrollo web y soluciones tecnológicas a medida.",
+    "Consultoría de IA, automatización, desarrollo web y software a medida. Desde Toledo, con atención presencial en la provincia y online en toda España.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://temisatrile.com",
   contactEndpoint:
     process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "/api/contact.php",

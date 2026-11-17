@@ -672,8 +672,9 @@ export function AboutShowcase() {
               <strong>Creemos en empresas con ambición.</strong>
             </h1>
             <p>
-              Combinamos conocimiento empresarial, jurídico y tecnológico para
-              convertir la transformación en una dirección clara.
+              Somos una firma establecida en Toledo que combina conocimiento empresarial,
+              jurídico y tecnológico. Trabajamos con empresas de toda España y nos
+              desplazamos a Toledo capital y provincia para conocer de cerca sus procesos y necesidades.
             </p>
           </div>
 

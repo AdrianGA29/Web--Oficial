@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `Consultoría estratégica y tecnológica | ${siteConfig.name}`,
+    default: `Consultoría tecnológica e IA en Toledo | ${siteConfig.name}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     siteName: siteConfig.name,
-    title: `Consultoría estratégica y tecnológica | ${siteConfig.name}`,
+    title: `Consultoría tecnológica e IA en Toledo | ${siteConfig.name}`,
     description: siteConfig.description,
     images: [socialImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Consultoría estratégica y tecnológica | ${siteConfig.name}`,
+    title: `Consultoría tecnológica e IA en Toledo | ${siteConfig.name}`,
     description: siteConfig.description,
     images: [socialImage],
   },

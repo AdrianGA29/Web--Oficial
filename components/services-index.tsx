@@ -53,64 +53,35 @@ type ServiceVisualType = (typeof services)[number]["visual"];
 function ServiceVisual({ type }: { type: ServiceVisualType }) {
   if (type === "automation") {
     return (
-      <svg viewBox="0 0 360 150" role="img" aria-label="Entradas que recorren un proceso automatizado y generan una acción trazable">
-        <path className="services-visual-guide" d="M18 22H342M18 128H342" />
-        <text className="services-visual-label" x="24" y="17">ENTRADAS</text>
-        <text className="services-visual-label" x="336" y="17" textAnchor="end">RESULTADO</text>
-        <g className="services-visual-inputs">
-          <rect x="24" y="36" width="54" height="22" rx="5" />
-          <rect x="24" y="65" width="54" height="22" rx="5" />
-          <rect x="24" y="94" width="54" height="22" rx="5" />
-          <path d="M34 47h30M34 76h24M34 105h34" />
-        </g>
-        <path className="services-visual-route services-automation-merge" d="M78 47h18v29h20M78 76h38M78 105h18V76" />
-        <g className="services-automation-stages">
-          <rect x="116" y="54" width="46" height="44" rx="7" />
-          <rect x="176" y="54" width="46" height="44" rx="7" />
-          <rect x="236" y="54" width="46" height="44" rx="7" />
-          <path d="M128 67h22M128 78h16M188 67h22M188 78h18M248 67h22M248 78h14" />
-          <circle className="services-visual-accent" cx="139" cy="90" r="3" />
-          <circle className="services-visual-accent" cx="199" cy="90" r="3" />
-          <circle className="services-visual-accent" cx="259" cy="90" r="3" />
-        </g>
-        <path className="services-visual-route" d="M162 76h14M222 76h14M282 76h12" />
-        <rect className="services-visual-output" x="294" y="48" width="42" height="56" rx="8" />
-        <circle className="services-visual-accent" cx="315" cy="67" r="8" />
-        <path className="services-visual-check" d="M311 67l3 3 6-7" />
-        <path d="M305 87h20M309 94h12" />
-        <circle className="services-visual-traveller" cx="0" cy="0" r="3.5" />
+      <svg viewBox="0 0 360 150" role="img" aria-label="Tres entradas se consolidan en un flujo que valida y registra el resultado">
+        <path className="services-index-visual-guide" d="M16 25h328M16 125h328" />
+        <path className="services-visual-route" d="M78 46h15l23 30m-38 0h38m-38 30h15l23-30m46 0h14m46 0h14m46 0h12" />
+        <path className="services-visual-panel" d="M25 35h53v22H25zM25 65h53v22H25zM25 95h53v22H25z" />
+        <path d="M35 46h30m-30 30h24m-24 30h32" />
+        <path className="services-visual-output" d="m116 76 23-23 23 23-23 23zM176 54h46v44h-46zM236 54h46v44h-46zM294 48h41v56h-41z" />
+        <path d="M133 76h12m-6-6v12m46-15h28m-28 9h20m-20 9h24m34-14 8 7 14-14m-22 21h24m30-17 6 6 11-13m-16 24h17m-15 8h13" />
+        <circle className="services-visual-traveller" r="3.5" />
       </svg>
     );
   }
 
   if (type === "ai") {
     return (
-      <svg viewBox="0 0 360 150" role="img" aria-label="Fuentes autorizadas que se procesan y producen un borrador con revisión humana">
-        <path className="services-visual-guide" d="M18 22H342M18 128H342" />
-        <text className="services-visual-label" x="24" y="17">FUENTES</text>
-        <text className="services-visual-label" x="336" y="17" textAnchor="end">REVISIÓN HUMANA</text>
-        <g className="services-ai-documents">
-          <path d="M26 37h48l14 14v62H26zM74 37v14h14" />
-          <path d="M37 62h38M37 73h29M37 84h35" />
-          <rect className="services-visual-citation" x="37" y="95" width="22" height="10" rx="3" />
-          <rect className="services-visual-citation" x="64" y="95" width="14" height="10" rx="3" />
-        </g>
-        <path className="services-visual-route" d="M88 76h24" />
+      <svg viewBox="0 0 360 150" role="img" aria-label="Fuentes autorizadas, procesamiento y borrador con referencias para revisión humana">
+        <path className="services-index-visual-guide" d="M16 24h328M16 126h328" />
+        <path className="services-visual-route" d="M92 76h37m88 0h24" />
+        <path className="services-visual-panel" d="M23 42h55l14 14v51H23zM78 42v14h14M30 37v-5h53l14 14" />
+        <path d="M34 62h33m-33 9h43m-43 9h28m-28 10h32" />
         <g className="services-ai-process">
-          <rect x="112" y="35" width="92" height="82" rx="10" />
-          <rect x="124" y="47" width="68" height="16" rx="4" />
-          <rect className="services-visual-output" x="124" y="68" width="68" height="16" rx="4" />
-          <rect x="124" y="89" width="68" height="16" rx="4" />
-          <path d="M136 55h44M136 76h36M136 97h40" />
+          <path className="services-visual-output" d="M136 45h67l9 9v44l-9 9h-67l-9-9V54z" />
+          <path d="M140 38v-7m14 7v-7m15 7v-7m15 7v-7m15 7v-7m-59 90v-7m14 7v-7m15 7v-7m15 7v-7m15 7v-7" />
+          <path className="services-visual-accent" d="m155 58 27 9v18l-27 9-12-18zm27 9 13 9-13 9z" />
         </g>
-        <path className="services-visual-route" d="M204 76h24" />
         <g className="services-ai-result">
-          <rect x="228" y="36" width="106" height="80" rx="9" />
-          <path d="M242 54h76M242 66h52M242 78h68" />
-          <rect className="services-visual-citation" x="242" y="89" width="28" height="12" rx="3" />
-          <rect className="services-visual-citation" x="275" y="89" width="28" height="12" rx="3" />
-          <circle className="services-visual-accent services-ai-approval" cx="319" cy="95" r="9" />
-          <path className="services-visual-check" d="M315 95l3 3 6-7" />
+          <path className="services-visual-panel" d="M241 40h94v72h-94z" />
+          <path d="M252 54h69m-69 11h48m-48 11h60" />
+          <path className="services-visual-output" d="M252 90h25v10h-25zM282 90h16v10h-16z" />
+          <g className="services-ai-approval"><circle className="services-visual-accent" cx="318" cy="94" r="9" /><path className="services-visual-check" d="m314 94 3 3 5-6" /></g>
         </g>
       </svg>
     );
@@ -118,56 +89,35 @@ function ServiceVisual({ type }: { type: ServiceVisualType }) {
 
   if (type === "apps") {
     return (
-      <svg viewBox="0 0 360 150" role="img" aria-label="Aplicación operativa con navegación, indicadores, actividad y detalle">
-        <path className="services-visual-guide" d="M18 22H342M18 128H342" />
-        <text className="services-visual-label" x="24" y="17">SISTEMA INTERNO</text>
-        <text className="services-visual-label" x="336" y="17" textAnchor="end">ESTADO VISIBLE</text>
-        <rect className="services-app-shell" x="24" y="31" width="312" height="91" rx="10" />
-        <path d="M24 49h312M86 49v73" />
-        <circle cx="37" cy="40" r="2" /><circle cx="45" cy="40" r="2" /><circle cx="53" cy="40" r="2" />
-        <g className="services-app-nav">
-          <rect className="services-visual-output" x="34" y="60" width="42" height="14" rx="4" />
-          <path d="M37 86h34M37 97h25M37 108h30" />
-        </g>
-        <g className="services-app-metrics">
-          <rect x="98" y="61" width="54" height="25" rx="5" />
-          <rect className="services-visual-output" x="160" y="61" width="54" height="25" rx="5" />
-          <path d="M108 72h19M108 78h12M170 72h19M170 78h15" />
-        </g>
-        <g className="services-app-activity">
-          <rect x="98" y="94" width="116" height="18" rx="5" />
-          <circle className="services-visual-accent" cx="108" cy="103" r="3" />
-          <path d="M118 101h54M118 106h35" />
-        </g>
+      <svg viewBox="0 0 360 150" role="img" aria-label="Aplicación de gestión con navegación, indicadores y detalle de un registro">
+        <path className="services-index-visual-guide" d="M16 24h328M16 127h328m-39-86v73" />
+        <path className="services-visual-panel" d="M27 34h242l8 8v72H27zM27 50h250m-195 0v64" />
+        <path d="M39 42h3m6 0h3m6 0h3M38 61h31m-31 12h22m-22 12h29m-29 12h18M93 90h117m-117 12h98" />
+        <path className="services-visual-output" d="M94 59h60v20H94zM162 59h76v20h-76z" />
+        <path d="m102 72 9-5 9 2 10-5 11 5m32 3h6m6 0h12m6 0h16" />
+        <g className="services-app-activity"><circle className="services-visual-accent" cx="194" cy="91" r="3.5" /></g>
         <g className="services-app-detail">
-          <rect x="224" y="61" width="98" height="51" rx="6" />
-          <circle className="services-visual-accent" cx="238" cy="76" r="6" />
-          <path className="services-visual-check" d="M235 76l2 2 4-5" />
-          <path d="M250 73h55M250 80h37M236 95h69M236 102h48" />
+          <path className="services-visual-output" d="M212 82h121v35H212z" />
+          <path d="m223 99 5 5 8-10m10 2h71m-71 9h48" />
         </g>
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 360 150" role="img" aria-label="Sistema web adaptado de una pantalla de escritorio a una pantalla móvil">
-      <path className="services-visual-guide" d="M18 22H342M18 128H342" />
-      <text className="services-visual-label" x="24" y="17">RESPONSIVE SYSTEM</text>
-      <text className="services-visual-label" x="336" y="17" textAnchor="end">1440 → 390</text>
+    <svg viewBox="0 0 360 150" role="img" aria-label="La misma composición web adaptada de una pantalla de escritorio a un móvil">
+      <path className="services-index-visual-guide" d="M16 24h328M16 126h328M30 117h216m-216-4v8m216-8v8" />
       <g className="services-web-desktop">
-        <rect x="24" y="33" width="244" height="84" rx="8" />
-        <path d="M24 51h244M167 51v66" />
-        <circle cx="36" cy="42" r="2" /><circle cx="44" cy="42" r="2" /><circle cx="52" cy="42" r="2" />
-        <path d="M38 66h87M38 77h69M38 88h79M38 103h42" />
-        <rect className="services-visual-output" x="181" y="65" width="73" height="37" rx="6" />
-        <path d="M191 77h53M191 87h38" />
-        <rect className="services-visual-accent services-web-focus" x="38" y="98" width="42" height="10" rx="5" />
+        <path className="services-visual-panel" d="M27 35h220v73H27zM27 50h220m-211-8h4m6 0h4m6 0h4" />
+        <path className="services-visual-output" d="M145 56h89v42h-89z" />
+        <path d="M40 64h70m-70 10h53m-53 10h64m51 3 16-17 14 10 12-10 25 17" />
+        <rect className="services-visual-accent services-web-focus" x="40" y="92" width="42" height="7" rx="3.5" />
       </g>
-      <path className="services-visual-route" d="M268 75h16" />
+      <path className="services-visual-route" d="M247 76h32m-6-5 5 5-5 5" />
       <g className="services-web-mobile">
-        <rect x="284" y="38" width="52" height="78" rx="9" />
-        <path d="M284 53h52M295 66h30M295 76h23M295 88h30" />
-        <rect className="services-visual-output" x="295" y="96" width="30" height="10" rx="4" />
+        <path className="services-visual-panel" d="M283 31h43l6 6v74l-6 6h-43l-6-6V37zM277 47h55m-55 57h55m-31 7h8" />
+        <path className="services-visual-output" d="M285 65h39v20h-39z" />
+        <path d="M285 54h31m-31 5h20m-15 20 8-8 7 5 5-5 9 8m-34 13h30m-30 5h20" />
       </g>
     </svg>
   );

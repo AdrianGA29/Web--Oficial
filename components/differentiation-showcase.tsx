@@ -46,19 +46,16 @@ const comparison = [
 
 const visualMeta = {
   signals: {
-    start: "INPUT MAP / 01",
-    end: "SISTEMA DETECTADO",
-    foot: "SEÑALES CONECTADAS",
+    start: "MAPA DE SEÑALES",
+    end: "PUNTO DE FRICCIÓN",
   },
   scope: {
-    start: "SCOPE / 02",
-    end: "FASE 1",
-    foot: "ALCANCE ÚTIL",
+    start: "MAPA DEL SISTEMA",
+    end: "FASE INICIAL",
   },
   validation: {
-    start: "CONTROL / 03",
-    end: "REVISIÓN INTERNA",
-    foot: "SISTEMA VALIDADO",
+    start: "COMPROBACIONES",
+    end: "REVISIÓN DE VIABILIDAD",
   },
 } as const;
 
@@ -79,10 +76,6 @@ function VisualFrame({
       <div className="difference-vector-stage">
         {children}
         <span className="difference-vector-scan" />
-      </div>
-      <div className="difference-vector-footer">
-        <span><i /> {meta.foot}</span>
-        <span>READY / 03</span>
       </div>
     </div>
   );
@@ -105,32 +98,29 @@ function SignalsVisual() {
           </radialGradient>
         </defs>
         <g className="difference-vector-axis">
-          <path d="M20 115H340M180 18V212" />
-          <circle cx="180" cy="115" r="72" />
-          <circle cx="180" cy="115" r="42" />
+          <path d="M20 115h320M180 18v194M52 27h-19v19m275-19h19v19M52 203H33v-19m275 19h19v-19" />
+          <circle cx="180" cy="115" r="72" strokeDasharray="2 5" />
+          <circle cx="180" cy="115" r="55" />
         </g>
         <g className="difference-signals-streams">
-          <path d="M15 43C72 43 85 78 126 78S151 106 180 115" />
-          <path d="M12 88C66 88 86 108 119 108S151 113 180 115" />
-          <path d="M14 168C68 168 89 146 125 146S153 124 180 115" />
-          <path d="M345 48C292 48 278 78 238 78S208 105 180 115" />
-          <path d="M347 112C298 112 279 115 242 115H180" />
-          <path d="M345 181C291 181 273 151 236 151S207 126 180 115" />
+          <path d="M40 52h42q15 0 25 10l60 53" />
+          <path d="M40 101h29l9-14 10 27 10-13h25l44 14" />
+          <path d="M40 164h51q16 0 27-10l49-39" />
+          <path d="M193 115l61-46q10-8 22-8h44" />
+          <path d="M193 115h127" />
+          <path d="M193 115l53 43q10 9 27 9h47" />
         </g>
         <g className="difference-signals-secondary">
-          <path d="M24 58C77 58 91 92 128 92S155 110 180 115" />
-          <path d="M336 164C287 164 270 139 234 139S207 122 180 115" />
+          <path d="M49 60h33q11 0 19 8l57 47m43 3 50 33q12 8 23 8h37" />
         </g>
         <g className="difference-signals-nodes">
-          {[[28,43],[54,88],[31,168],[331,48],[310,112],[330,181],[126,78],[125,146],[238,78],[236,151]].map(([cx, cy]) => (
-            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4.5" />
-          ))}
+          <circle cx="40" cy="52" r="4" /><circle cx="40" cy="101" r="4" /><circle cx="40" cy="164" r="4" />
+          <circle cx="320" cy="61" r="4" /><circle cx="320" cy="115" r="4" /><circle cx="320" cy="167" r="4" />
         </g>
         <g className="difference-signals-core">
           <circle className="is-glow" cx="180" cy="115" r="33" fill="url(#difference-signal-core)" />
-          <circle cx="180" cy="115" r="22" />
-          <circle cx="180" cy="115" r="10" />
-          <path d="M180 87V143M152 115H208" />
+          <circle cx="180" cy="115" r="28" />
+          <path d="M180 81v12m0 44v12m-34-34h12m44 0h12m-34-13 13 13-13 13-13-13z" />
         </g>
       </svg>
     </VisualFrame>
@@ -156,23 +146,18 @@ function ScopeVisual() {
           <path d="M45 57L180 18L315 57L180 96Z" />
         </g>
         <g className="difference-scope-cloud">
-          <path d="M54 50L180 14L306 50L180 86Z" />
-          <path d="M45 75L180 36L315 75L180 114Z" />
-          <path d="M63 101L180 67L297 101L180 135Z" />
-          <path d="M84 126L180 99L276 126L180 153Z" />
+          <path d="m57 54 123-44 123 44-123 44zM98 39l123 44m-82-59 123 45M98 69l123-44m-82 58 123-44" />
+          <path d="m53 79 127-45 127 45-127 45zM95 64l127 45m-84-60 127 45M95 94l127-45m-84 60 127-45" />
+          <path d="m67 103 113-40 113 40-113 40zM105 90l113 40m-76 0 113-40" />
+          <path d="m88 125 92-33 92 33-92 33zM134 109l92 33m-92 0 92-33" />
         </g>
         <g className="difference-scope-connectors">
-          <path d="M84 126L84 157L180 185L276 157V126" />
-          <path d="M180 153V185" />
-          <path d="M45 75V101M315 75V101M180 114V153" />
+          <path d="M88 125v30l92 35 92-35v-30m-92 33v32M53 79v23m254-23v23" />
         </g>
         <g className="difference-scope-selection">
           <path className="is-aura" d="M130 157L180 142L230 157L180 172Z" />
-          <path d="M141 164L180 153L219 164L180 175Z" />
-          <path d="M141 164V184L180 196L219 184V164L180 175Z" />
-          <path d="M180 142V196" />
-          <circle cx="180" cy="169" r="33" />
-          <circle cx="180" cy="169" r="43" />
+          <path d="m141 161 39-15 39 15-39 15zM141 161v24l39 15 39-15v-24m-39 15v24" />
+          <path d="m158 161 22-8 22 8-22 8z" />
         </g>
         <g className="difference-scope-corners">
           <path d="M121 139H105V155M239 139H255V155M121 201H105V185M239 201H255V185" />
@@ -194,35 +179,28 @@ function ValidationVisual() {
           </linearGradient>
         </defs>
         <g className="difference-vector-axis">
-          <path d="M18 115H342M214 17V213" />
-          <circle cx="214" cy="115" r="78" />
-          <circle cx="214" cy="115" r="53" />
+          <path d="M18 115h324M214 17v196M195 33h38m-38 164h38" />
+          <circle cx="214" cy="115" r="76" strokeDasharray="2 6" />
         </g>
         <g className="difference-validation-inputs">
-          <path d="M13 61C70 61 87 76 132 76S171 99 214 115" />
-          <path d="M13 115H214" />
-          <path d="M13 174C72 174 92 153 135 153S175 130 214 115" />
+          <path d="M62 59h36q14 0 24 10l43 36" />
+          <path d="M62 115h100" />
+          <path d="M62 171h36q14 0 24-10l43-36" />
         </g>
         <g className="difference-validation-tokens">
-          <circle cx="35" cy="61" r="8" />
-          <rect x="52" y="107" width="16" height="16" rx="2" />
-          <path d="M36 163L46 174L36 185L26 174Z" />
-          <circle cx="105" cy="76" r="5" />
-          <rect x="108" y="146" width="10" height="10" rx="1" />
+          <path d="M20 46h42v26H20zm0 56h42v26H20zm0 56h42v26H20z" />
+          <path d="M29 55h21m-21 8h15m-15 48h21m-21 8h12m-12 48h21m-21 8h16" />
         </g>
         <g className="difference-validation-gate">
           <circle className="is-outer" cx="214" cy="115" r="65" />
           <circle className="is-mid" cx="214" cy="115" r="42" />
-          <circle cx="214" cy="115" r="16" />
-          <path d="M214 42V188M141 115H287" />
           <path className="is-arc" d="M176 62A65 65 0 0 1 270 91" />
           <path className="is-arc" d="M251 169A65 65 0 0 1 158 140" />
         </g>
+        <path className="difference-validation-seal" d="m214 90 22 9v17q0 13-22 25-22-12-22-25V99zm-11 25 7 7 15-16" />
         <g className="difference-validation-output">
-          <path d="M230 100H345M230 115H345M230 130H345" />
-          <circle cx="319" cy="100" r="3.5" />
-          <circle cx="331" cy="115" r="3.5" />
-          <circle cx="308" cy="130" r="3.5" />
+          <path d="M258 101h32l9 7h43m-83 7h83m-84 14h32l9-7h43" />
+          <circle cx="342" cy="115" r="4" />
         </g>
       </svg>
     </VisualFrame>

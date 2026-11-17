@@ -4,11 +4,21 @@ import { AboutShowcase } from "@/components/about-showcase";
 import { absoluteUrl, breadcrumbSchema, jsonLd, organizationId, socialImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Nosotros",
+  title: "Sobre nosotros: consultoría y tecnología en Toledo",
   description:
-    "Conoce Temis Atrile: estrategia empresarial, criterio jurídico y desarrollo tecnológico unidos para transformar empresas con soluciones viables.",
+    "Conoce Temis Atrile, firma establecida en Toledo que combina estrategia empresarial, criterio jurídico y tecnología. Atención presencial y proyectos en toda España.",
   alternates: { canonical: "/nosotros/" },
-  openGraph: { url: "/nosotros/", images: [socialImage] },
+  openGraph: {
+    title: "Sobre nosotros: consultoría y tecnología en Toledo | Temis Atrile",
+    description: "Conoce Temis Atrile, firma establecida en Toledo que combina estrategia empresarial, criterio jurídico y tecnología. Atención presencial y proyectos en toda España.",
+    url: "/nosotros/", images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sobre nosotros: consultoría y tecnología en Toledo | Temis Atrile",
+    description: "Conoce Temis Atrile, firma establecida en Toledo que combina estrategia empresarial, criterio jurídico y tecnología. Atención presencial y proyectos en toda España.",
+    images: [socialImage],
+  },
 };
 
 export default function AboutPage() {

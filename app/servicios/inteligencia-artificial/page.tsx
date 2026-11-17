@@ -7,14 +7,20 @@ import { breadcrumbSchema, jsonLd, serviceSchema, socialImage } from "@/lib/seo"
 const service = serviceDetails.ai;
 
 export const metadata: Metadata = {
-  title: "Inteligencia artificial aplicada a empresas",
+  title: "Consultoría de IA en Toledo para empresas",
   description:
-    "Consultoría, pruebas de concepto e implantación responsable de inteligencia artificial para empresas de toda España.",
+    "Consultoría e implantación de inteligencia artificial para empresas de Toledo. Analizamos procesos y probamos soluciones. Primera hora gratis, sin compromiso.",
   alternates: { canonical: "/servicios/inteligencia-artificial/" },
   openGraph: {
-    title: `Inteligencia artificial aplicada a empresas | ${siteConfig.name}`,
-    description: service.lead,
+    title: `Consultoría de IA en Toledo para empresas | ${siteConfig.name}`,
+    description: "Consultoría e implantación de inteligencia artificial para empresas de Toledo. Analizamos procesos y probamos soluciones. Primera hora gratis, sin compromiso.",
     url: "/servicios/inteligencia-artificial/",
+    images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Consultoría de IA en Toledo para empresas | ${siteConfig.name}`,
+    description: "Consultoría e implantación de inteligencia artificial para empresas de Toledo. Analizamos procesos y probamos soluciones. Primera hora gratis, sin compromiso.",
     images: [socialImage],
   },
 };

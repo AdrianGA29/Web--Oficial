@@ -18,10 +18,15 @@ import { jsonLd, organizationSchema, socialImage, websiteSchema } from "@/lib/se
 import { faqs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: `Consultoría estratégica y tecnológica | ${siteConfig.name}` },
+  title: { absolute: `Consultoría tecnológica e IA en Toledo | ${siteConfig.name}` },
   description: siteConfig.description,
   alternates: { canonical: "/" },
-  openGraph: { url: "/", images: [socialImage] },
+  openGraph: {
+    title: `Consultoría tecnológica e IA en Toledo | ${siteConfig.name}`,
+    description: siteConfig.description,
+    url: "/",
+    images: [socialImage],
+  },
 };
 
 function HeroCommitmentGroup({ duplicate = false }: { duplicate?: boolean }) {

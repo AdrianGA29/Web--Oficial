@@ -254,9 +254,9 @@ export const serviceDetails: Record<DetailServiceId, DetailService> = {
     number: "04",
     eyebrow: "INTELIGENCIA ARTIFICIAL APLICADA",
     meta: "DATOS + SUPERVISIÓN",
-    hero: "Inteligencia artificial para una tarea concreta. Con control humano.",
+    hero: "Consultoría de inteligencia artificial. Aplicación concreta, control humano.",
     lead:
-      "Analizamos, probamos e implantamos IA cuando aporta una ventaja real frente a una solución más sencilla y puede utilizarse con límites claros.",
+      "Ayudamos a empresas de Toledo a identificar dónde puede ser útil la inteligencia artificial. Analizamos procesos, probamos soluciones e implantamos solo lo que tiene sentido, con supervisión humana. Atención presencial en Toledo y provincia, y online en toda España.",
     heroAction: "Valorar un caso de uso",
     valueKicker: "PRIMERO LA TAREA. DESPUÉS LA TECNOLOGÍA",
     valueTitle: "IA sin saber qué datos toca, quién responde y cómo se revisa no es innovación.",

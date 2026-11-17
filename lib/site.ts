@@ -153,6 +153,12 @@ export const team = [
 
 export const faqs = [
   {
+    category: "PROCESO",
+    question: "¿Trabajáis presencialmente en Toledo?",
+    answer:
+      "Sí. Estamos establecidos en Toledo capital y nos desplazamos a empresas de la ciudad y de la provincia para reuniones y análisis de procesos. También trabajamos en remoto con clientes de toda España.",
+  },
+  {
     category: "PROYECTO",
     question: "¿Qué tipo de proyectos podéis desarrollar?",
     answer:

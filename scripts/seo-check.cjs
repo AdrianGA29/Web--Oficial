@@ -17,6 +17,12 @@ const expectedPages = [
 
 const failures = [];
 const results = [];
+const localTitles = new Map([
+  ["/", "Consultoría tecnológica e IA en Toledo | Temis Atrile"],
+  ["/servicios/inteligencia-artificial/", "Consultoría de IA en Toledo para empresas | Temis Atrile"],
+  ["/servicios/desarrollo-web/", "Diseño y desarrollo web en Toledo | Temis Atrile"],
+  ["/nosotros/", "Sobre nosotros: consultoría y tecnología en Toledo | Temis Atrile"],
+]);
 
 function extract(html, pattern) {
   return html.match(pattern)?.[1]?.trim() ?? "";
@@ -70,6 +76,16 @@ for (const [route, relativeFile, requiredSchemaTypes] of expectedPages) {
   }
 
   if (!title) failures.push(`${route}: falta title`);
+  const localTitle = localTitles.get(route);
+  if (localTitle) {
+    if (title !== localTitle) failures.push(`${route}: título local inesperado`);
+    const ogTitle = extract(html, /<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']*)/is);
+    const twitterTitle = extract(html, /<meta[^>]+name=["']twitter:title["'][^>]+content=["']([^"']*)/is);
+    const ogDescription = extract(html, /<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']*)/is);
+    const twitterDescription = extract(html, /<meta[^>]+name=["']twitter:description["'][^>]+content=["']([^"']*)/is);
+    if (ogTitle !== title || twitterTitle !== title) failures.push(`${route}: títulos sociales no sincronizados`);
+    if (ogDescription !== description || twitterDescription !== description) failures.push(`${route}: descripciones sociales no sincronizadas`);
+  }
   if (!description) failures.push(`${route}: falta meta description`);
   if (/noindex|nofollow/i.test(robots)) failures.push(`${route}: robots=${robots}`);
   if (canonical !== expectedCanonical) {

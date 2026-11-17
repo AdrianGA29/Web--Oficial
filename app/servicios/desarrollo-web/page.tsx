@@ -4,15 +4,21 @@ import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema, jsonLd, serviceSchema, socialImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Desarrollo web para empresas",
+  title: "Diseño y desarrollo web en Toledo",
   description:
-    "Diseño y desarrollo de webs corporativas, landing pages, comercio electrónico y productos digitales para empresas de toda España.",
+    "Diseño y desarrollo de webs corporativas y tiendas online para empresas de Toledo. Atención presencial en la provincia y proyectos en toda España.",
   alternates: { canonical: "/servicios/desarrollo-web/" },
   openGraph: {
-    title: `Desarrollo web para empresas | ${siteConfig.name}`,
+    title: `Diseño y desarrollo web en Toledo | ${siteConfig.name}`,
     description:
-      "Webs corporativas, tiendas online y productos digitales donde mensaje, experiencia y tecnología trabajan como una sola pieza.",
+      "Diseño y desarrollo de webs corporativas y tiendas online para empresas de Toledo. Atención presencial en la provincia y proyectos en toda España.",
     url: "/servicios/desarrollo-web/",
+    images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Diseño y desarrollo web en Toledo | ${siteConfig.name}`,
+    description: "Diseño y desarrollo de webs corporativas y tiendas online para empresas de Toledo. Atención presencial en la provincia y proyectos en toda España.",
     images: [socialImage],
   },
 };

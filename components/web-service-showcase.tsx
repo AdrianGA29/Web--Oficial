@@ -203,7 +203,7 @@ export function WebServiceShowcase() {
             </div>
             <h1>Una web que explica tu valor <span>antes de que tengas que hacerlo tú.</span></h1>
             <p>
-              Diseñamos webs corporativas, tiendas online y productos digitales que convierten una visita dispersa en un recorrido claro: entender, confiar y dar el siguiente paso.
+              Diseñamos y desarrollamos webs corporativas, tiendas online y productos digitales para empresas de Toledo y de toda España. Mensaje claro, diseño cuidado y una experiencia que facilita entender tu negocio y contactar contigo.
             </p>
             <div className="web-service-hero-actions">
             <Link href="/#formulario-contacto">Hablar de tu web <ArrowUpRight size={18} aria-hidden="true" /></Link>

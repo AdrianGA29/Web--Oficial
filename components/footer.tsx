@@ -46,8 +46,8 @@ export function Footer() {
         <div className="editorial-footer-body">
           <div className="editorial-footer-intro">
             <p>
-              Diseñamos sistemas, automatizaciones y productos digitales que
-              reducen fricción y mejoran la forma de trabajar.
+              Desde Toledo, desarrollamos webs, software y automatizaciones para empresas.
+              Atención presencial en la provincia y online en toda España.
             </p>
             <span>
               <i aria-hidden="true" />

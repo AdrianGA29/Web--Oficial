@@ -74,7 +74,7 @@ export function ContactShowcase() {
               </span>
               <p>
                 Primera hora de consultoría gratuita.
-                <small>Analizamos la empresa contigo, sin coste ni compromiso.</small>
+                <small>Sin compromiso. Presencial en Toledo y provincia u online en toda España.</small>
               </p>
             </div>
           </Reveal>
