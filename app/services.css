@@ -313,8 +313,20 @@
 }
 
 .service-svg-surface {
-  fill: rgba(245, 245, 245, 0.018);
+  fill: #101426;
   stroke: rgba(245, 245, 245, 0.25);
+}
+
+.service-svg-depth {
+  fill: rgba(143, 130, 255, 0.065);
+  stroke: rgba(184, 178, 255, 0.24);
+}
+
+.web-solution-graphic svg .diagram-registration,
+.services-hub svg .diagram-registration {
+  fill: none;
+  stroke: rgba(184, 178, 255, 0.32);
+  stroke-width: 0.8;
 }
 
 .service-svg-step {
@@ -1450,6 +1462,11 @@
   stroke: url(#hub-route);
   stroke-width: 1.35;
   stroke-dasharray: 3 6;
+  opacity: 0.58;
+}
+
+.services-map-route.is-active {
+  opacity: 1;
   animation: services-route 9s linear infinite;
 }
 
@@ -1475,17 +1492,14 @@
   stroke: rgba(245, 245, 245, 0.23);
 }
 
-.services-map-core-line {
+.services-map-core-edge {
   fill: none;
-  stroke: rgba(245, 245, 245, 0.46);
-  stroke-width: 4;
-  stroke-linecap: round;
+  stroke: rgba(184, 178, 255, 0.58);
+  stroke-width: 1.2;
 }
 
 .services-map-pulse {
   fill: var(--service-violet);
-  filter: drop-shadow(0 0 8px rgba(143, 130, 255, 0.86));
-  offset-path: path("M292 160 C318 187 340 197 360 215 C385 238 402 252 428 270");
   animation: services-pulse 4s ease-in-out infinite;
 }
 

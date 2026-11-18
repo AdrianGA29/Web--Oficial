@@ -101,6 +101,7 @@ function SignalsVisual() {
           <path d="M20 115h320M180 18v194M52 27h-19v19m275-19h19v19M52 203H33v-19m275 19h19v-19" />
           <circle cx="180" cy="115" r="72" strokeDasharray="2 5" />
           <circle cx="180" cy="115" r="55" />
+          <path d="M180 54v8m0 106v8m-61-61h8m106 0h8m-101-40 6 6m68 68 6 6m0-80-6 6m-68 68-6 6" />
         </g>
         <g className="difference-signals-streams">
           <path d="M40 52h42q15 0 25 10l60 53" />
@@ -157,7 +158,7 @@ function ScopeVisual() {
         <g className="difference-scope-selection">
           <path className="is-aura" d="M130 157L180 142L230 157L180 172Z" />
           <path d="m141 161 39-15 39 15-39 15zM141 161v24l39 15 39-15v-24m-39 15v24" />
-          <path d="m158 161 22-8 22 8-22 8z" />
+          <path d="m158 161 22-8 22 8-22 8zM151 175l19 7m19 0 20-7" />
         </g>
         <g className="difference-scope-corners">
           <path d="M121 139H105V155M239 139H255V155M121 201H105V185M239 201H255V185" />
@@ -181,6 +182,7 @@ function ValidationVisual() {
         <g className="difference-vector-axis">
           <path d="M18 115h324M214 17v196M195 33h38m-38 164h38" />
           <circle cx="214" cy="115" r="76" strokeDasharray="2 6" />
+          <path d="M214 33v12m0 140v12m-82-82h12m140 0h12" />
         </g>
         <g className="difference-validation-inputs">
           <path d="M62 59h36q14 0 24 10l43 36" />

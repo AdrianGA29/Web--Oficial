@@ -35,6 +35,7 @@ function AutomationHeroVisual() {
       <text className="service-svg-kicker" x="62" y="70">FLUJO OPERATIVO / ACTIVO</text>
       <text className="service-svg-muted" x="698" y="70" textAnchor="end">TRAZABILIDAD 01—05</text>
       <path className="service-svg-guide" d="M62 88h636" />
+      <path className="service-svg-depth" d="M318 132h380l14 14v286l-14 32H318l-16-18V151z" />
 
       <g className="automation-source">
         <rect className="service-svg-panel" x="62" y="126" width="146" height="72" rx="12" />
@@ -49,30 +50,29 @@ function AutomationHeroVisual() {
         <text className="service-svg-label" x="78" y="380">API / SISTEMA</text>
       </g>
 
-      <path className="service-svg-route automation-merge" d="M208 162h34v82h88M208 260h34v-16M208 358h34V244" />
-
       <g className="automation-pipeline">
         <rect className="service-svg-surface" x="302" y="116" width="396" height="330" rx="20" />
+        <path className="service-svg-route automation-merge" d="M208 162h34v82h88M208 260h34v-16M208 358h34V244" />
         <text className="service-svg-kicker" x="330" y="151">PROCESO CONECTADO</text>
         <text className="service-svg-muted" x="670" y="151" textAnchor="end">SUPERVISADO</text>
         <path className="service-svg-guide" d="M330 169h340" />
-        <path className="service-svg-route" d="M354 244h262" />
+        <path className="service-svg-route" d="M418 244h38m88 0h38" />
         <g transform="translate(330 196)">
           <rect className="service-svg-step" width="88" height="94" rx="12" />
           <text className="service-svg-index" x="14" y="21">01</text>
-          <path className="service-svg-strong" d="M15 43h57M15 55h39" />
+          <path className="service-svg-strong" d="M21 49l11 9 19-22M56 44h13m-13 9h10" />
           <text className="service-svg-label" x="14" y="78">VALIDAR</text>
         </g>
         <g transform="translate(456 196)">
           <rect className="service-svg-step is-accent" width="88" height="94" rx="12" />
           <text className="service-svg-index" x="14" y="21">02</text>
-          <path className="service-svg-strong" d="M15 43h57M15 55h46" />
+          <path className="service-svg-strong" d="M24 41q0-6 19-6t19 6v16q0 6-19 6t-19-6zm0 0q0 6 19 6t19-6m-38 8q0 6 19 6t19-6" />
           <text className="service-svg-label" x="14" y="78">REGISTRAR</text>
         </g>
         <g transform="translate(582 196)">
           <rect className="service-svg-step" width="88" height="94" rx="12" />
           <text className="service-svg-index" x="14" y="21">03</text>
-          <path className="service-svg-strong" d="M15 43h57M15 55h33" />
+          <path className="service-svg-strong" d="M21 50h46m-9-9 9 9-9 9m-37-16v14" />
           <text className="service-svg-label" x="14" y="78">ASIGNAR</text>
         </g>
         <path className="service-svg-route" d="M626 290v34" />
@@ -97,6 +97,7 @@ function AppsHeroVisual() {
     <svg viewBox="0 0 760 590" role="img" aria-label="Interfaz de una aplicación interna con actividad, estados y detalle">
       <text className="service-svg-kicker" x="70" y="55">HERRAMIENTA INTERNA / PANEL OPERATIVO</text>
       <text className="service-svg-muted" x="690" y="55" textAnchor="end">VISTA DE EQUIPO</text>
+      <path className="service-svg-depth" d="M88 92h600l17 19v382l-17 27H92l-22-18V114z" />
       <rect className="service-svg-surface apps-hero-shell" x="70" y="78" width="620" height="424" rx="20" />
       <path className="service-svg-guide" d="M70 132h620M210 132v370" />
       <circle className="service-svg-dot" cx="98" cy="105" r="3.5" />
@@ -108,7 +109,7 @@ function AppsHeroVisual() {
         <rect className="service-svg-nav is-active" x="92" y="166" width="96" height="30" rx="7" />
         <circle className="service-svg-icon" cx="108" cy="181" r="4" />
         <text className="service-svg-label" x="120" y="185">ACTIVIDAD</text>
-        <path className="service-svg-line" d="M96 229h69M96 266h51M96 303h75M96 340h58" />
+        <path className="service-svg-line" d="M101 215h13v13h-13zm0 37h13v13h-13zm0 37h13v13h-13zm0 37h13v13h-13zm24-104h52m-52 37h41m-41 37h56m-56 37h44" />
         <text className="service-svg-muted" x="96" y="391">EQUIPO</text>
         <circle className="service-svg-avatar" cx="108" cy="421" r="11" />
         <circle className="service-svg-avatar" cx="136" cy="421" r="11" />
@@ -120,6 +121,7 @@ function AppsHeroVisual() {
         <rect className="service-svg-panel" x="240" y="188" width="128" height="76" rx="11" />
         <text className="service-svg-value" x="258" y="226">08</text>
         <text className="service-svg-muted" x="258" y="247">EN CURSO</text>
+        <path className="service-svg-dimension is-desktop" d="m302 226 11-9 8 5 9-12 9 4 13-13" />
         <rect className="service-svg-panel is-accent" x="384" y="188" width="128" height="76" rx="11" />
         <text className="service-svg-value" x="402" y="226">03</text>
         <text className="service-svg-muted" x="402" y="247">REQUIEREN ACCIÓN</text>
@@ -161,6 +163,7 @@ function AiHeroVisual() {
       <text className="service-svg-kicker" x="55" y="62">CASO DE USO / ANÁLISIS DOCUMENTAL</text>
       <text className="service-svg-muted" x="705" y="62" textAnchor="end">CONTROL HUMANO ACTIVO</text>
       <path className="service-svg-guide" d="M55 82h650" />
+      <path className="service-svg-depth" d="M373 127h137l13 15v296l-13 31H374l-14-15V145zM568 162h137l13 16v160l-13 26H568l-16-10z" />
 
       <g className="ai-sources">
         <text className="service-svg-label" x="56" y="122">01 / FUENTES</text>
@@ -183,21 +186,21 @@ function AiHeroVisual() {
         <g transform="translate(380 168)">
           <rect className="service-svg-step" width="110" height="62" rx="10" />
           <text className="service-svg-index" x="14" y="20">A</text>
-          <path className="service-svg-strong" d="M14 35h82M14 47h52" />
+          <path className="service-svg-strong" d="M17 27v20m0-20h11m-11 20h11m64-20v20m0-20H81m11 20H81M38 35h34m-34 8h21" />
           <text className="service-svg-label" x="14" y="58">EXTRAER</text>
         </g>
         <path className="service-svg-route" d="M435 230v30" />
         <g transform="translate(380 260)">
           <rect className="service-svg-step is-accent" width="110" height="62" rx="10" />
           <text className="service-svg-index" x="14" y="20">B</text>
-          <path className="service-svg-strong" d="M14 35h82M14 47h65" />
+          <path className="service-svg-strong" d="M35 30h55m-55 8h42m-42 8h51M19 30h4m-4 8h4m-4 8h4" />
           <text className="service-svg-label" x="14" y="58">ORDENAR</text>
         </g>
         <path className="service-svg-route" d="M435 322v30" />
         <g transform="translate(380 352)">
           <rect className="service-svg-step" width="110" height="62" rx="10" />
           <text className="service-svg-index" x="14" y="20">C</text>
-          <path className="service-svg-strong" d="M14 35h82M14 47h42" />
+          <path className="service-svg-strong" d="M23 28h26v18H23zM60 28h26v18H60zM30 37h12m25 0h12" />
           <text className="service-svg-label" x="14" y="58">CITAR</text>
         </g>
       </g>
@@ -243,6 +246,7 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     if (index === 0) {
       return (
         <svg viewBox="0 0 190 100" aria-hidden="true">
+          <path className="diagram-registration" d="M9 17V9h22m125 82h24v-8" />
           <g className="solution-source-stack">
             <circle cx="18" cy="28" r="7" /><circle cx="18" cy="50" r="7" /><circle cx="18" cy="72" r="7" />
             <path d="M25 28h25M25 50h25M25 72h25" />
@@ -250,7 +254,7 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
           <path className="is-accent solution-flow-line" d="M50 28v8c0 8 7 14 15 14h15M50 72v-8c0-8 7-14 15-14" />
           <path d="M80 35l24 15-24 15z" />
           <rect x="116" y="24" width="58" height="52" rx="7" />
-          <path d="M128 38h34M128 49h23M128 64h18" />
+          <path d="M126 35h38m-35 9 3 3 5-5m6 4h18m-32 9 3 3 5-5m6 4h12m-27 7h18" />
           <circle className="is-accent-fill solution-status-pulse" cx="160" cy="64" r="5" />
         </svg>
       );
@@ -258,6 +262,7 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     if (index === 1) {
       return (
         <svg viewBox="0 0 190 100" aria-hidden="true">
+          <path className="diagram-registration" d="M110 15v-9h43m22 78h9V41" />
           <g className="solution-variable-list">
             <rect x="8" y="19" width="58" height="62" rx="7" />
             <path d="M20 34h33M20 48h21M20 62h37" />
@@ -269,7 +274,7 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
           <path d="M88 44l8 6-8 6" />
           <g className="solution-document-build">
             <path d="M105 10h52l25 25v55h-77zM157 10v25h25" />
-            <path d="M119 48h48M119 60h35M119 72h42" />
+            <path d="M118 46h50m-50 9h32m-32 9h43m-43 17h21" />
             <path className="is-light" d="M146 79l5 5 11-13" />
           </g>
         </svg>
@@ -278,9 +283,10 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     if (index === 2) {
       return (
         <svg viewBox="0 0 190 100" aria-hidden="true">
+          <path className="diagram-registration" d="M15 92h102m23-73h27m-13-5 12 5-12 5" />
           <rect x="10" y="15" width="112" height="72" rx="8" />
           <path d="M10 35h112M35 10v13M96 10v13" />
-          <path d="M27 49h14M54 49h14M81 49h14M27 68h14M54 68h14M81 68h14" />
+          <path d="M20 42h87v36H20zm0 18h87m-58-18v36m29-36v36M28 51h12m16 0h12m16 0h12m-68 17h12m44 0h12" />
           <rect className="is-accent-fill solution-deadline-pulse" x="52" y="60" width="18" height="16" rx="3" />
           <path className="is-accent" d="M122 63h19" />
           <path d="M151 39c13 0 23 10 23 23v8h6v8h-58v-8h6v-8c0-13 10-23 23-23zM143 87h16" />
@@ -290,9 +296,10 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     }
     return (
       <svg viewBox="0 0 190 100" aria-hidden="true">
+        <path className="diagram-registration" d="M18 30v35m114-35v35M79 14h32m-32 72h32" />
         <g className="solution-database is-left">
           <ellipse cx="38" cy="25" rx="26" ry="10" />
-          <path d="M12 25v48c0 6 12 10 26 10s26-4 26-10V25M12 49c0 6 12 10 26 10s26-4 26-10" />
+          <path d="M12 25v48c0 6 12 10 26 10s26-4 26-10V25M12 41c0 6 12 10 26 10s26-4 26-10m-52 16c0 6 12 10 26 10s26-4 26-10" />
         </g>
         <g className="solution-database is-right">
           <ellipse cx="152" cy="25" rx="26" ry="10" />
@@ -307,9 +314,10 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     if (index === 0) {
       return (
         <svg viewBox="0 0 190 100" aria-hidden="true">
+          <path className="diagram-registration" d="M16 72h40m19 4h40m19 6h38" />
           <rect x="7" y="10" width="176" height="80" rx="8" />
           <path d="M7 29h176M66 29v61M124 29v61" />
-          <path d="M18 20h28M76 20h28M134 20h28" />
+          <path d="M18 20h23m8 0h5m22 0h23m8 0h5m22 0h23m8 0h5M18 65h37v11H18zm58 9h37v8H76z" />
           <rect x="18" y="40" width="37" height="17" rx="4" />
           <rect x="76" y="40" width="37" height="26" rx="4" />
           <rect className="is-accent-fill solution-kanban-card" x="134" y="40" width="37" height="36" rx="4" />
@@ -320,11 +328,12 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     if (index === 1) {
       return (
         <svg viewBox="0 0 190 100" aria-hidden="true">
+          <path className="diagram-registration" d="M13 7h102m18 78h43m-45-29h-9" />
           <rect x="8" y="12" width="112" height="76" rx="8" />
           <path d="M8 32h112M79 32v56M19 47h44M19 60h35M19 73h48" />
           <path className="is-accent" d="M89 47h20M89 60h20M89 73h20" />
           <rect x="132" y="20" width="49" height="60" rx="7" />
-          <path d="M143 33h27M143 45h15" />
+          <path d="M143 33h27m-27 10h15m-15 8h22m-22 22h18" />
           <path className="is-accent solution-total-line" d="M143 64h27" />
           <circle className="is-accent-fill" cx="174" cy="64" r="3" />
         </svg>
@@ -333,8 +342,9 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     if (index === 2) {
       return (
         <svg viewBox="0 0 190 100" aria-hidden="true">
+          <path className="diagram-registration" d="M10 23v-8h11m146 70h13v-8M104 33v13h-13m63 5v13h-13" />
           <path d="M10 18h170M10 82h170M40 18v64M75 18v64M110 18v64M145 18v64" />
-          <path d="M17 34h18M17 51h18M17 68h18" />
+          <path d="M17 34h18m-18 17h18m-18 17h18m14-48v-7m26 7v-7m35 7v-7m35 7v-7" />
           <rect className="is-accent-fill solution-gantt-one" x="48" y="28" width="55" height="11" rx="5.5" />
           <rect className="is-accent-fill solution-gantt-two" x="83" y="46" width="70" height="11" rx="5.5" />
           <rect className="is-accent-fill solution-gantt-three" x="118" y="64" width="48" height="11" rx="5.5" />
@@ -344,10 +354,11 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
     }
     return (
       <svg viewBox="0 0 190 100" aria-hidden="true">
+        <path className="diagram-registration" d="M87 80h72m-63-31v-7m24-4v-7m24-4v-7" />
         <rect x="7" y="9" width="176" height="82" rx="8" />
         <path d="M7 29h176M68 29v62" />
         <path d="M20 46h34M20 59h24M20 72h39" />
-        <path d="M82 75h86" />
+        <path d="M82 75h86m-86 5h86M86 70h78M86 55h78M86 40h78" />
         <rect className="is-accent-fill solution-bar-one" x="88" y="55" width="14" height="20" rx="3" />
         <rect className="is-accent-fill solution-bar-two" x="112" y="41" width="14" height="34" rx="3" />
         <rect className="is-accent-fill solution-bar-three" x="136" y="29" width="14" height="46" rx="3" />
@@ -359,12 +370,13 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
   if (index === 0) {
     return (
       <svg viewBox="0 0 190 100" aria-hidden="true">
+        <path className="diagram-registration" d="M8 15V8h56m108 85h11v-9" />
         <path d="M12 12h58l17 17v59H12zM70 12v17h17" />
         <path d="M25 43h48M25 56h36M25 69h45" />
         <rect className="is-accent solution-extract-selection" x="22" y="50" width="45" height="13" rx="3" />
         <path className="is-accent solution-flow-line" d="M88 50h22" />
         <rect x="112" y="19" width="66" height="69" rx="7" />
-        <path d="M125 35h14M146 35h19M125 51h23M155 51h10M125 67h18M150 67h15" />
+        <path d="M125 35h14m7 0h19m-40 16h23m7 0h10m-40 16h18m7 0h15m-49-24h56m-56 16h56m-56 16h56" />
         <circle className="is-accent-fill" cx="119" cy="35" r="3" /><circle className="is-accent-fill" cx="119" cy="51" r="3" /><circle className="is-accent-fill" cx="119" cy="67" r="3" />
       </svg>
     );
@@ -372,11 +384,12 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
   if (index === 1) {
     return (
       <svg viewBox="0 0 190 100" aria-hidden="true">
+        <path className="diagram-registration" d="M113 31c13-12 33-12 51 0m-5-7 5 7-9 2" />
         <path d="M10 18h65v44H31L18 75V62h-8z" />
         <path d="M23 34h39M23 46h26" />
         <path className="is-accent solution-flow-line" d="M76 40h26" />
         <circle className="is-accent-fill" cx="111" cy="40" r="9" />
-        <path d="M111 49v15M111 64H89M111 64h22" />
+        <path d="M111 49v12h-20v8m20-8h39v8" />
         <rect x="70" y="69" width="43" height="20" rx="5" />
         <rect x="121" y="69" width="59" height="20" rx="5" />
         <path className="is-light" d="M79 79h25M132 79h37" />
@@ -386,23 +399,25 @@ function DetailSolutionGraphic({ type, index }: { type: DetailServiceId; index: 
   if (index === 2) {
     return (
       <svg viewBox="0 0 190 100" aria-hidden="true">
+        <path className="diagram-registration" d="M14 90h54M88 9h38m25 81h27" />
         <path d="M10 14h52l15 15v56H10zM62 14v15h15M25 43h37M25 55h29M25 67h34" />
         <path d="M83 14h45l13 13v42H83zM128 14v13h13M95 40h32M95 52h24" />
         <circle className="is-accent solution-search-ring" cx="115" cy="60" r="22" />
         <path className="is-accent" d="M131 76l15 15" />
-        <path d="M149 27h31v58h-31M158 43h14M158 55h11M158 67h14" />
+        <path d="M149 27h31v58h-31m0-48h31M160 43h13m-13 12h10m-10 12h13m-13 9h8" />
         <circle className="is-accent-fill" cx="155" cy="43" r="2.5" /><circle className="is-accent-fill" cx="155" cy="55" r="2.5" />
       </svg>
     );
   }
   return (
     <svg viewBox="0 0 190 100" aria-hidden="true">
+      <path className="diagram-registration" d="M17 13h42m42 80h39m15-20h28" />
       <rect x="8" y="18" width="62" height="64" rx="8" />
       <circle cx="29" cy="39" r="9" />
       <path d="M20 62h39M20 71h27" />
       <path className="is-accent solution-flow-line" d="M70 50h24" />
       <rect x="96" y="12" width="47" height="76" rx="8" />
-      <path d="M108 30h23M108 43h17M108 56h23M108 69h14" />
+      <path d="M105 24h28v11h-28zm3 19h17m-17 13h23m-23 13h14" />
       <path className="is-accent" d="M143 50h13" />
       <circle className="is-accent-fill solution-approval-pulse" cx="169" cy="50" r="14" />
       <path className="is-light" d="M162 50l5 5 10-12" />

@@ -31,6 +31,13 @@ const principles = [
   },
 ] as const;
 
+const mapRoutes = [
+  { id: "web", x: 74, y: 78, path: "M74 78h112l41 41h26l62 52" },
+  { id: "automation", x: 74, y: 352, path: "M74 352h112l41-41h26l62-52" },
+  { id: "apps", x: 646, y: 78, path: "M646 78H534l-41 41h-26l-62 52" },
+  { id: "ai", x: 646, y: 352, path: "M646 352H534l-41-41h-26l-62-52" },
+] as const;
+
 function SystemMap({ active }: { active: ServiceVisual }) {
   return (
     <div className="services-hero-map" aria-hidden="true">
@@ -48,22 +55,21 @@ function SystemMap({ active }: { active: ServiceVisual }) {
         </defs>
         <path className="services-map-grid" d="M0 90h720M0 215h720M0 340h720M154 0v430M360 0v430M566 0v430" />
         <circle className="services-map-halo" cx="360" cy="215" r="118" />
+        <path className="services-map-grid" d="M34 105V39h70m512 0h70v66M34 325v66h70m512 0h70v-66M254 215l106-112 106 112-106 112zM273 215l87-92 87 92-87 92z" />
         <circle className="services-map-orbit" cx="360" cy="215" r="86" />
-        <path className="services-map-route" d="M74 78h118c60 0 78 38 100 82M74 352h118c60 0 78-38 100-82M646 78H528c-60 0-78 38-100 82M646 352H528c-60 0-78-38-100-82" />
-        {[
-          [74, 78, "web"],
-          [74, 352, "automation"],
-          [646, 78, "apps"],
-          [646, 352, "ai"],
-        ].map(([cx, cy, id]) => (
+        <path className="services-map-grid" d="M74 91h112l120 94m-232 154h112l120-94M646 91H534l-120 94m232 154H534l-120-94" />
+        {mapRoutes.map(({ id, x, y, path }) => (
           <g key={id}>
-            <circle className={`services-map-node${active === id ? " is-active" : ""}`} cx={cx} cy={cy} r="8" />
-            <circle className="services-map-node-ring" cx={cx} cy={cy} r="17" />
+            <path className={`services-map-route${active === id ? " is-active" : ""}`} d={path} />
+            <circle className={`services-map-node${active === id ? " is-active" : ""}`} cx={x} cy={y} r="8" />
+            <circle className="services-map-node-ring" cx={x} cy={y} r="17" />
+            {active === id && (
+              <circle className="services-map-pulse" r="4" style={{ offsetPath: `path("${path}")` }} />
+            )}
           </g>
         ))}
-        <rect className="services-map-core" x="290" y="176" width="140" height="78" rx="12" />
-        <path className="services-map-core-line" d="M315 202h90M315 215h62M315 228h76" />
-        <circle className="services-map-pulse" cx="292" cy="160" r="5" />
+        <path className="services-map-core" d="m360 145 66 38v64l-66 38-66-38v-64z" />
+        <path className="services-map-core-edge" d="m360 160 53 31v48l-53 31-53-31v-48zM360 145v15m66 23-13 8m13 56-13-8m-53 46v-15m-66-23 13-8m-13-56 13 8" />
       </svg>
       <span className="services-map-label is-web">WEB / PRODUCTO</span>
       <span className="services-map-label is-auto">FLUJOS / SISTEMAS</span>

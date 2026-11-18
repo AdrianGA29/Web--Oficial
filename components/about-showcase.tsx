@@ -137,7 +137,7 @@ function HeroSystem({ reduceMotion }: { reduceMotion: boolean }) {
       <g className="about-hero-system__construction">
         <circle cx="865" cy="360" r="216" />
         <circle cx="865" cy="360" r="122" />
-        <path d="M648 144V576M865 105V615M1082 144V576M614 360H1116" />
+        <path d="M648 144V576M865 105V615M1082 144V576M614 360H1116m-251-188 163 94v188l-163 94-163-94V266zm0 36 132 76v152l-132 76-132-76V284zM702 266l31 18m295-18-31 18m31 170-31-18m-295 18 31-18" />
       </g>
 
       <motion.path
@@ -252,7 +252,7 @@ function StrategyVisual({ reduceMotion }: { reduceMotion: boolean }) {
           r={index === 3 ? 6 : 4}
         />
       ))}
-      <path className="about-vector-axis" d="M312 37V171M245 104H379" />
+      <path className="about-vector-axis" d="M312 37V171M245 104H379M48 213v15h425V76M142 173v40m77-23v23m172-77v77M48 229h27m367 0h31" />
     </svg>
   );
 }
@@ -293,6 +293,7 @@ function LegalVisual({ reduceMotion }: { reduceMotion: boolean }) {
         animate={{ pathLength: 1 }}
         transition={{ duration: 0.8, delay: 0.72, ease: [0.22, 1, 0.36, 1] }}
       />
+      <path className="about-vector-axis" d="m259 70 61 24v43c0 33-22 62-61 84-39-22-61-51-61-84V94zM109 133h71m158 0h71M259 37v13m0 191v12" />
       <circle className="about-vector-node about-vector-node--1" cx="102" cy="133" r="4" />
       <circle className="about-vector-node about-vector-node--2" cx="416" cy="133" r="4" />
     </svg>
@@ -369,13 +370,10 @@ function TechnologyVisual({ reduceMotion }: { reduceMotion: boolean }) {
       <g className="about-tech-processor">
         <rect x="205" y="76" width="110" height="108" rx="10" />
         <rect className="about-tech-processor__inner" x="218" y="89" width="84" height="82" rx="6" />
-        <path d="M236 116h48M236 130h48M236 144h30" />
+        <path d="m260 102 26 15v27l-26 15-26-15v-27zm0 0v28m-26-13 26 13 26-13m-26 13v29" />
         <path className="about-tech-processor__bracket" d="M232 104h-8v52h8M288 104h8v52h-8" />
-        {Array.from({ length: 6 }).map((_, index) => (
-          <g key={index}>
-            <path d={`M${221 + index * 15.5} 68v8`} />
-            <path d={`M${221 + index * 15.5} 184v8`} />
-          </g>
+        {[221, 236.5, 252, 267.5, 283, 298.5].map((x) => (
+          <path key={x} d={`M${x} 68v8m0 108v8`} />
         ))}
       </g>
 
@@ -476,21 +474,21 @@ function ConvergenceDiagram({ reduceMotion }: { reduceMotion: boolean }) {
       id: "strategy",
       label: "ESTRATEGIA",
       y: 88,
-      d: "M184 88 C324 88 372 210 536 210",
+      d: "M184 88h84c117 0 125 122 264 122",
       delay: "0s",
     },
     {
       id: "criteria",
       label: "CRITERIO JURÍDICO",
       y: 210,
-      d: "M184 210 H536",
+      d: "M184 210H532",
       delay: "0.55s",
     },
     {
       id: "technology",
       label: "TECNOLOGÍA",
       y: 332,
-      d: "M184 332 C324 332 372 210 536 210",
+      d: "M184 332h84c117 0 125-122 264-122",
       delay: "1.1s",
     },
   ] as const;
@@ -524,7 +522,7 @@ function ConvergenceDiagram({ reduceMotion }: { reduceMotion: boolean }) {
 
       <g className="about-convergence-grid">
         <path d="M28 88H1172M28 332H1172" />
-        <path d="M184 28V392M600 28V392M1068 28V392" />
+        <path d="M184 28V392M600 28V392M1068 28V392M517 160l83-48 83 48v100l-83 48-83-48zM517 160l83 50 83-50m-83 50v98" />
         <path className="about-convergence-grid__axis" d="M28 210H1172" />
       </g>
 
@@ -561,13 +559,13 @@ function ConvergenceDiagram({ reduceMotion }: { reduceMotion: boolean }) {
 
       <path
         className="about-convergence-flow about-convergence-flow--output"
-        d="M664 210 H812"
+        d="M668 210H812"
         pathLength="1"
       />
       {!reduceMotion && (
         <circle className="about-convergence-signal about-convergence-signal--output" r="3.2">
           <animateMotion
-            path="M664 210 H812"
+            path="M668 210H812"
             dur="4.2s"
             begin="1.7s"
             repeatCount="indefinite"

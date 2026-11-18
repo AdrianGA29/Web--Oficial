@@ -9,18 +9,20 @@ function WebVisual() {
           <stop offset="1" stopColor="#8f82ff" stopOpacity=".9" />
         </linearGradient>
       </defs>
+      <path className="diagram-registration" d="M22 59V27h64m130 206H22v-46m352-86v144h-53" />
       <rect className="sv-frame" x="34" y="38" width="284" height="184" rx="12" />
       <path className="sv-line" d="M34 70h284" />
       <circle className="sv-dot" cx="55" cy="54" r="3" />
       <circle className="sv-dot" cx="67" cy="54" r="3" />
       <circle className="sv-dot" cx="79" cy="54" r="3" />
       <rect className="sv-soft" x="56" y="95" width="112" height="9" rx="4.5" />
-      <rect className="sv-accent" x="56" y="117" width="184" height="24" rx="5" />
+      <path className="sv-accent" d="M56 117h151v24H56z" />
+      <path className="sv-route" d="m215 166 16-21 11 9 14-14" />
       <rect className="sv-soft" x="56" y="155" width="151" height="6" rx="3" />
       <rect className="sv-soft" x="56" y="168" width="118" height="6" rx="3" />
       <rect className="sv-button" x="56" y="190" width="70" height="16" rx="8" />
       <rect className="sv-device" x="268" y="100" width="98" height="138" rx="14" />
-      <path className="sv-line" d="M281 125h72M281 139h46M281 164h72M281 177h72M281 190h48" />
+      <path className="sv-line" d="M281 125h72M281 139h46M281 153h72v40h-72zm5 32 13-14 10 7 14-15 24 22M281 208h34" />
       <path className="sv-route" d="M185 82C236 81 241 119 270 129" />
       <circle className="sv-node" cx="185" cy="82" r="4" />
       <circle className="sv-node" cx="270" cy="129" r="4" />
@@ -48,6 +50,7 @@ function AutomationVisual() {
       <circle className="sv-pulse" cx="151" cy="103" r="4" />
       <circle className="sv-pulse is-two" cx="274" cy="121" r="4" />
       <path className="sv-line" d="M65 95h51M65 107h34M185 69h51M185 81h32M185 159h51M185 171h38M305 113h48M305 125h33" />
+      <path className="diagram-registration" d="M34 61V49h12m328 166h12v-12M66 115h50m74-30h40m-40 90h40m77-38h42" />
       <path className="sv-status" d="M50 210h320" />
       <path className="sv-status-fill" d="M50 210h252" />
     </svg>
@@ -69,7 +72,7 @@ function AppsVisual() {
       <rect className="sv-module" x="150" y="98" width="94" height="54" rx="10" />
       <rect className="sv-module" x="263" y="98" width="98" height="54" rx="10" />
       <rect className="sv-module is-output" x="150" y="170" width="211" height="40" rx="10" />
-      <path className="sv-line" d="M169 116h56M169 129h37M282 116h60M282 129h42M169 186h173M169 196h112" />
+      <path className="sv-line" d="m169 131 15-10 10 4 13-15 17 10m55 12v-14h11v14m7 0v-22h11v22m7 0v-30h11v30M169 186h173M169 196h112" />
       <path className="sv-route" d="M244 125h19M311 152v18M197 152v18" />
       <circle className="sv-node" cx="253" cy="125" r="3" />
       <circle className="sv-node" cx="311" cy="161" r="3" />
@@ -87,13 +90,14 @@ function AiVisual() {
       <rect className="sv-module" x="38" y="68" width="76" height="46" rx="9" />
       <rect className="sv-module" x="38" y="156" width="76" height="46" rx="9" />
       <rect className="sv-module is-output" x="305" y="112" width="78" height="46" rx="9" />
+      <path className="diagram-registration" d="M210 79l48 28v56l-48 28-48-28v-56zm0 12 38 22v44l-38 22-38-22v-44zM210 79v12m48 16-10 6m10 50-10-6m-38 34v-12" />
       <circle className="sv-core" cx="210" cy="135" r="27" />
       <path className="sv-core-lines" d="M198 124l12-7 12 7v14l-12 8-12-8zM210 117v29M198 124l24 14M222 124l-24 14" />
       <path className="sv-line" d="M54 85h44M54 96h29M54 173h44M54 184h34M321 129h46M321 140h30" />
       <circle className="sv-pulse" cx="139" cy="106" r="4" />
       <circle className="sv-pulse is-two" cx="284" cy="135" r="4" />
-      <path className="sv-review" d="M310 191l9 9 19-22" />
-      <text className="sv-review-label" x="346" y="197">REVISIÓN</text>
+      <path className="sv-review" d="M291 191l7 8 14-17" />
+      <text className="sv-review-label" x="346" y="197" textAnchor="middle">REVISIÓN</text>
     </svg>
   );
 }

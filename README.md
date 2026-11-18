@@ -26,4 +26,12 @@ Los builds de producción son indexables por defecto. `NEXT_PUBLIC_SITE_INDEXABL
 
 ## Despliegue
 
-La web se exporta como contenido estático y se publica en el directorio `/public` del hosting de IONOS. Antes de desplegar se deben ejecutar las comprobaciones de tipos, build y SEO.
+Desde la carpeta del proyecto, con las dependencias instaladas y OpenSSH y `tar` disponibles:
+
+```bash
+npm run deploy:ionos
+```
+
+Este comando publica la versión local, incluidos cambios aún no enviados a GitHub. Compila la web, comprueba `out/index.html` y sus recursos, y sube el contenido de `out/` a `/home/www/public` (la carpeta `public` del panel de IONOS). Subirá `_next` antes que las páginas, no borrará archivos publicados y comprobará que el sitio público sirve la nueva versión. Si SSH solicita contraseña, introdúcela en la consola; el script no la guarda. Una clave SSH configurada previamente también funciona.
+
+Para probar la compilación y la exportación sin conectarte a IONOS: `npm run deploy:ionos -- --check`.

@@ -58,7 +58,7 @@ function SignalVisual({
           <path className="friction-network-route" d="M104 69h23q12 0 12 12v16m20 12h24q12 0 12-12V79q0-10 10-10h12m-63 54v15q0 12 12 12h20" />
           <path className="friction-network-route is-broken" d="M80 86v50q0 14 14 14h80" />
           <path className="friction-plane" d="M56 53h42l6 6v27H56zM217 51h44l6 6v30h-50zM186 133h56l6 6v29h-62z" />
-          <path className="friction-detail" d="M64 61l16 11 16-11M228 61h28m-28 8h28m-28 8h28m-19-17v19m10-19v19M196 143h35m-35 8h25m-25 8h32" />
+          <path className="friction-detail" d="M64 61l16 11 16-11M61 81h38M222 82h40M191 163h52M228 61h28m-28 8h28m-28 8h28m-19-17v19m10-19v19M196 143h35m-35 8h25m-25 8h32" />
           <circle className="is-pulse" cx="149" cy="109" r="18" />
           <path className="friction-accent" d="m144 104 10 10m0-10-10 10" />
         </g>
@@ -76,6 +76,7 @@ function SignalVisual({
           <g className="friction-column"><path d="M174 158V88l11-7h25v77z" /><path d="M174 88h25l11-7m-11 7v70" /></g>
           <g className="friction-column is-limit"><path d="M228 158V61l11-7h25v104z" /><path d="M228 61h25l11-7m-11 7v97" /></g>
           <path className="is-growth" d="M72 113 123 95 177 71 249 35m-11 1 11-1-6 10" />
+          <path className="friction-visual-axis" d="M200 54h65m-65-4v8m65-8v8M66 177h198" />
         </g>
       </svg>
     );

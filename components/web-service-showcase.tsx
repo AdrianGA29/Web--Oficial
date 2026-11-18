@@ -78,6 +78,7 @@ function WebHeroSystem() {
         <text className="service-svg-muted" x="682" y="62" textAnchor="end">1440 → 390 PX</text>
         <path className="service-svg-guide" d="M78 81h604" />
 
+        <path className="service-svg-depth" d="M94 122h470l30 18v294l-16 30H104l-26-16V140zM618 203h88l13 18v178l-13 27h-89l-15-14z" />
         <rect className="service-svg-surface web-system-browser" x="78" y="106" width="500" height="342" rx="18" />
         <path className="service-svg-guide" d="M78 154h500" />
         <circle className="service-svg-dot" cx="103" cy="130" r="3.5" />
@@ -97,6 +98,7 @@ function WebHeroSystem() {
           <text className="service-svg-muted" x="350" y="188">02 / EXPERIENCIA</text>
           <rect className="service-svg-panel is-accent" x="350" y="205" width="196" height="112" rx="12" />
           <path className="service-svg-guide" d="M350 243h196M414 243v74M480 243v74" />
+          <path className="service-svg-dimension" d="m370 301 43-48 34 23 32-35 48 60M370 289l43-48 34 23 32-35 48 60" />
           <circle className="is-accent-fill web-layout-focus" cx="448" cy="280" r="17" />
           <path className="is-light" d="M440 280l6 6 12-15" />
           <rect className="service-svg-panel" x="350" y="334" width="94" height="54" rx="10" />
@@ -112,7 +114,7 @@ function WebHeroSystem() {
           <path className="service-svg-strong" d="M620 250h68M620 266h53" />
           <path className="service-svg-line" d="M620 296h67M620 309h48" />
           <rect className="service-svg-panel is-accent" x="620" y="332" width="68" height="42" rx="8" />
-          <path className="service-svg-line" d="M632 347h44M632 360h28" />
+          <path className="service-svg-checkmark" d="m628 363 13-14 9 6 10-10 19 18" />
         </g>
 
         <path className="service-svg-route web-responsive-route" d="M578 277h24" />
@@ -132,17 +134,18 @@ function SolutionGraphic({ index }: { index: number }) {
     return (
       <svg viewBox="0 0 180 95" aria-hidden="true">
         <rect x="8" y="8" width="164" height="79" rx="7" />
-        <path d="M8 27h164M24 43h61M24 55h93M24 68h42" />
-        <circle cx="22" cy="18" r="2" /><circle cx="30" cy="18" r="2" />
+        <path d="M8 27h164M24 43h51M24 53h38M24 63h44" />
+        <path className="is-accent" d="M93 38h66v36H93zM100 67l15-15 12 9 14-15 11 21M24 73h21" />
+        <path d="M20 18h3m6 0h3m6 0h3" />
       </svg>
     );
   }
   if (index === 1) {
     return (
       <svg viewBox="0 0 180 95" aria-hidden="true">
-        <path d="M15 76h150M32 67V30h54v37M101 67V17h47v50" />
-        <path className="is-accent" d="M39 39h39M39 49h27M109 29h31M109 39h23" />
-        <circle cx="92" cy="67" r="5" />
+        <path d="M15 80h150M23 70V23h74v47zM112 70V15h39v55z" />
+        <path className="is-accent" d="M35 35h48M35 47h33M35 58h23M120 27h22M120 38h15M120 50h17" />
+        <path d="M97 46h15m-6-4 5 4-5 4" />
       </svg>
     );
   }
@@ -152,14 +155,14 @@ function SolutionGraphic({ index }: { index: number }) {
         <rect x="14" y="13" width="66" height="67" rx="6" />
         <rect x="100" y="13" width="66" height="30" rx="6" />
         <rect x="100" y="50" width="66" height="30" rx="6" />
-        <path className="is-accent" d="M27 30h39M27 41h26M113 27h39M113 64h29" />
+        <path className="is-accent" d="M26 49l16-15 12 8 13-14M26 63h29M113 27h39M113 64h29" />
       </svg>
     );
   }
   return (
     <svg viewBox="0 0 180 95" aria-hidden="true">
       <rect x="12" y="14" width="156" height="67" rx="8" />
-      <path d="M12 32h156M53 32v49M127 32v49" />
+      <path d="M12 32h156M53 32v49M127 32v49M23 44h18m-18 10h13m-13 10h18m96-20h19m-19 10h13m-13 10h19" />
       <circle className="is-accent-fill" cx="90" cy="56" r="13" />
       <path className="is-light" d="M84 56l5 5 9-12M21 23h2M28 23h2" />
     </svg>
